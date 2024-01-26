@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import TNIcon from "./uikit/icons/tn-icon.vue";
-import MainNav from '@/views/main/components/MainNav.vue';
+import MainNav from '@/views/main/components/mainNav/MainNav.vue';
+import MainFooter from '@/views/main/components/MainFooter.vue';
 
 const isOpenedMenu = ref<boolean>(false)
 </script>
@@ -24,7 +25,11 @@ const isOpenedMenu = ref<boolean>(false)
       <nav class="header__right-bar"></nav>
     </div>
     <div v-if="isOpenedMenu" @click="isOpenedMenu = !isOpenedMenu" class="header__bg"></div>
-    <MainNav v-if="isOpenedMenu" :is-big="false" />
+    <MainNav v-if="isOpenedMenu" :is-big="false">
+      <template #footer>
+        <MainFooter :is-big="false" />
+      </template>
+    </MainNav>
   </header>
 </template>
 
