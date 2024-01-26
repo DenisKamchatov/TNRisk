@@ -1,0 +1,181 @@
+@font-face {
+  font-family: "ProximaNova";
+  font-weight: 700;
+  font-style: normal;
+  font-display: auto;
+  unicode-range: U+000-5FF;
+  src: local("ProximaNovaBold"),
+    url("/src/assets/fonts/ProximaNovaBold.ttf") format("ttf");
+}
+@font-face {
+  font-family: "ProximaNova";
+  font-weight: 400;
+  font-style: normal;
+  font-display: auto;
+  unicode-range: U+000-5FF;
+  src: local("ProximaNovaRegular"),
+    url("/src/assets/fonts/ProximaNovaRegular.ttf") format("ttf");
+}
+@font-face {
+  font-family: "ProximaNova";
+  font-weight: 600;
+  font-style: normal;
+  font-display: auto;
+  unicode-range: U+000-5FF;
+  src: local("ProximaNovaSemibold"),
+    url("/src/assets/fonts/ProximaNovaSemibold.ttf") format("ttf");
+}
+
+body {
+  background-color: #f5f6fa;
+  color: #171C25;
+}
+
+* {
+  padding: 0px;
+  margin: 0px;
+  border: none;
+  font-family: "ProximaNova", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Links */
+
+a,
+a:link,
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+/* Common */
+
+aside,
+nav,
+footer,
+header,
+section,
+main {
+  display: block;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 40px;
+  line-height: 44px;
+}
+h2 {
+  font-size: 32px;
+  line-height: 40px;
+}
+h3 {
+  font-size: 24px;
+  line-height: 32px;
+}
+h4 {
+  font-size: 20px;
+  line-height: 24px;
+}
+h5 {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+ul,
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+address {
+  font-style: normal;
+}
+
+/* Form */
+
+input,
+textarea,
+button,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background-color: transparent;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button,
+input[type="submit"] {
+  display: inline-block;
+  box-shadow: none;
+  background-color: transparent;
+  background: none;
+  cursor: pointer;
+}
+
+input:focus,
+input:active,
+button:focus,
+button:active {
+  outline: none;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+label {
+  cursor: pointer;
+}
+
+legend {
+  display: block;
+}
+
+.container {
+  margin: 0 24px;
+}
+// .container {
+//   max-width: 425px;
+//   margin: 0 auto;
+//   padding: 0 11px;
+// }
