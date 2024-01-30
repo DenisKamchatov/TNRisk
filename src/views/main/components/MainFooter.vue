@@ -6,7 +6,7 @@ const { isBig } = withDefaults(
     isBig?: boolean;
   }>(),
   {
-    isBig: true,
+    isBig: false,
   }
 );
 

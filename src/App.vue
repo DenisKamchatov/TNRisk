@@ -2,15 +2,17 @@
 import { RouterView } from 'vue-router';
 import Header from './components/Header.vue';
 import MainNav from './views/main/components/mainNav/MainNav.vue';
+import MainFooter from '@/views/main/components/MainFooter.vue';
+
 </script>
 
 <template>
   <div id="app">
     <Header>
       <template #menu>
-        <MainNav :is-big="false">
+        <MainNav>
           <template #footer>
-            <MainFooter :is-big="false" />
+            <MainFooter />
           </template>
         </MainNav>
       </template>

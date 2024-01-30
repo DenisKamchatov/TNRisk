@@ -1,21 +1,20 @@
 <script setup lang="ts">
-import MainNav from './components/mainNav/MainNav.vue';
-import MainFooter from './components/MainFooter.vue';
+import MainNav from "./components/mainNav/MainNav.vue";
+import MainFooter from '@/views/main/components/MainFooter.vue';
+import homepageLayout from "@/layouts/homepage-layout.vue";
 </script>
 
 <template>
   <div class="main">
     <!-- TODO: Сделать ли слотами колонки? -->
-    <MainNav :is-big="true">
+    <homepage-layout>
+      <MainNav :is-big="true"></MainNav>
       <template #footer>
         <MainFooter :is-big="true" />
       </template>
-    </MainNav>
+    </homepage-layout>
   </div>
 </template>
 
 <style lang="scss">
-  .main {
-    margin: 96px 0 0 0;
-  }
 </style>

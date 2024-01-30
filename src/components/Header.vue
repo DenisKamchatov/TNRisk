@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import TNIcon from "./uikit/icons/tn-icon.vue";
-import MainNav from '@/views/main/components/mainNav/MainNav.vue';
-import MainFooter from '@/views/main/components/MainFooter.vue';
 
 const isOpenedMenu = ref<boolean>(false)
 </script>
 
 <template>
+  <div class="header__cap" v-if="isOpenedMenu"></div>
   <header class="header container" :class="{ 'header--open-menu': isOpenedMenu }">
     <div class="header__top">
       <div class="header__left-bar">
@@ -32,12 +31,28 @@ const isOpenedMenu = ref<boolean>(false)
 </template>
 
 <style lang="scss">
+.header__cap {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 90;
+  width: 100%;
+  height: 96px;
+
+  background-color: rgb(245, 246, 250, 0.6);
+
+  backdrop-filter: blur(5px);
+}
 .header {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   z-index: 100;
   width: 100%;
+
+  background-color: rgb(245, 246, 250, 0.6);
+
+  backdrop-filter: blur(5px);
 
   .header__top {
     display: flex;
@@ -111,17 +126,21 @@ const isOpenedMenu = ref<boolean>(false)
 
 
 .header--open-menu {
+  position: fixed;
   top: 24px;
   left: 24px;
   right: 24px;
   width: -webkit-fill-available;
   margin: 0 0;
+  padding: 0 0;
 
   background-color: #fff;
   box-shadow: 0px 2px 8px 0px rgba(46, 56, 75, 0.08), 0px 0px 1px 0px rgba(46, 56, 75, 0.24), 0px 6px 58px 0px rgba(121, 145, 173, 0.19);
   
   border-radius: 24px;
   overflow: hidden;
+
+  backdrop-filter: none;
 
   .header__top {
     padding: 24px 32px;
