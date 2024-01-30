@@ -17,7 +17,6 @@ interface IFooterItems {
   to: string;
 }
 
-// TODO: Спросить про то, откуда будут браться элемены футера
 const items: IFooterItems[] = [
   {
     title: "Структура СВК",
@@ -83,6 +82,7 @@ const items: IFooterItems[] = [
   .main-footer__left-bar {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 56px;
   }
 
@@ -94,12 +94,14 @@ const items: IFooterItems[] = [
 
     cursor: pointer;
   }
+  
   .main-footer__item-text {
     margin: 0 0 0 8px;
 
     font-size: 14px;
     font-weight: 600;
     line-height: 20px;
+    white-space: nowrap;
 
     color: #2e384b;
   }
@@ -109,16 +111,28 @@ const items: IFooterItems[] = [
     align-items: center;
     gap: 40px;
 
-    color: #2E384B;
+    color: #2e384b;
     font-family: "Proxima Nova";
     font-size: 14px;
     font-weight: 600;
-    line-height: 20px; 
+    line-height: 20px;
   }
 }
 
 .main-footer--big {
-    background: none;
+  background: none;
+}
 
+@media (max-width: 1400px) {
+  .main-footer {
+    gap: 32px;
+
+    .main-footer__left-bar {
+      gap: 32px;
+    }
+    .main-footer__right-bar {
+      gap: 32px;
+    }
+  }
 }
 </style>

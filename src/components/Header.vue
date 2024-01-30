@@ -32,7 +32,7 @@ const isOpenedMenu = ref<boolean>(false)
 
 <style lang="scss">
 .header__cap {
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 90;
@@ -44,7 +44,7 @@ const isOpenedMenu = ref<boolean>(false)
   backdrop-filter: blur(5px);
 }
 .header {
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 100;
@@ -133,14 +133,40 @@ const isOpenedMenu = ref<boolean>(false)
   width: -webkit-fill-available;
   margin: 0 0;
   padding: 0 0;
+  max-height: 90vh;
+  overflow-y: scroll;
 
   background-color: #fff;
   box-shadow: 0px 2px 8px 0px rgba(46, 56, 75, 0.08), 0px 0px 1px 0px rgba(46, 56, 75, 0.24), 0px 6px 58px 0px rgba(121, 145, 173, 0.19);
   
   border-radius: 24px;
-  overflow: hidden;
 
   backdrop-filter: none;
+
+  &::-webkit-scrollbar {
+    transform: translateX(40px);
+    width: 18px;
+    height: 18px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #fff;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #d6dee1;
+    border-radius: 20px;
+    border: 6px solid transparent;
+    background-clip: content-box;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #a8bbbf;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: none;
+  }
 
   .header__top {
     padding: 24px 32px;

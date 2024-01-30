@@ -165,6 +165,70 @@ const menu: IMenucColumnData[] = [
         // icon: '',
         // badge: '',
       },
+      {
+        title: "ТОиР",
+        subtitle: "Техническое обслуживание и ремонт",
+        // href: '',
+        // to: '',
+        // icon: '',
+        // badge: '',
+      },
+      {
+        title: "ОПС",
+        subtitle: "Оценка производственной системы",
+        // href: '',
+        // to: '',
+        // icon: '',
+        // badge: '',
+      },
+      {
+        title: "Комитет ВК",
+        subtitle: "Комитет внутреннего контроля",
+        // href: '',
+        // to: '',
+        // icon: '',
+        // badge: '',
+      },
+      {
+        title: "ОПС",
+        subtitle: "Оценка производственной системы",
+        // href: '',
+        // to: '',
+        // icon: '',
+        // badge: '',
+      },
+      {
+        title: "Комитет ВК",
+        subtitle: "Комитет внутреннего контроля",
+        // href: '',
+        // to: '',
+        // icon: '',
+        // badge: '',
+      },
+      {
+        title: "ТОиР",
+        subtitle: "Техническое обслуживание и ремонт",
+        // href: '',
+        // to: '',
+        // icon: '',
+        // badge: '',
+      },
+      {
+        title: "ОПС",
+        subtitle: "Оценка производственной системы",
+        // href: '',
+        // to: '',
+        // icon: '',
+        // badge: '',
+      },
+      {
+        title: "Комитет ВК",
+        subtitle: "Комитет внутреннего контроля",
+        // href: '',
+        // to: '',
+        // icon: '',
+        // badge: '',
+      },
     ],
   },
 ];
@@ -189,14 +253,17 @@ const menu: IMenucColumnData[] = [
   grid-auto-flow: column;
   overflow: scroll;
 
+  height: 100%;
+
   background-color: #fff;
 
   &::-webkit-scrollbar {
-    width: 20px;
+    width: 18px;
+    height: 18px;
   }
 
   &::-webkit-scrollbar-track {
-    background-color: transparent;
+    background: none;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -208,6 +275,10 @@ const menu: IMenucColumnData[] = [
 
   &::-webkit-scrollbar-thumb:hover {
     background-color: #a8bbbf;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: none;
   }
 }
 

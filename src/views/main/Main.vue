@@ -17,4 +17,7 @@ import homepageLayout from "@/layouts/homepage-layout.vue";
 </template>
 
 <style lang="scss">
+.main {
+  height: 100vh;
+}
 </style>
