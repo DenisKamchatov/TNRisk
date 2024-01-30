@@ -24,12 +24,10 @@ const isOpenedMenu = ref<boolean>(false)
       <!-- TODO: Добавить в header__right-bar кнопки -->
       <nav class="header__right-bar"></nav>
     </div>
+
     <div v-if="isOpenedMenu" @click="isOpenedMenu = !isOpenedMenu" class="header__bg"></div>
-    <MainNav v-if="isOpenedMenu" :is-big="false">
-      <template #footer>
-        <MainFooter :is-big="false" />
-      </template>
-    </MainNav>
+    <slot name="menu" v-if="isOpenedMenu"></slot>
+    
   </header>
 </template>
 

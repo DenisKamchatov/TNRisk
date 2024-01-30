@@ -5,6 +5,7 @@ import MainFooter from './components/MainFooter.vue';
 
 <template>
   <div class="main">
+    <!-- TODO: Сделать ли слотами колонки? -->
     <MainNav :is-big="true">
       <template #footer>
         <MainFooter :is-big="true" />
