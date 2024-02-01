@@ -124,26 +124,6 @@ const { item, isBig } = withDefaults(
 
     color: #747c8c;
   }
-
-  .column__item-badge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    justify-self: end;
-
-    min-width: 20px;
-    max-width: 20px;
-    height: 20px;
-
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 20px;
-
-    color: #fff;
-    background-color: #eb3b41;
-
-    border-radius: 50%;
-  }
 }
 
 .column__item--big {

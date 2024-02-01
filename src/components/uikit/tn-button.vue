@@ -1,0 +1,254 @@
+<script setup lang="ts">
+import {
+  PropType,
+  defineProps,
+  computed,
+  useSlots,
+  defineEmits,
+  getCurrentInstance,
+} from "vue";
+import TNIcon from "@/components/uikit/icons/tn-icon.vue";
+// import TnLoader from "@/components/uikit/elements/loader/tn-loader.vue";
+
+const props = defineProps({
+  size: {
+    type: String as PropType<"md" | "lg">,
+    default: "lg",
+  },
+  primary: { type: Boolean, default: false },
+  secondary: { type: Boolean, default: false },
+  disabled: { type: Boolean, default: false },
+  icon: { type: String, required: false },
+  iconRight: { type: String, required: false },
+  href: { required: false, type: String },
+  norouter: { type: Boolean },
+  target: { required: false, type: String },
+  width: { type: [Number, String], required: false },
+});
+
+function useRouter() {
+  const currentInstance = getCurrentInstance();
+  const router = currentInstance?.proxy.$router;
+  return router;
+}
+
+const router = useRouter();
+
+const sizeOutput = computed<string | boolean>(() => {
+  if (props.size) {
+    return props.size;
+  }
+  return false;
+});
+
+const emit = defineEmits(["click"]);
+const slots = useSlots();
+
+const hasContent = computed<boolean>(() => !!slots["default"]);
+const hasIconSlot = computed<boolean>(() => !!slots["icon"]);
+const hasRightIconSlot = computed<boolean>(() => !!slots["icon-right"]);
+const hasIcon = computed<boolean>(() => hasIconSlot.value || !!props.icon);
+const isOnlyIcon = computed<boolean>(() => !hasContent.value && hasIcon.value);
+const hasLeftIcon = computed<boolean>(() => hasIcon.value);
+const hasRightIcon = computed<boolean>(
+  () => hasRightIconSlot.value || !!props.iconRight
+);
+const iconSize = computed<number>(() => {
+  if (props.size === "md") {
+    return 20;
+  }
+  if (props.size === "lg") {
+    return 24;
+  }
+  return 20;
+});
+
+const loaderSize = computed(() => {
+  return props.size;
+});
+
+const buttonWidth = computed(() => {
+  if (props.width && props.width.toString().includes("%")) {
+    return props.width;
+  }
+
+  if (props.width && props.width.toString().includes("px")) {
+    return props.width;
+  }
+
+  return props.width + "%";
+});
+
+function onClickButton(e: Event) {
+  if (props.href) {
+    if (props.norouter || props.target === "_blank") {
+      if (props.target === "_blank") {
+        window.open(props.href, "_blank");
+      } else {
+        window.location.href = props.href;
+      }
+    } else {
+      router?.push(props.href);
+    }
+  }
+
+  emit("click", e);
+}
+</script>
+
+<template>
+  <button
+    class="tn-button"
+    :disabled="disabled"
+    :class="{
+      'tn-button_medium': sizeOutput === 'md',
+      'tn-button_large': sizeOutput === 'lg',
+      'tn-button_only-icon': isOnlyIcon,
+      'tn-button_lefticon': hasLeftIcon,
+      'tn-button_righticon': hasRightIcon,
+      'tn-button_disabled': disabled,
+      'tn-button_primary': primary,
+      'tn-button_secondary': secondary,
+    }"
+    :style="{ width: buttonWidth }"
+    @click="onClickButton"
+  >
+    <span
+      v-if="hasIcon"
+      class="tn-button__icon"
+      :class="{
+        'tn-button__icon_left': !isOnlyIcon,
+      }"
+    >
+      <slot name="icon">
+        <TNIcon :size="iconSize" :name="icon" />
+      </slot>
+    </span>
+
+    <span v-if="hasContent" class="tn-button__text">
+      <slot></slot>
+    </span>
+
+    <span v-if="hasRightIcon" class="tn-button__icon tn-button__icon_right">
+      <slot name="icon-right">
+        <TNIcon :size="iconSize" :name="iconRight" />
+      </slot>
+    </span>
+  </button>
+</template>
+
+<style lang="scss">
+.tn-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+
+  height: 48px;
+  padding: 12px 24px;
+
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+
+  border: none;
+  background: none;
+  user-select: none;
+
+  transition: 300ms;
+
+  &:disabled,
+  &[disabled] {
+    opacity: 0.5;
+    cursor: initial;
+  }
+
+  
+}
+
+.tn-button__icon {
+  display: inline-block;
+  position: relative;
+  top: -1px;
+  font-size: 20px;
+  vertical-align: middle;
+
+  svg {
+    pointer-events: none;
+  }
+}
+
+.tn-button_medium {
+  // padding: 11px 20px;
+  height: 40px;
+  // min-width: 144px;
+  gap: 8px;
+
+  border-radius: 8px;
+
+  // &:disabled,
+  // &[disabled] {
+  //   opacity: 0.5;
+  // }
+}
+
+.tn-button_primary {
+  color: #FFFFFF;
+  background-color: #eb3b41;
+
+  .tn-button__icon {
+    color: #FFFFFF;
+  }
+
+  &:hover:enabled {
+    background: #D91921;
+
+    transition: 300ms;
+    // color: var(--button-loader-white);
+
+    // .tn-button__icon {
+    //   color: #ffffff;
+    // }
+  }
+
+  &:active:enabled {
+    background: #C02B31;
+
+    transition: 300ms;
+    // color: var(--button-text);
+  }
+
+  &:focus {
+    outline: 1px solid #d91921;
+    outline-offset: 1px;
+    transition: 300ms;
+  }
+}
+
+.tn-button_secondary {
+  color: #2E384B;
+  background-color: #E7E9EF;
+
+  .tn-button__icon {
+    color: #2E384B;
+  }
+
+  &:hover:enabled {
+    background: #DFE2E7;
+    transition: 300ms;
+  }
+
+  &:active:enabled {
+    background: #D0D4DB;
+    transition: 300ms;
+  }
+
+  &:focus {
+    outline: 1px solid #9ea5b5;
+    outline-offset: 1px;
+    transition: 300ms;
+  }
+}
+</style>
