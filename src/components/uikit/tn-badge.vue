@@ -21,7 +21,6 @@ const slotValue = slots.default?.()[0].children || ''
 const isOval = computed(() => {
   return !!(slotValue && Number(slotValue) && slotValue.split('').length > 1)
 })
-console.log(isOval.value)
 </script>
 
 <template>

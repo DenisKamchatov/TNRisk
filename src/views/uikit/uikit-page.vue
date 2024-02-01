@@ -1,9 +1,16 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import TnBadge from "@/components/uikit/tn-badge.vue";
 import TnIcon from "@/components/uikit/icons/tn-icon.vue";
 import TnButton from "@/components/uikit/tn-button.vue";
+import TnTumbler from "@/components/uikit/tn-tumbler.vue";
 
 // TODO: В фигме не получается посмотреть расстояния между элементами
+const isTumblerActive = ref<boolean>(false)
+
+function setTumblerState(state: boolean) {
+  isTumblerActive.value = state
+} 
 </script>
 
 <template>
@@ -177,6 +184,26 @@ import TnButton from "@/components/uikit/tn-button.vue";
         
       </div>
     </div>
+
+    <div class="uikit-page__block">
+      <h3 class="uikit-page__block-title">Tumbler</h3>
+
+      <h5 class="uikit-page__block-subtitle">Tumbler Large</h5>
+      <div class="uikit-page__block-items">
+        <TnTumbler :modelValue="isTumblerActive" @update:modelValue="setTumblerState" size="lg"></TnTumbler>
+        <TnTumbler :modelValue="isTumblerActive" @update:modelValue="setTumblerState" icon="star" size="lg"></TnTumbler>
+        <TnTumbler :modelValue="isTumblerActive" @update:modelValue="setTumblerState" size="lg" disabled></TnTumbler>
+        <TnTumbler :modelValue="isTumblerActive" @update:modelValue="setTumblerState" icon="star" size="lg" disabled></TnTumbler>
+      </div>
+
+      <h5 class="uikit-page__block-subtitle">Tumbler Medium</h5>
+      <div class="uikit-page__block-items">
+        <TnTumbler :modelValue="isTumblerActive" @update:modelValue="setTumblerState" size="md"></TnTumbler>
+        <TnTumbler :modelValue="isTumblerActive" @update:modelValue="setTumblerState" icon="star" size="md"></TnTumbler>
+        <TnTumbler :modelValue="isTumblerActive" @update:modelValue="setTumblerState" size="md" disabled></TnTumbler>
+        <TnTumbler :modelValue="isTumblerActive" @update:modelValue="setTumblerState" icon="star" size="md" disabled></TnTumbler>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -186,7 +213,7 @@ import TnButton from "@/components/uikit/tn-button.vue";
   flex-direction: column;
   gap: 40px;
 
-  padding: 130px 96px 0 96px;
+  padding: 130px 96px 96px 96px;
   margin: 0 auto;
 
   .uikit-page__block {

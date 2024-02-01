@@ -26,6 +26,8 @@ const props = defineProps({
   width: { type: [Number, String], required: false },
 });
 
+// TODO: можно ли как-то проверять передан слот или нет
+
 function useRouter() {
   const currentInstance = getCurrentInstance();
   const router = currentInstance?.proxy.$router;
@@ -221,8 +223,7 @@ function onClickButton(e: Event) {
   }
 
   &:focus {
-    outline: 1px solid #d91921;
-    outline-offset: 1px;
+    animation: focus-animation-primary 500ms ease forwards;
     transition: 300ms;
   }
 }
@@ -237,18 +238,41 @@ function onClickButton(e: Event) {
 
   &:hover:enabled {
     background: #DFE2E7;
+
     transition: 300ms;
   }
 
   &:active:enabled {
     background: #D0D4DB;
+
     transition: 300ms;
   }
 
   &:focus {
-    outline: 1px solid #9ea5b5;
-    outline-offset: 1px;
+    animation: focus-animation-secondary 500ms ease forwards;
     transition: 300ms;
   }
+}
+
+@keyframes focus-animation-secondary {
+  from {     
+    outline: 1px solid #ffffff00;
+    outline-offset: 1px;
+  }   
+  to {
+    outline: 1px solid #9ea5b5;
+    outline-offset: 1px;
+   }
+}
+
+@keyframes focus-animation-primary {
+  from {     
+    outline: 1px solid #ffffff00;
+    outline-offset: 1px;
+  }   
+  to {
+    outline: 1px solid #d91921;
+    outline-offset: 1px;
+   }
 }
 </style>

@@ -249,6 +249,13 @@
         fill="currentColor"
       />
     </symbol>
+
+    <symbol id="icon--star" viewBox="0 0 16 16" fill="none">
+<g opacity="0.6">
+<path d="M7.99967 1.33325L10.0597 5.50659L14.6663 6.17992L11.333 9.42659L12.1197 14.0133L7.99967 11.8466L3.87967 14.0133L4.66634 9.42659L1.33301 6.17992L5.93967 5.50659L7.99967 1.33325Z" fill="currentColor" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</symbol>
+
   </svg>
 </template>
 
