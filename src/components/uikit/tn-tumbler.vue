@@ -196,7 +196,7 @@ function onTumblerClick() {
 
 .tn-tumbler__btn_disabled {
   pointer-events: none;
-  background-color: #d0d4db;
+  opacity: 48%;
 }
 
 .tn-tumbler__btn_medium {
@@ -252,9 +252,9 @@ function onTumblerClick() {
   background-color: #c02b31;
 }
 
-.tn-tumbler__btn_active.tn-tumbler__btn_disabled {
-  background-color: #eb3b41;
-}
+// .tn-tumbler__btn_active.tn-tumbler__btn_disabled {
+//   background-color: #eb3b41;
+// }
 
 .tn-tumbler__btn-icon {
   position: absolute;
