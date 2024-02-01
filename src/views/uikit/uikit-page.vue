@@ -8,16 +8,16 @@ import TnRadio from "@/components/uikit/tn-radio.vue";
 
 // TODO: В фигме не получается посмотреть расстояния между элементами
 const isTumblerActive = ref<boolean>(false);
-const animalAsObject = ref(undefined)
+const animalAsObject = ref(undefined);
 
 const animal1 = reactive({
-  id: '1',
-  label: 'Собака'
-})
+  id: "1",
+  label: "Собака",
+});
 const animal2 = reactive({
-  id: '2',
-  label: 'Кошка'
-})
+  id: "2",
+  label: "Кошка",
+});
 
 function setTumblerState(state: boolean) {
   isTumblerActive.value = state;
@@ -34,6 +34,7 @@ function setTumblerState(state: boolean) {
         <TnBadge classic><TnIcon name="menu" /></TnBadge>
         <TnBadge classic>9</TnBadge>
         <TnBadge classic>92</TnBadge>
+        <TnBadge classic>new</TnBadge>
       </div>
 
       <h5 class="uikit-page__block-subtitle">Classic Large</h5>
@@ -41,6 +42,7 @@ function setTumblerState(state: boolean) {
         <TnBadge classic size="lg"><TnIcon name="menu" /></TnBadge>
         <TnBadge classic size="lg">9</TnBadge>
         <TnBadge classic size="lg">92</TnBadge>
+        <TnBadge classic size="lg">new</TnBadge>
       </div>
 
       <h5 class="uikit-page__block-subtitle">Default</h5>
@@ -48,6 +50,7 @@ function setTumblerState(state: boolean) {
         <TnBadge default-type><TnIcon name="menu" /></TnBadge>
         <TnBadge default-type>9</TnBadge>
         <TnBadge default-type>92</TnBadge>
+        <TnBadge default-type>new</TnBadge>
       </div>
     </div>
 
@@ -269,8 +272,6 @@ function setTumblerState(state: boolean) {
         />
       </div>
     </div>
-
-    
   </div>
 </template>
 

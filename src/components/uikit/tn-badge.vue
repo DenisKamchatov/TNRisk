@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useSlots, ref, computed } from 'vue'
+import { useSlots, ref, computed } from "vue";
 
 const props = withDefaults(
   defineProps<{
@@ -15,23 +15,27 @@ const props = withDefaults(
     size: "sm",
   }
 );
-const slots = useSlots()
-const slotValue = slots.default?.()[0].children || ''
+const slots = useSlots();
+const slotValue = slots.default?.()[0].children || "";
 
 const isOval = computed(() => {
-  return !!(slotValue && Number(slotValue) && slotValue.split('').length > 1)
-})
+  if (typeof slotValue === "string" && slotValue.length > 1) {
+    return true;
+  }
+
+  return false;
+});
 </script>
 
 <template>
   <div
-    class="badge"
+    class="tn-badge"
     :class="{
-      badge_sm: size === 'sm',
-      badge_lg: size === 'lg',
-      badge_default: classic ? false : defaultType,
-      badge_classic: classic,
-      badge_oval: isOval
+      'tn-badge_sm': size === 'sm',
+      'tn-badge_lg': size === 'lg',
+      'tn-badge_default': classic ? false : defaultType,
+      'tn-badge_classic': classic,
+      'tn-badge_oval': isOval,
     }"
   >
     <slot>
@@ -41,7 +45,7 @@ const isOval = computed(() => {
 </template>
 
 <style lang="scss">
-.badge {
+.tn-badge {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,17 +53,19 @@ const isOval = computed(() => {
   border-radius: 50%;
 }
 
-.badge_sm {
+.tn-badge_sm {
   min-width: 16px;
   max-width: 16px;
   height: 16px;
 }
-.badge_lg {
+
+.tn-badge_lg {
   min-width: 20px;
   max-width: 20px;
   height: 20px;
 }
-.badge_default {
+
+.tn-badge_default {
   min-width: 16px;
   max-width: 16px;
   height: 16px;
@@ -72,23 +78,26 @@ const isOval = computed(() => {
 
   border-radius: 4px;
 }
-.badge_classic {
+
+.tn-badge_classic {
   font-size: 12px;
   font-weight: 600;
 
   color: #fff;
   background-color: #eb3b41;
 }
-.badge_oval {
+
+.tn-badge_oval {
   max-width: none;
   min-width: none;
   border-radius: 10px;
-
 }
-.badge_oval.badge_lg {
+
+.tn-badge_oval.tn-badge_lg {
   padding: 0 8px;
 }
-.badge_oval.badge_sm {
+
+.tn-badge_oval.tn-badge_sm {
   padding: 0 6px;
 }
 </style>

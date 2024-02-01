@@ -30,7 +30,7 @@ const props = defineProps({
 
 function useRouter() {
   const currentInstance = getCurrentInstance();
-  const router = currentInstance?.proxy.$router;
+  const router = currentInstance?.proxy?.$router;
   return router;
 }
 
@@ -167,7 +167,9 @@ function onClickButton(e: Event) {
     cursor: initial;
   }
 
-  
+  .tn-badge {
+    font-weight: 600;
+  }
 }
 
 .tn-button__icon {
@@ -197,15 +199,15 @@ function onClickButton(e: Event) {
 }
 
 .tn-button_primary {
-  color: #FFFFFF;
+  color: #ffffff;
   background-color: #eb3b41;
 
   .tn-button__icon {
-    color: #FFFFFF;
+    color: #ffffff;
   }
 
   &:hover:enabled {
-    background: #D91921;
+    background: #d91921;
 
     transition: 300ms;
     // color: var(--button-loader-white);
@@ -216,7 +218,7 @@ function onClickButton(e: Event) {
   }
 
   &:active:enabled {
-    background: #C02B31;
+    background: #c02b31;
 
     transition: 300ms;
     // color: var(--button-text);
@@ -226,24 +228,29 @@ function onClickButton(e: Event) {
     animation: focus-animation-primary 500ms ease forwards;
     transition: 300ms;
   }
+
+  .tn-badge {
+    background-color: #fcddde;
+    color: #eb3b41;
+  }
 }
 
 .tn-button_secondary {
-  color: #2E384B;
-  background-color: #E7E9EF;
+  color: #2e384b;
+  background-color: #e7e9ef;
 
   .tn-button__icon {
-    color: #2E384B;
+    color: #2e384b;
   }
 
   &:hover:enabled {
-    background: #DFE2E7;
+    background: #dfe2e7;
 
     transition: 300ms;
   }
 
   &:active:enabled {
-    background: #D0D4DB;
+    background: #d0d4db;
 
     transition: 300ms;
   }
@@ -252,27 +259,32 @@ function onClickButton(e: Event) {
     animation: focus-animation-secondary 500ms ease forwards;
     transition: 300ms;
   }
+
+  .tn-badge {
+    background-color: #9ea5b5;
+    color: #fff;
+  }
 }
 
 @keyframes focus-animation-secondary {
-  from {     
+  from {
     outline: 1px solid #ffffff00;
     outline-offset: 1px;
-  }   
+  }
   to {
     outline: 1px solid #9ea5b5;
     outline-offset: 1px;
-   }
+  }
 }
 
 @keyframes focus-animation-primary {
-  from {     
+  from {
     outline: 1px solid #ffffff00;
     outline-offset: 1px;
-  }   
+  }
   to {
     outline: 1px solid #d91921;
     outline-offset: 1px;
-   }
+  }
 }
 </style>
