@@ -7,6 +7,9 @@ import {
   defineEmits,
   getCurrentInstance,
 } from "vue";
+
+import { useRouter } from "vue-router";
+
 import TNIcon from "@/components/uikit/icons/tn-icon.vue";
 // import TnLoader from "@/components/uikit/elements/loader/tn-loader.vue";
 
@@ -27,12 +30,6 @@ const props = defineProps({
 });
 
 // TODO: можно ли как-то проверять передан слот или нет
-
-function useRouter() {
-  const currentInstance = getCurrentInstance();
-  const router = currentInstance?.proxy?.$router;
-  return router;
-}
 
 const router = useRouter();
 
@@ -55,15 +52,15 @@ const hasLeftIcon = computed<boolean>(() => hasIcon.value);
 const hasRightIcon = computed<boolean>(
   () => hasRightIconSlot.value || !!props.iconRight
 );
-const iconSize = computed<number>(() => {
-  if (props.size === "md") {
-    return 20;
-  }
-  if (props.size === "lg") {
-    return 24;
-  }
-  return 20;
-});
+// const iconSize = computed<number>(() => {
+//   if (props.size === "md") {
+//     return 20;
+//   }
+//   if (props.size === "lg") {
+//     return 20;
+//   }
+//   return 20;
+// });
 
 const buttonWidth = computed(() => {
   if (props.width && props.width.toString().includes("%")) {
@@ -119,7 +116,7 @@ function onClickButton(e: Event) {
       }"
     >
       <slot name="icon">
-        <TNIcon :size="iconSize" :name="icon" />
+        <TNIcon :size="20" :name="icon" />
       </slot>
     </span>
 
@@ -129,7 +126,7 @@ function onClickButton(e: Event) {
 
     <span v-if="hasRightIcon" class="tn-button__icon tn-button__icon_right">
       <slot name="icon-right">
-        <TNIcon :size="iconSize" :name="iconRight" />
+        <TNIcon :size="20" :name="iconRight" />
       </slot>
     </span>
   </button>
@@ -144,7 +141,7 @@ function onClickButton(e: Event) {
   position: relative;
 
   height: 48px;
-  padding: 12px 24px;
+  padding: 14px 24px;
 
   border-radius: 12px;
   font-size: 14px;
@@ -179,11 +176,12 @@ function onClickButton(e: Event) {
 }
 
 .tn-button__icon {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   position: relative;
-  top: -1px;
   font-size: 20px;
-  vertical-align: middle;
 
   svg {
     pointer-events: none;
@@ -192,6 +190,7 @@ function onClickButton(e: Event) {
 
 .tn-button_medium {
   height: 40px;
+  padding: 10px 24px;
   gap: 8px;
 
   border-radius: 8px;
@@ -264,8 +263,6 @@ function onClickButton(e: Event) {
     color: #fff;
   }
 }
-
-
 
 @keyframes focus-animation-secondary {
   from {

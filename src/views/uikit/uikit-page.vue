@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { ref, reactive } from "vue";
-import TnBadge from "@/components/uikit/tn-badge.vue";
+import TnBadge from "@/components/uikit/badge/tn-badge.vue";
 import TnIcon from "@/components/uikit/icons/tn-icon.vue";
-import TnButton from "@/components/uikit/tn-button.vue";
-import TnTumbler from "@/components/uikit/tn-tumbler.vue";
-import TnRadio from "@/components/uikit/tn-radio.vue";
+import TnButton from "@/components/uikit/button/tn-button.vue";
+import TnTumbler from "@/components/uikit/tumbler/tn-tumbler.vue";
+import TnRadio from "@/components/uikit/radio/tn-radio.vue";
+import TnAvatar from "@/components/uikit/avatar/tn-avatar.vue";
+import TnAvatarGroup from "@/components/uikit/avatar-group/tn-avatar-group.vue";
 
 // TODO: В фигме не получается посмотреть расстояния между элементами
 const isTumblerActive = ref<boolean>(false);
@@ -22,6 +24,23 @@ const animal2 = reactive({
 function setTumblerState(state: boolean) {
   isTumblerActive.value = state;
 }
+
+const avatars = reactive([
+  {
+    image: 'https://i.pinimg.com/originals/84/01/13/84011369742c4581e76047ec420733f2.jpg',
+    alt: "some alt",
+  },
+  {
+    icon: 'plus',
+  },
+  {
+    text: 'A',
+  },
+  {
+    text: 'В',
+  }
+])
+
 </script>
 
 <template>
@@ -271,6 +290,110 @@ function setTumblerState(state: boolean) {
           @input="animalAsObject = $event"
         />
       </div>
+    </div>
+
+    <div class="uikit-page__block">
+      <h2 class="uikit-page__block-title">Avatar</h2>
+
+      <h5 class="uikit-page__block-subtitle">Avatar Large</h5>
+      <div class="uikit-page__block-items">
+        
+        <TnAvatar 
+          v-for="(avatar, index) in avatars"
+          :key="index"
+          :image="avatar?.image"
+          :text="avatar?.text"
+          :icon="avatar?.icon"
+          :alt="avatar?.alt"
+          size="lg"
+        />
+        <TnAvatar v-if="avatars.length > 3" size="lg" :text="`+${avatars.length - 3}`" collapsed />
+      </div>
+
+      <h5 class="uikit-page__block-subtitle">Avatar Medium</h5>
+      <div class="uikit-page__block-items">
+        <TnAvatar 
+          v-for="(avatar, index) in avatars"
+          :key="index"
+          :image="avatar?.image"
+          :text="avatar?.text"
+          :icon="avatar?.icon"
+          :alt="avatar?.alt"
+          size="md"
+        />
+        <TnAvatar v-if="avatars.length > 3" size="md" :text="`+${avatars.length - 3}`" collapsed />
+      </div>
+
+      <h5 class="uikit-page__block-subtitle">Avatar Medium</h5>
+      <div class="uikit-page__block-items">
+        <TnAvatar 
+          v-for="(avatar, index) in avatars"
+          :key="index"
+          :image="avatar?.image"
+          :text="avatar?.text"
+          :icon="avatar?.icon"
+          :alt="avatar?.alt"
+          size="sm"
+        />
+        <TnAvatar v-if="avatars.length > 3" size="sm" :text="`+${avatars.length - 3}`" collapsed />
+      </div>
+
+    </div>
+
+    <div class="uikit-page__block">
+      <h2 class="uikit-page__block-title">Avatar Group</h2>
+
+      <h5 class="uikit-page__block-subtitle">Avatar Group Large</h5>
+      <div class="uikit-page__block-items">
+        <TnAvatarGroup size="lg" :avatars="avatars">
+          <!-- <TnAvatar 
+            v-for="(avatar, index) in avatars.slice(0, 3)"
+            :key="index"
+            :image="avatar?.image"
+            :text="avatar?.text"
+            :icon="avatar?.icon"
+            :alt="avatar?.alt"
+            size="lg"
+          />
+          
+          <TnAvatar v-if="avatars.length > 3" size="lg" :text="`+${avatars.length - 3}`" collapsed /> -->
+        </TnAvatarGroup>
+      </div>
+
+      <h5 class="uikit-page__block-subtitle">Avatar Group Medium</h5>
+      <div class="uikit-page__block-items">
+        <TnAvatarGroup size="md" :avatars="avatars">
+          <!-- <TnAvatar 
+            v-for="(avatar, index) in avatars.slice(0, 3)"
+            :key="index"
+            :image="avatar?.image"
+            :text="avatar?.text"
+            :icon="avatar?.icon"
+            :alt="avatar?.alt"
+            size="md"
+          />
+          
+          <TnAvatar v-if="avatars.length > 3" size="md" :text="`+${avatars.length - 3}`" collapsed /> -->
+        </TnAvatarGroup>
+      </div>
+
+      <h5 class="uikit-page__block-subtitle">Avatar Group Small</h5>
+      <div class="uikit-page__block-items">
+        <TnAvatarGroup size="sm" :avatars="avatars">
+          <!-- <TnAvatar 
+            v-for="(avatar, index) in avatars.slice(0, 3)"
+            :key="index"
+            :image="avatar?.image"
+            :text="avatar?.text"
+            :icon="avatar?.icon"
+            :alt="avatar?.alt"
+            size="sm"
+          />
+          
+          <TnAvatar v-if="avatars.length > 3" size="sm" :text="`+${avatars.length - 3}`" collapsed /> -->
+        </TnAvatarGroup>
+      </div>
+
     </div>
   </div>
 </template>
