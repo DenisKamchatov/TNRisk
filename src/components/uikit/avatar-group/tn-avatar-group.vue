@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import { useSlots } from "vue";
 import TnAvatar from "@/components/uikit/avatar/tn-avatar.vue";
+import { IAvatarGroupItem } from "./typings";
 
 const props = withDefaults(
   defineProps<{
     size?: "sm" | "md" | "lg";
-    avatars?: any[];
+    avatars?: IAvatarGroupItem[];
     maxLength?: number;
     square?: boolean;
   }>(),
   {
     size: "md",
-    avatars: 0,
+    avatars: () => [],
     maxLength: 3,
     square: false,
   }
@@ -24,14 +25,14 @@ const props = withDefaults(
     <TnAvatar
       v-for="(avatar, index) in avatars.slice(0, maxLength)"
       :key="index"
-      :image="avatar?.image || undefined"
-      :icon="avatar?.icon || undefined"
-      :alt="avatar?.alt || undefined"
-      :text="avatar?.text || undefined"
+      :image="avatar?.image"
+      :icon="avatar?.icon"
+      :alt="avatar?.alt"
+      :text="avatar?.text"
       :size="size"
       :square="square"
       :style="{
-        transform: `translateX(-${index*8}px)`,
+        transform: `translateX(-${index * 8}px)`,
       }"
     />
     <TnAvatar
@@ -40,7 +41,7 @@ const props = withDefaults(
       :text="`+${avatars.length - maxLength}`"
       collapsed
       :style="{
-        transform: `translateX(-${(maxLength) * 8}px)`,
+        transform: `translateX(-${maxLength * 8}px)`,
       }"
     />
   </div>
@@ -52,16 +53,16 @@ const props = withDefaults(
   align-items: center;
   position: relative;
 
-//   & > div:nth-child(2) {
-//     transform: translateX(-8px);
-//   }
+  //   & > div:nth-child(2) {
+  //     transform: translateX(-8px);
+  //   }
 
-//   & > div:nth-child(3) {
-//     transform: translateX(-16px);
-//   }
+  //   & > div:nth-child(3) {
+  //     transform: translateX(-16px);
+  //   }
 
-//   & > div:nth-child(4) {
-//     transform: translateX(-24px);
-//   }
+  //   & > div:nth-child(4) {
+  //     transform: translateX(-24px);
+  //   }
 }
 </style>

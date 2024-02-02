@@ -5,24 +5,22 @@ import TnIcon from "@/components/uikit/icons/tn-icon.vue";
 
 const props = withDefaults(
   defineProps<{
-    image?: string | undefined;
-    // TODO: Оставить ли возможность добавлять иконки вместо картинок
-    icon?: string | undefined;
-    alt?: string | undefined;
-    text?: string | undefined;
+    image?: string;
+    icon?: string;
+    alt?: string;
+    text?: string;
     size?: "sm" | "md" | "lg";
     square?: boolean;
     collapsed?: boolean;
-    // TODO: В дизайне нет status, но как будто бы он можеть пригодиться
-    // status?: boolean;
+    status?: boolean;
   }>(),
   {
     size: "md",
     square: false,
-    // status: undefined,
     text: "",
     alt: "",
     collapsed: false,
+    status: undefined,
   }
 );
 
@@ -47,8 +45,7 @@ const iconSize = computed(() => {
 
 const hasImageOrIcon = computed(() => !!props.image || !!props.icon);
 
-console.log(props)
-
+console.log(props);
 </script>
 
 <template>
@@ -60,7 +57,11 @@ console.log(props)
       'tn-user-picture_square': square,
     }"
     :style="{
-      'background-color': collapsed ? '#0062ff' : !hasImageOrIcon ? currentColor.bg : '#e9ebf1',
+      'background-color': collapsed
+        ? '#0062ff'
+        : !hasImageOrIcon
+        ? currentColor.bg
+        : '#e9ebf1',
     }"
   >
     <div class="tn-user-picture__container">
@@ -92,11 +93,11 @@ console.log(props)
         {{ text }}
       </span>
     </div>
-    <!-- <div
-        v-if="typeof status === 'boolean'"
-        class="tn-user-picture__status"
-        :class="{ 'tn-user-picture__status_enabled': status }"
-      ></div> -->
+    <div
+      v-if="typeof status === 'boolean'"
+      class="tn-user-picture__status"
+      :class="{ 'tn-user-picture__status_enabled': status }"
+    ></div>
   </div>
 </template>
 
@@ -200,36 +201,36 @@ console.log(props)
   font-size: 12px;
   font-weight: 700;
 }
-// .tn-user-picture__status {
-//   width: 10px;
-//   height: 10px;
-//   background-color: var(--content-secondary-enabled);
-//   outline: 3px solid #66738733;
-//   border-radius: 50%;
-//   z-index: 1;
-//   position: absolute;
-//   top: 0;
-//   right: 0;
-// }
+.tn-user-picture__status {
+  width: 10px;
+  height: 10px;
+  background-color: var(--content-secondary-enabled);
+  outline: 3px solid #66738733;
+  border-radius: 50%;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 
-// .tn-user-picture_s .tn-user-picture__status {
-//   width: 8px;
-//   height: 8px;
-//   top: -4px;
-//   right: -4px;
-//   outline-width: 2px;
-// }
+.tn-user-picture_s .tn-user-picture__status {
+  width: 8px;
+  height: 8px;
+  top: -4px;
+  right: -4px;
+  outline-width: 2px;
+}
 
-// .tn-user-picture_l .tn-user-picture__status {
-//   width: 24px;
-//   height: 24px;
-//   top: 11px;
-//   right: 11px;
-//   outline-width: 6px;
-// }
+.tn-user-picture_l .tn-user-picture__status {
+  width: 24px;
+  height: 24px;
+  top: 11px;
+  right: 11px;
+  outline-width: 6px;
+}
 
-// .tn-user-picture__status_enabled {
-//   background-color: var(--content-system-positive);
-//   outline: 3px solid #00842f33;
-// }
+.tn-user-picture__status_enabled {
+  background-color: var(--content-system-positive);
+  outline: 3px solid #00842f33;
+}
 </style>
