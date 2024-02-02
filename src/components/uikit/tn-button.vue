@@ -65,10 +65,6 @@ const iconSize = computed<number>(() => {
   return 20;
 });
 
-const loaderSize = computed(() => {
-  return props.size;
-});
-
 const buttonWidth = computed(() => {
   if (props.width && props.width.toString().includes("%")) {
     return props.width;
@@ -105,12 +101,12 @@ function onClickButton(e: Event) {
     :class="{
       'tn-button_medium': sizeOutput === 'md',
       'tn-button_large': sizeOutput === 'lg',
-      'tn-button_only-icon': isOnlyIcon,
       'tn-button_lefticon': hasLeftIcon,
       'tn-button_righticon': hasRightIcon,
       'tn-button_disabled': disabled,
       'tn-button_primary': primary,
       'tn-button_secondary': secondary,
+      'tn-button_only-icon': isOnlyIcon,
     }"
     :style="{ width: buttonWidth }"
     @click="onClickButton"
@@ -167,6 +163,16 @@ function onClickButton(e: Event) {
     cursor: initial;
   }
 
+  &.tn-button_only-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    min-width: 48px;
+    max-width: 48px;
+    height: 48px;
+  }
+
   .tn-badge {
     font-weight: 600;
   }
@@ -185,17 +191,16 @@ function onClickButton(e: Event) {
 }
 
 .tn-button_medium {
-  // padding: 11px 20px;
   height: 40px;
-  // min-width: 144px;
   gap: 8px;
 
   border-radius: 8px;
 
-  // &:disabled,
-  // &[disabled] {
-  //   opacity: 0.5;
-  // }
+  &.tn-button_only-icon {
+    min-width: 40px;
+    max-width: 40px;
+    height: 40px;
+  }
 }
 
 .tn-button_primary {
@@ -210,18 +215,12 @@ function onClickButton(e: Event) {
     background: #d91921;
 
     transition: 300ms;
-    // color: var(--button-loader-white);
-
-    // .tn-button__icon {
-    //   color: #ffffff;
-    // }
   }
 
   &:active:enabled {
     background: #c02b31;
 
     transition: 300ms;
-    // color: var(--button-text);
   }
 
   &:focus {
@@ -265,6 +264,8 @@ function onClickButton(e: Event) {
     color: #fff;
   }
 }
+
+
 
 @keyframes focus-animation-secondary {
   from {
