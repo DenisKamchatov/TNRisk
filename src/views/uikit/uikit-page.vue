@@ -7,10 +7,14 @@ import TnTumbler from "@/components/uikit/tumbler/tn-tumbler.vue";
 import TnRadio from "@/components/uikit/radio/tn-radio.vue";
 import TnAvatar from "@/components/uikit/avatar/tn-avatar.vue";
 import TnAvatarGroup from "@/components/uikit/avatar-group/tn-avatar-group.vue";
+import TnCheckbox from "@/components/uikit/checkbox/tn-checkbox.vue";
+import TnInput from "@/components/uikit/input/tn-input.vue";
+import TnTextarea from "@/components/uikit/textarea/tn-textarea.vue";
 
-// TODO: В фигме не получается посмотреть расстояния между элементами
 const isTumblerActive = ref<boolean>(false);
+const isCheckboxActive = ref<boolean>(false);
 const animalAsObject = ref(undefined);
+const searchValue = ref<String>("");
 
 const animal1 = reactive({
   id: "1",
@@ -25,22 +29,30 @@ function setTumblerState(state: boolean) {
   isTumblerActive.value = state;
 }
 
+function setCheckboxState(state: boolean) {
+  isCheckboxActive.value = state;
+}
+
+const collectSearchValue = (value: String) => {
+  searchValue.value = value;
+};
+
 const avatars = reactive([
   {
-    image: 'https://i.pinimg.com/originals/84/01/13/84011369742c4581e76047ec420733f2.jpg',
+    image:
+      "https://i.pinimg.com/originals/84/01/13/84011369742c4581e76047ec420733f2.jpg",
     alt: "some alt",
   },
   {
-    icon: 'plus',
+    icon: "plus",
   },
   {
-    text: 'A',
+    text: "A",
   },
   {
-    text: 'В',
-  }
-])
-
+    text: "В",
+  },
+]);
 </script>
 
 <template>
@@ -297,8 +309,7 @@ const avatars = reactive([
 
       <h5 class="uikit-page__block-subtitle">Avatar Large</h5>
       <div class="uikit-page__block-items">
-        
-        <TnAvatar 
+        <TnAvatar
           v-for="(avatar, index) in avatars"
           :key="index"
           :image="avatar?.image"
@@ -307,12 +318,17 @@ const avatars = reactive([
           :alt="avatar?.alt"
           size="lg"
         />
-        <TnAvatar v-if="avatars.length > 3" size="lg" :text="`+${avatars.length - 3}`" collapsed />
+        <TnAvatar
+          v-if="avatars.length > 3"
+          size="lg"
+          :text="`+${avatars.length - 3}`"
+          collapsed
+        />
       </div>
 
       <h5 class="uikit-page__block-subtitle">Avatar Medium</h5>
       <div class="uikit-page__block-items">
-        <TnAvatar 
+        <TnAvatar
           v-for="(avatar, index) in avatars"
           :key="index"
           :image="avatar?.image"
@@ -321,12 +337,17 @@ const avatars = reactive([
           :alt="avatar?.alt"
           size="md"
         />
-        <TnAvatar v-if="avatars.length > 3" size="md" :text="`+${avatars.length - 3}`" collapsed />
+        <TnAvatar
+          v-if="avatars.length > 3"
+          size="md"
+          :text="`+${avatars.length - 3}`"
+          collapsed
+        />
       </div>
 
       <h5 class="uikit-page__block-subtitle">Avatar Medium</h5>
       <div class="uikit-page__block-items">
-        <TnAvatar 
+        <TnAvatar
           v-for="(avatar, index) in avatars"
           :key="index"
           :image="avatar?.image"
@@ -335,9 +356,13 @@ const avatars = reactive([
           :alt="avatar?.alt"
           size="sm"
         />
-        <TnAvatar v-if="avatars.length > 3" size="sm" :text="`+${avatars.length - 3}`" collapsed />
+        <TnAvatar
+          v-if="avatars.length > 3"
+          size="sm"
+          :text="`+${avatars.length - 3}`"
+          collapsed
+        />
       </div>
-
     </div>
 
     <div class="uikit-page__block">
@@ -345,55 +370,386 @@ const avatars = reactive([
 
       <h5 class="uikit-page__block-subtitle">Avatar Group Large</h5>
       <div class="uikit-page__block-items">
-        <TnAvatarGroup size="lg" :avatars="avatars">
-          <!-- <TnAvatar 
-            v-for="(avatar, index) in avatars.slice(0, 3)"
-            :key="index"
-            :image="avatar?.image"
-            :text="avatar?.text"
-            :icon="avatar?.icon"
-            :alt="avatar?.alt"
-            size="lg"
-          />
-          
-          <TnAvatar v-if="avatars.length > 3" size="lg" :text="`+${avatars.length - 3}`" collapsed /> -->
-        </TnAvatarGroup>
+        <TnAvatarGroup size="lg" :avatars="avatars"> </TnAvatarGroup>
       </div>
 
       <h5 class="uikit-page__block-subtitle">Avatar Group Medium</h5>
       <div class="uikit-page__block-items">
-        <TnAvatarGroup size="md" :avatars="avatars">
-          <!-- <TnAvatar 
-            v-for="(avatar, index) in avatars.slice(0, 3)"
-            :key="index"
-            :image="avatar?.image"
-            :text="avatar?.text"
-            :icon="avatar?.icon"
-            :alt="avatar?.alt"
-            size="md"
-          />
-          
-          <TnAvatar v-if="avatars.length > 3" size="md" :text="`+${avatars.length - 3}`" collapsed /> -->
-        </TnAvatarGroup>
+        <TnAvatarGroup size="md" :avatars="avatars"> </TnAvatarGroup>
       </div>
 
       <h5 class="uikit-page__block-subtitle">Avatar Group Small</h5>
       <div class="uikit-page__block-items">
-        <TnAvatarGroup size="sm" :avatars="avatars">
-          <!-- <TnAvatar 
-            v-for="(avatar, index) in avatars.slice(0, 3)"
-            :key="index"
-            :image="avatar?.image"
-            :text="avatar?.text"
-            :icon="avatar?.icon"
-            :alt="avatar?.alt"
-            size="sm"
-          />
-          
-          <TnAvatar v-if="avatars.length > 3" size="sm" :text="`+${avatars.length - 3}`" collapsed /> -->
-        </TnAvatarGroup>
+        <TnAvatarGroup size="sm" :avatars="avatars"> </TnAvatarGroup>
+      </div>
+    </div>
+
+    <div class="uikit-page__block">
+      <h2 class="uikit-page__block-title">Checkbox</h2>
+
+      <div class="uikit-page__block-items">
+        <TnCheckbox
+          :modelValue="isCheckboxActive"
+          @update:modelValue="setCheckboxState"
+        />
+
+        <TnCheckbox
+          :modelValue="isCheckboxActive"
+          @update:modelValue="setCheckboxState"
+          :disabled="true"
+        />
+      </div>
+    </div>
+
+    <div class="uikit-page__block">
+      <h2 class="uikit-page__block-title">Input</h2>
+
+      <h5 class="uikit-page__block-subtitle">With floating label</h5>
+      <div class="uikit-page__block-items uikit-page__block-items_column">
+        <TnInput
+          floatingLabel="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          :required="false"
+        >
+        </TnInput>
+
+        <TnInput
+          floatingLabel="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+        >
+        </TnInput>
+
+        <TnInput
+          floatingLabel="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+        >
+          <template #icon-right>
+            <TnIcon name="plus" />
+          </template>
+        </TnInput>
+
+        <TnInput
+          floatingLabel="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+        >
+          <template #icon-right>
+            <TnIcon name="plus" />
+          </template>
+
+          <template #icon-left>
+            <TnIcon name="menu" />
+          </template>
+        </TnInput>
+
+        <TnInput
+          floatingLabel="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          disabled
+          description="This is the description area"
+        >
+          <template #icon-right>
+            <TnIcon name="plus" />
+          </template>
+        </TnInput>
+
+        <TnInput
+          floatingLabel="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          description="This is the description area"
+        >
+          <template #icon-right>
+            <TnIcon name="plus" />
+          </template>
+        </TnInput>
+
+        <TnInput
+          floatingLabel="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          description="This is the description area"
+          error
+        >
+          <template #icon-right>
+            <TnIcon name="plus" />
+          </template>
+        </TnInput>
       </div>
 
+      <h5 class="uikit-page__block-subtitle">With label</h5>
+      <div class="uikit-page__block-items uikit-page__block-items_column">
+        <TnInput
+          label="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          placeholder="Placeholder"
+          :required="false"
+        >
+        </TnInput>
+
+        <TnInput
+          label="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          placeholder="Placeholder"
+        >
+        </TnInput>
+
+        <TnInput
+          label="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          placeholder="Placeholder"
+        >
+          <template #icon-right>
+            <TnIcon name="plus" />
+          </template>
+        </TnInput>
+
+        <TnInput
+          label="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          placeholder="Placeholder"
+        >
+          <template #icon-right>
+            <TnIcon name="plus" />
+          </template>
+
+          <template #icon-left>
+            <TnIcon name="menu" />
+          </template>
+        </TnInput>
+
+        <TnInput
+          label="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          placeholder="Placeholder"
+          disabled
+          description="This is the description area"
+        >
+          <template #icon-right>
+            <TnIcon name="plus" />
+          </template>
+        </TnInput>
+
+        <TnInput
+          label="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          placeholder="Placeholder"
+          description="This is the description area"
+        >
+          <template #icon-right>
+            <TnIcon name="plus" />
+          </template>
+        </TnInput>
+
+        <TnInput
+          label="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          placeholder="Placeholder"
+          description="This is the description area"
+          error
+        >
+          <template #icon-right>
+            <TnIcon name="plus" />
+          </template>
+        </TnInput>
+      </div>
+    </div>
+
+    <div class="uikit-page__block">
+      <h2 class="uikit-page__block-title">Textarea</h2>
+
+      <h5 class="uikit-page__block-subtitle">With floating label</h5>
+      <div class="uikit-page__block-items uikit-page__block-items_column">
+        <TnTextarea
+          floatingLabel="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          :required="false"
+        >
+        </TnTextarea>
+
+        <p>Max Haight 100</p>
+        <TnTextarea
+          floatingLabel="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          :required="false"
+          :max-height="100"
+        >
+        </TnTextarea>
+
+        <TnTextarea
+          floatingLabel="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+        >
+        </TnTextarea>
+
+        <TnTextarea
+          floatingLabel="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+        >
+          <template #icon-right>
+            <TnIcon name="plchevron-downus" />
+          </template>
+        </TnTextarea>
+
+        <TnTextarea
+          floatingLabel="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+        >
+          <template #icon-right>
+            <TnIcon name="chevron-down" />
+          </template>
+
+          <template #icon-left>
+            <TnIcon name="plus" />
+          </template>
+        </TnTextarea>
+
+        <TnTextarea
+          floatingLabel="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          disabled
+          description="This is the description area"
+        >
+          <template #icon-right>
+            <TnIcon name="chevron-down" />
+          </template>
+        </TnTextarea>
+
+        <TnTextarea
+          floatingLabel="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          description="This is the description area"
+        >
+          <template #icon-right>
+            <TnIcon name="chevron-down" />
+          </template>
+        </TnTextarea>
+
+        <TnTextarea
+          floatingLabel="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          description="This is the description area"
+          error
+        >
+          <template #icon-right>
+            <TnIcon name="chevron-down" />
+          </template>
+        </TnTextarea>
+      </div>
+
+      <h5 class="uikit-page__block-subtitle">With label</h5>
+      <div class="uikit-page__block-items uikit-page__block-items_column">
+        <TnTextarea
+          label="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          placeholder="Placeholder"
+          :required="false"
+        >
+        </TnTextarea>
+
+        <p>Max Haight 100</p>
+        <TnTextarea
+          label="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          placeholder="Placeholder"
+          :required="false"
+          :max-height="100"
+        >
+        </TnTextarea>
+
+        <TnTextarea
+          label="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          placeholder="Placeholder"
+        >
+        </TnTextarea>
+
+        <TnTextarea
+          label="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          placeholder="Placeholder"
+        >
+          <template #icon-right>
+            <TnIcon name="plus" />
+          </template>
+        </TnTextarea>
+
+        <TnTextarea
+          label="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          placeholder="Placeholder"
+        >
+          <template #icon-right>
+            <TnIcon name="chevron-down" />
+          </template>
+
+          <template #icon-left>
+            <TnIcon name="plus" />
+          </template>
+        </TnTextarea>
+
+        <TnTextarea
+          label="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          placeholder="Placeholder"
+          disabled
+          description="This is the description area"
+        >
+          <template #icon-right>
+            <TnIcon name="chevron-down" />
+          </template>
+        </TnTextarea>
+
+        <TnTextarea
+          label="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          placeholder="Placeholder"
+          description="This is the description area"
+        >
+          <template #icon-right>
+            <TnIcon name="chevron-down" />
+          </template>
+        </TnTextarea>
+
+        <TnTextarea
+          label="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          placeholder="Placeholder"
+          description="This is the description area"
+          error
+        >
+          <template #icon-right>
+            <TnIcon name="chevron-down" />
+          </template>
+        </TnTextarea>
+      </div>
     </div>
   </div>
 </template>
@@ -406,6 +762,8 @@ const avatars = reactive([
 
   padding: 130px 96px 96px 96px;
   margin: 0 auto;
+
+  background-color: #fff;
 
   .uikit-page__block {
     display: flex;
@@ -420,6 +778,12 @@ const avatars = reactive([
     display: flex;
     align-items: center;
     gap: 10px;
+  }
+
+  .uikit-page__block-items_column {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
   }
 }
 </style>

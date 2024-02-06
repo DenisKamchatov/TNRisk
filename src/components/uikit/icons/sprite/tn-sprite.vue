@@ -251,11 +251,26 @@
     </symbol>
 
     <symbol id="icon--star" viewBox="0 0 16 16" fill="none">
-<g opacity="0.6">
-<path d="M7.99967 1.33325L10.0597 5.50659L14.6663 6.17992L11.333 9.42659L12.1197 14.0133L7.99967 11.8466L3.87967 14.0133L4.66634 9.42659L1.33301 6.17992L5.93967 5.50659L7.99967 1.33325Z" fill="currentColor" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-</g>
-</symbol>
+      <g opacity="0.6">
+        <path
+          d="M7.99967 1.33325L10.0597 5.50659L14.6663 6.17992L11.333 9.42659L12.1197 14.0133L7.99967 11.8466L3.87967 14.0133L4.66634 9.42659L1.33301 6.17992L5.93967 5.50659L7.99967 1.33325Z"
+          fill="currentColor"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </g>
+    </symbol>
 
+    <symbol id="icon--chevron-down" viewBox="0 0 24 24" fill="none">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M5.29289 8.29289C5.68342 7.90237 6.31658 7.90237 6.70711 8.29289L12 13.5858L17.2929 8.29289C17.6834 7.90237 18.3166 7.90237 18.7071 8.29289C19.0976 8.68342 19.0976 9.31658 18.7071 9.70711L12.7071 15.7071C12.3166 16.0976 11.6834 16.0976 11.2929 15.7071L5.29289 9.70711C4.90237 9.31658 4.90237 8.68342 5.29289 8.29289Z"
+        fill="currentColor"
+      />
+    </symbol>
   </svg>
 </template>
 
