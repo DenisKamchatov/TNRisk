@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive } from "vue";
+import { TNTabsOption } from "@/components/uikit/tabs/typings";
+
 import TnBadge from "@/components/uikit/badge/tn-badge.vue";
 import TnIcon from "@/components/uikit/icons/tn-icon.vue";
 import TnButton from "@/components/uikit/button/tn-button.vue";
@@ -10,11 +12,13 @@ import TnAvatarGroup from "@/components/uikit/avatar-group/tn-avatar-group.vue";
 import TnCheckbox from "@/components/uikit/checkbox/tn-checkbox.vue";
 import TnInput from "@/components/uikit/input/tn-input.vue";
 import TnTextarea from "@/components/uikit/textarea/tn-textarea.vue";
+import TnTabs from "@/components/uikit/tabs/tn-tabs.vue";
 
 const isTumblerActive = ref<boolean>(false);
 const isCheckboxActive = ref<boolean>(false);
 const animalAsObject = ref(undefined);
-const searchValue = ref<String>("");
+const searchValue = ref<string>("");
+const currentOptionId = ref<string | number>(0)
 
 const animal1 = reactive({
   id: "1",
@@ -24,6 +28,31 @@ const animal2 = reactive({
   id: "2",
   label: "Кошка",
 });
+
+const optionsWithIcons: TNTabsOption[] = [
+  {
+    id: 1,
+    name: "Label 1",
+    icon: {
+      name: "menu"
+    }
+  },
+  {
+    id: 2,
+    name: "Label 2",
+  },
+  {
+    id: 3,
+    name: "Label 3",
+  },
+  {
+    id: 4,
+    name: "Label 4",
+    icon: {
+      name: "plus"
+    }
+  }
+];
 
 function setTumblerState(state: boolean) {
   isTumblerActive.value = state;
@@ -748,6 +777,14 @@ const avatars = reactive([
             <TnIcon name="chevron-down" />
           </template>
         </TnTextarea>
+      </div>
+    </div>
+
+    <div class="uikit-page__block">
+      <h2 class="uikit-page__block-title">Tabs</h2>
+
+      <div class="uikit-page__block-items uikit-page__block-items_column">
+        <TnTabs v-model="currentOptionId" :options="optionsWithIcons" />
       </div>
     </div>
   </div>
