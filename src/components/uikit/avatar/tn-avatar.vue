@@ -44,8 +44,6 @@ const iconSize = computed(() => {
 });
 
 const hasImageOrIcon = computed(() => !!props.image || !!props.icon);
-
-console.log(props);
 </script>
 
 <template>
@@ -201,10 +199,10 @@ console.log(props);
   font-weight: 700;
 }
 .tn-user-picture__status {
-  width: 10px;
-  height: 10px;
-  background-color: var(--content-secondary-enabled);
-  outline: 3px solid #66738733;
+  width: 6px;
+  height: 6px;
+  background-color: #667387;
+  outline: 2px solid #66738733;
   border-radius: 50%;
   z-index: 1;
   position: absolute;
@@ -213,23 +211,23 @@ console.log(props);
 }
 
 .tn-user-picture_s .tn-user-picture__status {
-  width: 8px;
-  height: 8px;
-  top: -4px;
-  right: -4px;
-  outline-width: 2px;
+  width: 4px;
+  height: 4px;
+  top: 0;
+  right: 0;
+  outline-width: 1.5px;
 }
 
 .tn-user-picture_l .tn-user-picture__status {
-  width: 24px;
-  height: 24px;
-  top: 11px;
-  right: 11px;
-  outline-width: 6px;
+  width: 8px;
+  height: 8px;
+  top: 0px;
+  right: 0px;
+  outline-width: 2.5px;
 }
 
 .tn-user-picture__status_enabled {
-  background-color: var(--content-system-positive);
-  outline: 3px solid #00842f33;
+  background-color: #009c37;
+  outline: 2px solid #00842f33;
 }
 </style>

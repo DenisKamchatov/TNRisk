@@ -30,6 +30,7 @@ const props = withDefaults(
       :text="avatar?.text"
       :size="size"
       :square="square"
+      :status="avatar?.status"
       :style="{
         transform: `translateX(-${index * 8}px)`,
       }"
@@ -51,17 +52,5 @@ const props = withDefaults(
   display: flex;
   align-items: center;
   position: relative;
-
-  //   & > div:nth-child(2) {
-  //     transform: translateX(-8px);
-  //   }
-
-  //   & > div:nth-child(3) {
-  //     transform: translateX(-16px);
-  //   }
-
-  //   & > div:nth-child(4) {
-  //     transform: translateX(-24px);
-  //   }
 }
 </style>

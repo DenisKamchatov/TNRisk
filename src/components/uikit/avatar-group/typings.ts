@@ -3,4 +3,5 @@ export interface IAvatarGroupItem {
   icon?: string;
   alt?: string;
   text?: string;
+  status?: boolean;
 }

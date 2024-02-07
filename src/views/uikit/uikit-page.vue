@@ -74,9 +74,11 @@ const avatars = reactive([
   },
   {
     icon: "plus",
+    status: true,
   },
   {
     text: "A",
+    status: false,
   },
   {
     text: "В",
@@ -344,6 +346,7 @@ const avatars = reactive([
           :text="avatar?.text"
           :icon="avatar?.icon"
           :alt="avatar?.alt"
+          :status="avatar?.status"
           size="lg"
         />
         <TnAvatar
@@ -363,6 +366,7 @@ const avatars = reactive([
           :text="avatar?.text"
           :icon="avatar?.icon"
           :alt="avatar?.alt"
+          :status="avatar?.status"
           size="md"
         />
         <TnAvatar
@@ -373,7 +377,7 @@ const avatars = reactive([
         />
       </div>
 
-      <h5 class="uikit-page__block-subtitle">Avatar Medium</h5>
+      <h5 class="uikit-page__block-subtitle">Avatar Small</h5>
       <div class="uikit-page__block-items">
         <TnAvatar
           v-for="(avatar, index) in avatars"
@@ -382,6 +386,7 @@ const avatars = reactive([
           :text="avatar?.text"
           :icon="avatar?.icon"
           :alt="avatar?.alt"
+          :status="avatar?.status"
           size="sm"
         />
         <TnAvatar
