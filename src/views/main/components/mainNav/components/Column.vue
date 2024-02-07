@@ -15,7 +15,7 @@ const { column, isBig } = withDefaults(
 </script>
 
 <template>
-  <div class="main-nav__column column" :class="{ 'column--big': isBig }">
+  <div class="main-nav__column column" :class="{ 'column_big': isBig }">
     <ColumnTitleBlock 
       :column-title="column.title"
       :column-to="column.to"
@@ -49,7 +49,7 @@ const { column, isBig } = withDefaults(
   
 }
 
-.column--big {
+.column_big {
   .column__items {
     padding: 32px 24px 12px 24px;
   }

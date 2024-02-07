@@ -21,7 +21,6 @@ const props = withDefaults(
 
 <template>
   <div class="avatar-group">
-    <!-- <slot></slot> -->
     <TnAvatar
       v-for="(avatar, index) in avatars.slice(0, maxLength)"
       :key="index"

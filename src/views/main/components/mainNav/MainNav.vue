@@ -235,7 +235,7 @@ const menu: IMenucColumnData[] = [
 </script>
 
 <template>
-  <div class="main-nav" :class="{ 'main-nav--big': isBig }">
+  <div class="main-nav" :class="{ 'main-nav_big': isBig }">
     <Column
       v-for="column in menu"
       :key="column.title"
@@ -282,7 +282,7 @@ const menu: IMenucColumnData[] = [
   }
 }
 
-.main-nav--big {
+.main-nav_big {
   background: none;
 }
 </style>

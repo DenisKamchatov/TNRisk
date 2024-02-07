@@ -109,7 +109,6 @@ const avatars = reactive([
         <TnButton primary>
           Button
           <template #icon-right>
-            <!-- TODO: В дизайне нет такого вида Badge -->
             <TnBadge default-type>92</TnBadge>
           </template>
         </TnButton>

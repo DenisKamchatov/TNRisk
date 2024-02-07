@@ -13,7 +13,7 @@ const { columnTitle, columnTo, columnHref } = withDefaults(
 </script>
 
 <template>
-  <router-link class="column__title-block" :class="{ 'column__title-block--big': isBig }" v-if="columnTo" :to="columnTo">
+  <router-link class="column__title-block" :class="{ 'column__title-block_big': isBig }" v-if="columnTo" :to="columnTo">
     <p class="column__title">{{ columnTitle }}</p>
 
     <div class="column__title-arrow">
@@ -21,7 +21,7 @@ const { columnTitle, columnTo, columnHref } = withDefaults(
     </div>
   </router-link>
 
-  <a class="column__title-block" :class="{ 'column__title-block--big': isBig }" v-else-if="columnHref" :href="columnHref">
+  <a class="column__title-block" :class="{ 'column__title-block_big': isBig }" v-else-if="columnHref" :href="columnHref">
     <p class="column__title">{{ columnTitle }}</p>
 
     <div class="column__title-arrow">
@@ -29,7 +29,7 @@ const { columnTitle, columnTo, columnHref } = withDefaults(
     </div>
   </a>
 
-  <div class="column__title-block" :class="{ 'column__title-block--big': isBig }" v-else>
+  <div class="column__title-block" :class="{ 'column__title-block_big': isBig }" v-else>
     <p class="column__title">{{ columnTitle }}</p>
 
     <div class="column__title-arrow">
@@ -89,7 +89,7 @@ const { columnTitle, columnTo, columnHref } = withDefaults(
   }
 }
 
-.column__title-block--big {
+.column__title-block_big {
     padding: 0 24px 0 24px;
 
     &:hover {

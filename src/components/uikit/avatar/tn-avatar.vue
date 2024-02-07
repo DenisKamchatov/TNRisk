@@ -71,7 +71,6 @@ console.log(props);
         :src="image"
         :alt="alt"
       />
-      <!-- <p v-else-if="text" class="tn-user-picture__text">{{ text }}</p> -->
       <TnIcon
         v-else-if="icon"
         class="tn-user-picture__icon"

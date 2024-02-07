@@ -52,7 +52,7 @@ const items: IFooterItems[] = [
 </script>
 
 <template>
-  <div class="main-footer" :class="{ 'main-footer--big container': isBig }">
+  <div class="main-footer" :class="{ 'main-footer_big container': isBig }">
     <ul class="main-footer__left-bar">
       <li class="main-footer__item" v-for="item in items" :key="item.title">
         <TnIcon :name="item.icon" :size="24" />
@@ -119,7 +119,7 @@ const items: IFooterItems[] = [
   }
 }
 
-.main-footer--big {
+.main-footer_big {
   background: none;
 }
 

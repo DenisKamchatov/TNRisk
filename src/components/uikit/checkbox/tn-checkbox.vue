@@ -84,7 +84,6 @@ function clickHandler() {
   align-items: flex-start;
   justify-content: flex-start;
   word-break: break-word;
-  font-family: "Proxima Nova", sans-serif, system-ui;
 }
 
 .tn-checkbox_has-label {
@@ -99,7 +98,7 @@ function clickHandler() {
 }
 
 .tn-checkbox__description {
-  color: var(--content-secondary-enabled);
+  color: #171C25;
   font-size: 16px;
   margin-top: 6px;
   display: block;

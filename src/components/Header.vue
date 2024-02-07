@@ -7,7 +7,7 @@ const isOpenedMenu = ref<boolean>(false)
 
 <template>
   <div class="header__cap" v-if="isOpenedMenu"></div>
-  <header class="header container" :class="{ 'header--open-menu': isOpenedMenu }">
+  <header class="header container" :class="{ 'header_open-menu': isOpenedMenu }">
     <div class="header__top">
       <div class="header__left-bar">
         <div class="header__icon-block">
@@ -125,7 +125,7 @@ const isOpenedMenu = ref<boolean>(false)
 
 
 
-.header--open-menu {
+.header_open-menu {
   position: fixed;
   top: 24px;
   left: 24px;

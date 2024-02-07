@@ -6,7 +6,6 @@ import homepageLayout from "@/layouts/homepage-layout.vue";
 
 <template>
   <div class="main">
-    <!-- TODO: Сделать ли слотами колонки? -->
     <homepage-layout>
       <MainNav :is-big="true"></MainNav>
       <template #footer>

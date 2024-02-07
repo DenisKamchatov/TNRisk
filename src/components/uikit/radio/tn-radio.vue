@@ -234,12 +234,10 @@ function onChecked() {
 }
 
 .tn-radio__button_disabled.tn-radio__button_checked {
-  /* border-color: var(--content-action-disabled); */
   opacity: 48%;
 }
 
 .tn-radio__button_disabled.tn-radio__button_checked:after {
-  /* background-color: var(--content-action-disabled); */
   opacity: 48%;
 }
 
