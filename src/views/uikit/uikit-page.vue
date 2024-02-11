@@ -88,6 +88,7 @@ const avatars = reactive([
 
 <template>
   <div class="uikit-page">
+    <!-- Badge -->
     <div class="uikit-page__block">
       <h2 class="uikit-page__block-title">Badge</h2>
 
@@ -116,6 +117,7 @@ const avatars = reactive([
       </div>
     </div>
 
+    <!-- Buttons -->
     <div class="uikit-page__block">
       <h2 class="uikit-page__block-title">Buttons</h2>
 
@@ -256,6 +258,7 @@ const avatars = reactive([
       </div>
     </div>
 
+    <!-- Tumbler -->
     <div class="uikit-page__block">
       <h2 class="uikit-page__block-title">Tumbler</h2>
 
@@ -316,6 +319,7 @@ const avatars = reactive([
       </div>
     </div>
 
+    <!-- Radiobox -->
     <div class="uikit-page__block">
       <h2 class="uikit-page__block-title">Radiobox</h2>
 
@@ -334,6 +338,7 @@ const avatars = reactive([
       </div>
     </div>
 
+    <!-- Avatar -->
     <div class="uikit-page__block">
       <h2 class="uikit-page__block-title">Avatar</h2>
 
@@ -398,6 +403,7 @@ const avatars = reactive([
       </div>
     </div>
 
+    <!-- Avatar Group -->
     <div class="uikit-page__block">
       <h2 class="uikit-page__block-title">Avatar Group</h2>
 
@@ -417,6 +423,7 @@ const avatars = reactive([
       </div>
     </div>
 
+    <!-- Checkbox -->
     <div class="uikit-page__block">
       <h2 class="uikit-page__block-title">Checkbox</h2>
 
@@ -434,6 +441,7 @@ const avatars = reactive([
       </div>
     </div>
 
+    <!-- Input -->
     <div class="uikit-page__block">
       <h2 class="uikit-page__block-title">Input</h2>
 
@@ -473,7 +481,7 @@ const avatars = reactive([
             <TnIcon name="plus" />
           </template>
 
-          <template #icon-left>
+          <template #icon>
             <TnIcon name="menu" />
           </template>
         </TnInput>
@@ -483,6 +491,18 @@ const avatars = reactive([
           @update:modelValue="collectSearchValue"
           :model-value="searchValue"
           disabled
+          description="This is the description area"
+        >
+          <template #icon-right>
+            <TnIcon name="plus" />
+          </template>
+        </TnInput>
+
+        <TnInput
+          floatingLabel="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          readonly
           description="This is the description area"
         >
           <template #icon-right>
@@ -554,7 +574,7 @@ const avatars = reactive([
             <TnIcon name="plus" />
           </template>
 
-          <template #icon-left>
+          <template #icon>
             <TnIcon name="menu" />
           </template>
         </TnInput>
@@ -565,6 +585,19 @@ const avatars = reactive([
           :model-value="searchValue"
           placeholder="Placeholder"
           disabled
+          description="This is the description area"
+        >
+          <template #icon-right>
+            <TnIcon name="plus" />
+          </template>
+        </TnInput>
+
+        <TnInput
+          label="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          placeholder="Placeholder"
+          readonly
           description="This is the description area"
         >
           <template #icon-right>
@@ -599,6 +632,7 @@ const avatars = reactive([
       </div>
     </div>
 
+    <!-- Textarea -->
     <div class="uikit-page__block">
       <h2 class="uikit-page__block-title">Textarea</h2>
 
@@ -648,7 +682,7 @@ const avatars = reactive([
             <TnIcon name="chevron-down" />
           </template>
 
-          <template #icon-left>
+          <template #icon>
             <TnIcon name="plus" />
           </template>
         </TnTextarea>
@@ -658,6 +692,18 @@ const avatars = reactive([
           @update:modelValue="collectSearchValue"
           :model-value="searchValue"
           disabled
+          description="This is the description area"
+        >
+          <template #icon-right>
+            <TnIcon name="chevron-down" />
+          </template>
+        </TnTextarea>
+
+        <TnTextarea
+          floatingLabel="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          readonly
           description="This is the description area"
         >
           <template #icon-right>
@@ -740,7 +786,7 @@ const avatars = reactive([
             <TnIcon name="chevron-down" />
           </template>
 
-          <template #icon-left>
+          <template #icon>
             <TnIcon name="plus" />
           </template>
         </TnTextarea>
@@ -751,6 +797,19 @@ const avatars = reactive([
           :model-value="searchValue"
           placeholder="Placeholder"
           disabled
+          description="This is the description area"
+        >
+          <template #icon-right>
+            <TnIcon name="chevron-down" />
+          </template>
+        </TnTextarea>
+
+        <TnTextarea
+          label="label"
+          @update:modelValue="collectSearchValue"
+          :model-value="searchValue"
+          placeholder="Placeholder"
+          readonly
           description="This is the description area"
         >
           <template #icon-right>
@@ -785,6 +844,7 @@ const avatars = reactive([
       </div>
     </div>
 
+    <!-- Tabs -->
     <div class="uikit-page__block">
       <h2 class="uikit-page__block-title">Tabs</h2>
 

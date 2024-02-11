@@ -8,15 +8,17 @@ const props = withDefaults(
     label?: string;
     placeholder?: string;
     modelValue?: string;
+    icon?: string;
     iconRight?: string;
-    iconLeft?: string;
     disabled?: boolean;
     description?: string;
     error?: boolean;
+    readonly?: boolean;
   }>(),
   {
     required: true,
     modelValue: "",
+    readonly: false,
   }
 );
 
@@ -34,8 +36,8 @@ const hasLabel = computed<boolean>(() => !!slots["label"] || !!props.label);
 const hasRightIcon = computed<boolean>(
   () => !!slots["icon-right"] || !!props.iconRight
 );
-const hasLeftIcon = computed<boolean>(
-  () => !!slots["icon-left"] || !!props.iconLeft
+const hasIcon = computed<boolean>(
+  () => !!slots["icon"] || !!props.icon
 );
 
 const updateModelValue = (value: string) => {
@@ -57,7 +59,7 @@ const updateModelValue = (value: string) => {
       class="tn-input__label"
       :class="{
         'tn-input__label_on-focus': modelValue.length,
-        'tn-input__label_has-left-icon': hasLeftIcon,
+        'tn-input__label_has-left-icon': hasIcon,
       }"
       :for="inputId"
     >
@@ -74,9 +76,9 @@ const updateModelValue = (value: string) => {
         'tn-input_on-focused': onFocused,
       }"
     >
-      <span v-if="hasLeftIcon" class="tn-input__icon tn-input__icon_left">
-        <slot name="icon-left">
-          <TNIcon :name="iconLeft" />
+      <span v-if="hasIcon" class="tn-input__icon tn-input__icon_left">
+        <slot name="icon">
+          <TNIcon :name="icon" />
         </slot>
       </span>
 
@@ -88,8 +90,10 @@ const updateModelValue = (value: string) => {
         :value="props.modelValue"
         :placeholder="placeholder"
         @input="updateModelValue($event.target.value)"
+        v-bind="$attrs"
         @focus="onFocused = true"
         @blur="onFocused = false"
+        :readonly="readonly"
       />
       
       <label
@@ -97,7 +101,7 @@ const updateModelValue = (value: string) => {
         class="tn-input__floating-label"
         :class="{
           'tn-input__floating-label_on-focus': modelValue.length,
-          'tn-input__floating-label_has-left-icon': hasLeftIcon,
+          'tn-input__floating-label_has-left-icon': hasIcon,
         }"
         :for="inputId"
       >
@@ -231,7 +235,7 @@ const updateModelValue = (value: string) => {
   outline: 2px solid #fcddde;
   border: 1px solid #eb3b41;
 
-  transition: 300ms;
+  transition: 200ms !important;
 
   &:hover {
     background-color: #fff;

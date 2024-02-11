@@ -19,8 +19,9 @@ const props = withDefaults(
     placeholder?: string;
     modelValue?: string;
     iconRight?: string;
-    iconLeft?: string;
+    icon?: string;
     disabled?: boolean;
+    readonly?: boolean;
     description?: string;
     error?: boolean;
     rows: number;
@@ -37,6 +38,7 @@ const props = withDefaults(
     minHeight: 50,
     maxHeight: null,
     autoResize: true,
+    readonly: false,
   }
 );
 
@@ -54,8 +56,8 @@ const hasLabel = computed<boolean>(() => !!slots["label"] || !!props.label);
 const hasRightIcon = computed<boolean>(
   () => !!slots["icon-right"] || !!props.iconRight
 );
-const hasLeftIcon = computed<boolean>(
-  () => !!slots["icon-left"] || !!props.iconLeft
+const hasIcon = computed<boolean>(
+  () => !!slots["icon"] || !!props.icon
 );
 
 const textareaContent = ref<string>("");
@@ -141,7 +143,7 @@ const updateModelValue = (value: string) => {
       class="tn-textarea__label"
       :class="{
         'tn-textarea__label_on-focus': modelValue.length,
-        'tn-textarea__label_has-left-icon': hasLeftIcon,
+        'tn-textarea__label_has-left-icon': hasIcon,
       }"
       :for="inputId"
     >
@@ -158,9 +160,9 @@ const updateModelValue = (value: string) => {
         'tn-textarea_on-focused': onFocused,
       }"
     >
-      <span v-if="hasLeftIcon" class="tn-textarea__icon tn-textarea__icon_left">
-        <slot name="icon-left">
-          <TNIcon :name="iconLeft" />
+      <span v-if="hasIcon" class="tn-textarea__icon tn-textarea__icon_left">
+        <slot name="icon">
+          <TNIcon :name="icon" />
         </slot>
       </span>
 
@@ -171,8 +173,11 @@ const updateModelValue = (value: string) => {
         :rows="rows"
         :cols="cols"
         :placeholder="placeholder"
+        :value="props.modelValue"
+        v-bind="$attrs"
         wrap="hard"
         :required="required"
+        :readonly="readonly"
         @focus="onFocused = true"
         @blur="onFocused = false"
         :style="styles"
@@ -183,7 +188,7 @@ const updateModelValue = (value: string) => {
         class="tn-textarea__floating-label"
         :class="{
           'tn-textarea__floating-label_on-focus': modelValue.length,
-          'tn-textarea__floating-label_has-left-icon': hasLeftIcon,
+          'tn-textarea__floating-label_has-left-icon': hasIcon,
         }"
         :for="inputId"
       >
@@ -255,8 +260,6 @@ const updateModelValue = (value: string) => {
     &:focus + .tn-textarea__floating-label {
       top: 5px;
 
-      margin-top: 0px;
-
       animation-name: size-down;
       animation-duration: 300ms;
       animation-timing-function: linear;
@@ -267,11 +270,9 @@ const updateModelValue = (value: string) => {
 
   .tn-textarea__floating-label {
     position: absolute;
-    top: 50%;
+    top: 18px;
     transform: scale(1);
     max-width: 80%;
-
-    margin-top: -9px;
 
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -288,13 +289,11 @@ const updateModelValue = (value: string) => {
   }
 
   .tn-textarea__floating-label_has-left-icon {
-    left: 50px;
+    left: 52px;
   }
 
   .tn-textarea__floating-label_on-focus {
     top: 5px;
-
-    margin-top: 0px;
 
     animation-name: size-down;
     animation-duration: 300ms;
@@ -306,6 +305,7 @@ const updateModelValue = (value: string) => {
   .tn-textarea__icon {
     display: flex;
     align-items: center;
+    align-self: flex-start;
 
     font-size: 24px;
 
@@ -318,7 +318,7 @@ const updateModelValue = (value: string) => {
   outline: 2px solid #fcddde;
   border: 1px solid #eb3b41;
 
-  transition: 300ms;
+  transition: 200ms !important;
 
   &:hover {
     background-color: #fff;
