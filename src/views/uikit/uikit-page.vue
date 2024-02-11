@@ -849,9 +849,15 @@ const avatars = reactive([
       <h2 class="uikit-page__block-title">Tabs</h2>
 
       <div class="uikit-page__block-items uikit-page__block-items_column">
+        <TnTabs v-model="currentOptionId" :options="optionsWithIcons" :soft="false" />
+      </div>
+
+      <h5 class="uikit-page__block-subtitle">Soft</h5>
+      <div class="uikit-page__block-items uikit-page__block-items_column">
         <TnTabs v-model="currentOptionId" :options="optionsWithIcons" />
       </div>
     </div>
+    
   </div>
 </template>
 

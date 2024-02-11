@@ -174,12 +174,12 @@ const updateModelValue = (value: string) => {
         :cols="cols"
         :placeholder="placeholder"
         :value="props.modelValue"
-        v-bind="$attrs"
         wrap="hard"
         :required="required"
         :readonly="readonly"
         @focus="onFocused = true"
         @blur="onFocused = false"
+        v-bind="$attrs"
         :style="styles"
       ></textarea>
 

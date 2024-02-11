@@ -90,10 +90,10 @@ const updateModelValue = (value: string) => {
         :value="props.modelValue"
         :placeholder="placeholder"
         @input="updateModelValue($event.target.value)"
-        v-bind="$attrs"
         @focus="onFocused = true"
         @blur="onFocused = false"
         :readonly="readonly"
+        v-bind="$attrs"
       />
       
       <label
