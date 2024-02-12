@@ -144,19 +144,25 @@ const hasImageOrIcon = computed(() => !!props.image || !!props.icon);
 
 .tn-user-picture__image {
   position: absolute;
+  top: 0;
+  left: 0;
+
   width: 100%;
   height: 100%;
+
   object-fit: cover;
 }
 
 .tn-user-picture__text {
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 22px;
-  text-transform: uppercase;
   position: absolute;
   top: 50%;
   left: 50%;
+
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  text-transform: uppercase;
+
   transform: translate(-50%, -50%);
 }
 

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, reactive } from "vue";
 import { TNTabsOption } from "@/components/uikit/tabs/typings";
+import { TNChipsOption } from "@/components/uikit/chips/typings";
+import { IAvatarGroupItem } from "@/components/uikit/avatar-group/typings";
 
 import TnBadge from "@/components/uikit/badge/tn-badge.vue";
 import TnIcon from "@/components/uikit/icons/tn-icon.vue";
@@ -13,12 +15,13 @@ import TnCheckbox from "@/components/uikit/checkbox/tn-checkbox.vue";
 import TnInput from "@/components/uikit/input/tn-input.vue";
 import TnTextarea from "@/components/uikit/textarea/tn-textarea.vue";
 import TnTabs from "@/components/uikit/tabs/tn-tabs.vue";
+import TnChips from "@/components/uikit/chips/tn-chips.vue";
 
 const isTumblerActive = ref<boolean>(false);
 const isCheckboxActive = ref<boolean>(false);
 const animalAsObject = ref(undefined);
 const searchValue = ref<string>("");
-const currentOptionId = ref<string | number>(0)
+const currentOptionId = ref<string | number>(0);
 
 const animal1 = reactive({
   id: "1",
@@ -29,44 +32,7 @@ const animal2 = reactive({
   label: "Кошка",
 });
 
-const optionsWithIcons: TNTabsOption[] = [
-  {
-    id: 1,
-    name: "Label 1",
-    icon: {
-      name: "menu"
-    }
-  },
-  {
-    id: 2,
-    name: "Label 2",
-  },
-  {
-    id: 3,
-    name: "Label 3",
-  },
-  {
-    id: 4,
-    name: "Label 4",
-    icon: {
-      name: "plus"
-    }
-  }
-];
-
-function setTumblerState(state: boolean) {
-  isTumblerActive.value = state;
-}
-
-function setCheckboxState(state: boolean) {
-  isCheckboxActive.value = state;
-}
-
-const collectSearchValue = (value: String) => {
-  searchValue.value = value;
-};
-
-const avatars = reactive([
+const avatars = reactive<IAvatarGroupItem[]>([
   {
     image:
       "https://i.pinimg.com/originals/84/01/13/84011369742c4581e76047ec420733f2.jpg",
@@ -84,6 +50,84 @@ const avatars = reactive([
     text: "В",
   },
 ]);
+
+const optionsWithIcons: TNTabsOption[] = [
+  {
+    id: 1,
+    name: "Label 1",
+    icon: {
+      name: "menu",
+    },
+  },
+  {
+    id: 2,
+    name: "Label 2",
+  },
+  {
+    id: 3,
+    name: "Label 3",
+  },
+  {
+    id: 4,
+    name: "Label 4",
+    icon: {
+      name: "plus",
+    },
+  },
+];
+
+let chipsOptions = ref<TNChipsOption[]>([
+  {
+    id: 1,
+    name: "Label 1",
+    avatar: {
+      image:
+        "https://i.pinimg.com/originals/84/01/13/84011369742c4581e76047ec420733f2.jpg",
+      alt: "some alt",
+    },
+  },
+  {
+    id: 2,
+    name: "Label 2",
+  },
+  {
+    id: 3,
+    name: "Label 3",
+  },
+  {
+    id: 4,
+    name: "Label 4",
+    avatar: {
+      text: "В",
+    },
+  },
+  {
+    id: 5,
+    name: "Label 5",
+    avatar: {
+      image:
+        "https://i.pinimg.com/originals/84/01/13/84011369742c4581e76047ec420733f2.jpg",
+      alt: "some alt",
+    },
+    disabled: true,
+  },
+]);
+
+function setTumblerState(state: boolean) {
+  isTumblerActive.value = state;
+}
+
+function setCheckboxState(state: boolean) {
+  isCheckboxActive.value = state;
+}
+
+function collectSearchValue(value: string) {
+  searchValue.value = value;
+}
+
+function deleteChipItem(itemId: TNChipsOption["id"]) {
+  chipsOptions.value = chipsOptions.value.filter((item) => item.id !== itemId);
+}
 </script>
 
 <template>
@@ -849,7 +893,11 @@ const avatars = reactive([
       <h2 class="uikit-page__block-title">Tabs</h2>
 
       <div class="uikit-page__block-items uikit-page__block-items_column">
-        <TnTabs v-model="currentOptionId" :options="optionsWithIcons" :soft="false" />
+        <TnTabs
+          v-model="currentOptionId"
+          :options="optionsWithIcons"
+          :soft="false"
+        />
       </div>
 
       <h5 class="uikit-page__block-subtitle">Soft</h5>
@@ -857,7 +905,20 @@ const avatars = reactive([
         <TnTabs v-model="currentOptionId" :options="optionsWithIcons" />
       </div>
     </div>
-    
+
+    <!-- Chips -->
+    <div class="uikit-page__block">
+      <h2 class="uikit-page__block-title">Chips</h2>
+
+      <div class="uikit-page__block-items uikit-page__block-items_column">
+        <TnChips v-model="currentOptionId" :options="chipsOptions" @delete="deleteChipItem" />
+      </div>
+
+      <h5 class="uikit-page__block-subtitle">Disabled</h5>
+      <div class="uikit-page__block-items uikit-page__block-items_column">
+        <TnChips v-model="currentOptionId" :options="chipsOptions" disabled @delete="deleteChipItem" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -884,6 +945,7 @@ const avatars = reactive([
   .uikit-page__block-items {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 10px;
   }
 
