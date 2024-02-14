@@ -685,8 +685,7 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
       <div class="uikit-page__block-items uikit-page__block-items_column">
         <TnTextarea
           floatingLabel="label"
-          @update:modelValue="collectSearchValue"
-          :model-value="searchValue"
+          v-model="searchValue"
           :required="false"
         >
         </TnTextarea>
@@ -912,12 +911,21 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
       <h2 class="uikit-page__block-title">Chips</h2>
 
       <div class="uikit-page__block-items uikit-page__block-items_column">
-        <TnChips v-model="currentOptionId" :options="chipsOptions" @delete="deleteChipItem" />
+        <TnChips
+          v-model="currentOptionId"
+          :options="chipsOptions"
+          @delete="deleteChipItem"
+        />
       </div>
 
       <h5 class="uikit-page__block-subtitle">Disabled</h5>
       <div class="uikit-page__block-items uikit-page__block-items_column">
-        <TnChips v-model="currentOptionId" :options="chipsOptions" disabled @delete="deleteChipItem" />
+        <TnChips
+          v-model="currentOptionId"
+          :options="chipsOptions"
+          disabled
+          @delete="deleteChipItem"
+        />
       </div>
     </div>
   </div>

@@ -3,10 +3,8 @@ import {
   defineProps,
   computed,
   useSlots,
-  defineEmits,
   ref,
   watch,
-  onBeforeMount,
   nextTick,
   onMounted,
 } from "vue";
@@ -17,7 +15,6 @@ const props = withDefaults(
     floatingLabel?: string;
     label?: string;
     placeholder?: string;
-    modelValue?: string;
     iconRight?: string;
     icon?: string;
     disabled?: boolean;
@@ -32,7 +29,6 @@ const props = withDefaults(
   }>(),
   {
     required: true,
-    modelValue: "",
     rows: 2,
     cols: 0,
     minHeight: 50,
@@ -43,7 +39,11 @@ const props = withDefaults(
 );
 
 const slots = useSlots();
-const emits = defineEmits(["update:modelValue"]);
+
+const modelValue = defineModel("modelValue", {
+  default: "",
+  required: true,
+});
 
 const uniqueId = Math.floor(Math.random() * 99999) + 1;
 const inputId = computed<string>(() => `tn-textarea-${uniqueId}`);
@@ -56,11 +56,8 @@ const hasLabel = computed<boolean>(() => !!slots["label"] || !!props.label);
 const hasRightIcon = computed<boolean>(
   () => !!slots["icon-right"] || !!props.iconRight
 );
-const hasIcon = computed<boolean>(
-  () => !!slots["icon"] || !!props.icon
-);
+const hasIcon = computed<boolean>(() => !!slots["icon"] || !!props.icon);
 
-const textareaContent = ref<string>("");
 const textarea = ref<HTMLTextAreaElement | null>(null);
 const height = ref<string>("");
 const isScrollEnabled = ref<boolean>(false);
@@ -77,25 +74,8 @@ const styles = computed<{
   overflow: `${isScrollEnabled.value ? "scroll" : "hidden"} !important`,
 }));
 
-watch(
-  () => textareaContent.value,
-  () => {
-    emits("update:modelValue", textareaContent.value);
-    resize();
-  }
-);
-
-watch(
-  () => props.modelValue,
-  (val) => {
-    textareaContent.value = String(val);
-  }
-);
-
-onBeforeMount(() => {
-  nextTick(() => {
-    textareaContent.value = props.modelValue;
-  });
+watch(modelValue, () => {
+  resize();
 });
 
 const resize = () => {
@@ -123,10 +103,6 @@ const resize = () => {
 onMounted(() => {
   resize();
 });
-
-const updateModelValue = (value: string) => {
-  emits("update:modelValue", value);
-};
 </script>
 
 <template>
@@ -169,16 +145,15 @@ const updateModelValue = (value: string) => {
       <textarea
         class="tn-textarea__input"
         ref="textarea"
-        @input="updateModelValue($event.target.value)"
         :rows="rows"
         :cols="cols"
         :placeholder="placeholder"
-        :value="props.modelValue"
         wrap="hard"
         :required="required"
         :readonly="readonly"
         @focus="onFocused = true"
         @blur="onFocused = false"
+        v-model="modelValue"
         v-bind="$attrs"
         :style="styles"
       ></textarea>
