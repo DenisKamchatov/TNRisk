@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, defineComponent, PropType, useSlots } from "vue";
-// import { TNRadioButtonOption } from "../interfaces";
+import { TNRadioButtonOption } from "./typings";
 
 type TNRadioButtonOption =
   | {
@@ -22,9 +22,9 @@ const props = defineProps({
       v === null || (typeof v === "object" && (v.id || v.id === 0)),
   },
   uniqueKey: { required: false, type: String },
-  disabled: Boolean,
-  error: String,
-  warn: String,
+  disabled: { required: false, Boolean },
+  error: { required: false, String },
+  warn: { required: false, String },
 });
 
 // const props = withDefaults(

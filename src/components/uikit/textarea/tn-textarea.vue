@@ -24,11 +24,11 @@ const props = withDefaults(
     readonly?: boolean;
     description?: string;
     error?: boolean;
-    rows: number;
-    cols: number;
-    minHeight: number;
-    maxHeight: number | null;
-    autoResize: boolean;
+    rows?: number;
+    cols?: number;
+    minHeight?: number;
+    maxHeight?: number | null;
+    autoResize?: boolean;
   }>(),
   {
     required: true,

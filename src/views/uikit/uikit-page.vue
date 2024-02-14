@@ -3,6 +3,7 @@ import { ref, reactive } from "vue";
 import { TNTabsOption } from "@/components/uikit/tabs/typings";
 import { TNChipsOption } from "@/components/uikit/chips/typings";
 import { IAvatarGroupItem } from "@/components/uikit/avatar-group/typings";
+import { TNRadioButtonOption } from "@/components/uikit/radio/typings";
 
 import TnBadge from "@/components/uikit/badge/tn-badge.vue";
 import TnIcon from "@/components/uikit/icons/tn-icon.vue";
@@ -19,7 +20,7 @@ import TnChips from "@/components/uikit/chips/tn-chips.vue";
 
 const isTumblerActive = ref<boolean>(false);
 const isCheckboxActive = ref<boolean>(false);
-const animalAsObject = ref(undefined);
+const animalAsObject = ref<TNRadioButtonOption>(undefined);
 const searchValue = ref<string>("");
 const currentOptionId = ref<string | number>(0);
 
