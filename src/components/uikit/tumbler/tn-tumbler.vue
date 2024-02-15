@@ -2,23 +2,18 @@
 import {
   computed,
   ComputedRef,
-  defineComponent,
-  PropType,
-  defineEmits,
   useSlots,
 } from "vue";
 import TNIcon from "@/components/uikit/icons/tn-icon.vue";
-//   import { IconNames } from "../icons/icon-names";
+
 const props = withDefaults(
   defineProps<{
     disabled?: boolean;
     block?: boolean;
     size?: "md" | "lg";
-    modelValue: boolean;
     icon?: string;
     error?: string;
     warn?: string;
-    // TODO: Что делать с label и leftLabel? Его в дизайне нигде нет
     label?: string;
     description?: string;
     leftLabel?: boolean;
@@ -31,7 +26,11 @@ const props = withDefaults(
     disabled: false,
   }
 );
-const emits = defineEmits(["update:modelValue"]);
+const modelValue = defineModel<boolean>("modelValue", {
+  type: Boolean,
+  required: false,
+  default: false,
+})
 const slots = useSlots();
 
 const hasLabel: ComputedRef<boolean> = computed(
@@ -41,7 +40,7 @@ const hasLabel: ComputedRef<boolean> = computed(
 
 function onTumblerClick() {
   if (props.disabled) return;
-  emits("update:modelValue", !props.modelValue);
+  modelValue.value = !modelValue.value;
 }
 </script>
 

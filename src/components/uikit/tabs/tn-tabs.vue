@@ -6,14 +6,12 @@ import { TNTabsOption } from "./typings.ts";
 const props = withDefaults(
   defineProps<{
     options: TNTabsOption[];
-    modelValue?: string | number;
     soft?: boolean;
     disabled?: boolean;
     scrollIntoView?: boolean;
-    size: "md" | "lg";
+    size?: "md" | "lg";
   }>(),
   {
-    modelValue: 0,
     soft: true,
     disabled: false,
     scrollIntoView: false,
@@ -21,7 +19,10 @@ const props = withDefaults(
   }
 );
 
-const emits = defineEmits(["update:modelValue"]);
+const modelValue = defineModel<TNTabsOption["id"]>("modelValue", {
+  default: 0,
+  required: false,
+});
 
 
 const TNTabs: Ref<HTMLElement | null> = ref(null);
@@ -30,7 +31,7 @@ function scrollToCurrent() {
     if (props.scrollIntoView) {
     if (TNTabs.value) {
         const currentTab: HTMLElement | null = TNTabs.value?.querySelector(
-        ".tn-tabs__item-" + props.modelValue
+        ".tn-tabs__item-" + modelValue
         );
         if (currentTab) {
         currentTab.scrollIntoView({
@@ -44,16 +45,16 @@ function scrollToCurrent() {
 }
 
 function changeTab(item: TNTabsOption) {
-    emits("update:modelValue", item.id);
+    modelValue.value = item.id
     setTimeout(() => {
     scrollToCurrent();
     }, 1);
 };
 
 watch(
-    () => props.modelValue,
+    () => modelValue,
     (newTab, oldTab) => {
-    if (props.modelValue && newTab !== oldTab) {
+    if (modelValue && newTab !== oldTab) {
         scrollToCurrent();
     }
     }

@@ -20,7 +20,7 @@ import TnChips from "@/components/uikit/chips/tn-chips.vue";
 
 const isTumblerActive = ref<boolean>(false);
 const isCheckboxActive = ref<boolean>(false);
-const animalAsObject = ref<TNRadioButtonOption>(undefined);
+const animalAsObject = ref<TNRadioButtonOption | null>(null);
 const searchValue = ref<string>("");
 const currentOptionId = ref<string | number>(0);
 

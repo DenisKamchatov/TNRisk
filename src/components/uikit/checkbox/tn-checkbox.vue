@@ -1,11 +1,9 @@
 <script lang="ts" setup>
-import { computed, ComputedRef, defineComponent, useSlots } from "vue";
+import { computed, ComputedRef, useSlots } from "vue";
 
 const props = withDefaults(
   defineProps<{
-    // TODO: В дизайне нет label, error, warn и description
     label?: string;
-    modelValue: boolean;
     disabled?: boolean;
     error?: string;
     warn?: string;
@@ -14,7 +12,10 @@ const props = withDefaults(
   {}
 );
 
-const emits = defineEmits(["update:modelValue"]);
+const modelValue = defineModel<boolean>("modelValue", {
+  type: Boolean,
+  default: false,
+});
 const slots = useSlots();
 
 const inputId: ComputedRef<string> = computed(
@@ -27,7 +28,7 @@ function handleMouseUp(event: MouseEvent) {
 }
 
 function clickHandler() {
-  emits("update:modelValue", !props.modelValue);
+  modelValue.value = !modelValue.value;
 }
 
 </script>

@@ -7,7 +7,6 @@ const props = withDefaults(
     floatingLabel?: string;
     label?: string;
     placeholder?: string;
-    modelValue?: string;
     icon?: string;
     iconRight?: string;
     disabled?: boolean;
@@ -17,13 +16,15 @@ const props = withDefaults(
   }>(),
   {
     required: true,
-    modelValue: "",
     readonly: false,
   }
 );
 
 const slots = useSlots();
-const emits = defineEmits(["update:modelValue"]);
+const modelValue = defineModel<string>("modelValue", {
+  type: String,
+  default: "",
+});
 
 const uniqueId = Math.floor(Math.random() * 99999) + 1;
 const inputId = computed<string>(() => `tn-input-${uniqueId}`);
@@ -39,10 +40,6 @@ const hasRightIcon = computed<boolean>(
 const hasIcon = computed<boolean>(
   () => !!slots["icon"] || !!props.icon
 );
-
-const updateModelValue = (value: string) => {
-  emits("update:modelValue", value);
-};
 </script>
 
 <template>
@@ -58,7 +55,7 @@ const updateModelValue = (value: string) => {
       v-if="hasLabel"
       class="tn-input__label"
       :class="{
-        'tn-input__label_on-focus': modelValue.length,
+        'tn-input__label_on-focus': modelValue?.length,
         'tn-input__label_has-left-icon': hasIcon,
       }"
       :for="inputId"
@@ -87,9 +84,8 @@ const updateModelValue = (value: string) => {
         class="tn-input__input"
         type="text"
         :required="required"
-        :value="props.modelValue"
         :placeholder="placeholder"
-        @input="updateModelValue($event.target.value)"
+        v-model="modelValue"
         @focus="onFocused = true"
         @blur="onFocused = false"
         :readonly="readonly"
@@ -100,7 +96,7 @@ const updateModelValue = (value: string) => {
         v-if="hasFloatingLabel && !hasLabel"
         class="tn-input__floating-label"
         :class="{
-          'tn-input__floating-label_on-focus': modelValue.length,
+          'tn-input__floating-label_on-focus': modelValue?.length,
           'tn-input__floating-label_has-left-icon': hasIcon,
         }"
         :for="inputId"

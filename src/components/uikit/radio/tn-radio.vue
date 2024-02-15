@@ -2,14 +2,6 @@
 import { computed, defineComponent, PropType, useSlots } from "vue";
 import { TNRadioButtonOption } from "./typings";
 
-type TNRadioButtonOption =
-  | {
-      id: string | number;
-      label: string;
-    }
-  | undefined
-  | null;
-
 const props = defineProps({
   itemValue: {
     required: true,
@@ -22,22 +14,10 @@ const props = defineProps({
       v === null || (typeof v === "object" && (v.id || v.id === 0)),
   },
   uniqueKey: { required: false, type: String },
-  disabled: { required: false, Boolean },
-  error: { required: false, String },
-  warn: { required: false, String },
+  disabled: { required: false, type: Boolean },
+  error: { required: false, type: String },
+  warn: { required: false, type: String },
 });
-
-// const props = withDefaults(
-//   defineProps<{
-//     itemValue: TNRadioButtonOption;
-//     summaryValue: TNRadioButtonOption;
-//     uniqueKey?: string;
-//     disabled?: boolean;
-//     error?: string;
-//     warn?: string;
-//   }>(),
-//   {}
-// );
 
 const emits = defineEmits(["input"]);
 const slots = useSlots();

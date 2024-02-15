@@ -7,21 +7,20 @@ import { TNChipsOption } from "./typings.ts";
 const props = withDefaults(
   defineProps<{
     options: TNChipsOption[];
-    modelValue?: string | number;
     disabled?: boolean;
   }>(),
   {
-    modelValue: 0,
     disabled: false,
   }
 );
 
-const emits = defineEmits(["update:modelValue", 'delete']);
+const emits = defineEmits(["delete"]);
+const modelValue = defineModel<TNChipsOption["id"]>("modelValue");
 
 const TNChips: Ref<HTMLElement | null> = ref(null);
 
-function changeChip(item: TNChipsOption) {
-  emits("update:modelValue", item.id);
+function chooseChip(itemId: TNChipsOption["id"]) {
+  modelValue.value = itemId;
 }
 
 function deleteChip(itemId: TNChipsOption["id"]) {
@@ -48,11 +47,12 @@ function deleteChip(itemId: TNChipsOption["id"]) {
         class="tn-chips__item-btn"
         :class="{
           'tn-chips__item-btn_disabled': item.disabled,
-          'tn-chips__item-btn_active': (modelValue && !item.disabled && !disabled) && item.id === modelValue,
+          'tn-chips__item-btn_active':
+            modelValue && !item.disabled && !disabled && item.id === modelValue,
           'tn-chips__item-btn_icon': !!item.avatar,
         }"
         :disabled="disabled || item.disabled"
-        @click="changeChip(item)"
+        @click="chooseChip(item.id)"
       >
         <TnAvatar
           v-if="item.avatar"
