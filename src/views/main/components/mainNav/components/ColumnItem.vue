@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { IMenuItemData } from "../../../../../typings/menuData";
+import { IMenuItemData } from "@/typings/menuData";
+
+import tnBadge from "@/components/uikit/badge/tn-badge.vue";
 
 const { item, isBig } = withDefaults(
   defineProps<{
@@ -13,7 +15,7 @@ const { item, isBig } = withDefaults(
 </script>
 
 <template>
-  <div class="column__item" :class="{ 'column__item_big': isBig }">
+  <div class="column__item" :class="{ column__item_big: isBig }">
     <router-link v-if="item.to" class="column__item-wrapper" :to="item.to">
       <div class="column__item-icon" v-if="item.icon">
         <TNIcon :name="item.icon" :size="24" />
@@ -41,9 +43,12 @@ const { item, isBig } = withDefaults(
         </p>
       </div>
 
-      <div v-if="item.badge && +item.badge" class="column__item-badge">
-        {{ item.badge }}
-      </div>
+      <tnBadge
+        v-if="item.badge && +item.badge"
+        size="lg"
+        classic
+        :badge="item.badge"
+      />
     </a>
 
     <div class="column__item-wrapper" v-else>

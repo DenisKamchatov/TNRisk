@@ -68,16 +68,23 @@ const items: IFooterItems[] = [
 
 <style lang="scss">
 .main-footer {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 56px;
 
+  width: 100%;
   padding: 40px 50px;
 
   background-color: #fff;
   border-top: 1px solid #e7e9ef;
+
+  backdrop-filter: blur(5px);
 
   .main-footer__left-bar {
     display: flex;

@@ -169,8 +169,17 @@ const isOpenedMenu = ref<boolean>(false)
   }
 
   .header__top {
+    position: sticky;
+    top: 0;
+    left: 0;
+
+    width: 100%;
     padding: 24px 32px;
+    z-index: 100;
+    
     background-color: #fff;
+
+    backdrop-filter: blur(5px);
   }
 
   .header__icon-block {
