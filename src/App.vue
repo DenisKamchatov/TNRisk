@@ -1,27 +1,22 @@
 <script lang="ts" setup>
-import { RouterView } from 'vue-router';
-import Header from './components/Header.vue';
-import MainNav from './views/main/components/mainNav/MainNav.vue';
-import MainFooter from '@/views/main/components/MainFooter.vue';
-
+import { RouterView } from "vue-router";
+import AppHeader from "./components/app-header.vue";
+import MainNav from "./views/main/components/mainNav/MainNav.vue";
+import MainFooter from "@/views/main/components/MainFooter.vue";
 </script>
 
 <template>
-  <div id="app">
-    <Header>
-      <template #menu>
-        <MainNav>
-          <template #footer>
-            <MainFooter />
-          </template>
-        </MainNav>
-      </template>
-    </Header>
-    <router-view />
-  </div>
+  <AppHeader>
+    <template #menu>
+      <MainNav>
+        <template #footer>
+          <MainFooter />
+        </template>
+      </MainNav>
+    </template>
+  </AppHeader>
+  <router-view />
+  <div class="app-modals"></div>
 </template>
 
-
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

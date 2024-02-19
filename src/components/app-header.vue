@@ -1,37 +1,45 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from "vue";
 import TNIcon from "./uikit/icons/tn-icon.vue";
 
-const isOpenedMenu = ref<boolean>(false)
+const isOpenedMenu = ref<boolean>(false);
 </script>
 
 <template>
-  <div class="header__cap" v-if="isOpenedMenu"></div>
-  <header class="header container" :class="{ 'header_open-menu': isOpenedMenu }">
-    <div class="header__top">
-      <div class="header__left-bar">
-        <div class="header__icon-block">
+  <div class="app-header__cap" v-if="isOpenedMenu"></div>
+  <header
+    class="app-header container"
+    :class="{ 'header_open-menu': isOpenedMenu }"
+  >
+    <div class="app-header__top">
+      <div class="app-header__left-bar">
+        <div class="app-header__icon-block">
           <TNIcon name="logotype" :size="24" />
-          <h5 class="header__logo-title">Risk</h5>
+          <h5 class="app-header__logo-title">Risk</h5>
         </div>
 
-        <div class="header__menu-button menu-button" @click="isOpenedMenu = !isOpenedMenu">
-          <TNIcon :name=" isOpenedMenu ? 'x' : 'menu'" :size="24" />
+        <div
+          class="app-header__menu-button menu-button"
+          @click="isOpenedMenu = !isOpenedMenu"
+        >
+          <TNIcon :name="isOpenedMenu ? 'x' : 'menu'" :size="24" />
           <p class="menu-button__text">Меню</p>
         </div>
       </div>
       <!-- TODO: Добавить в header__right-bar кнопки -->
-      <nav class="header__right-bar"></nav>
+      <nav class="app-header__right-bar"></nav>
     </div>
-
-    <div v-if="isOpenedMenu" @click="isOpenedMenu = !isOpenedMenu" class="header__bg"></div>
     <slot name="menu" v-if="isOpenedMenu"></slot>
-    
+    <div
+      v-if="isOpenedMenu"
+      @click="isOpenedMenu = !isOpenedMenu"
+      class="app-header__bg"
+    ></div>
   </header>
 </template>
 
 <style lang="scss">
-.header__cap {
+.app-header__cap {
   position: fixed;
   top: 0;
   left: 0;
@@ -43,7 +51,7 @@ const isOpenedMenu = ref<boolean>(false)
 
   backdrop-filter: blur(5px);
 }
-.header {
+.app-header {
   position: fixed;
   top: 0;
   left: 0;
@@ -54,7 +62,7 @@ const isOpenedMenu = ref<boolean>(false)
 
   backdrop-filter: blur(5px);
 
-  .header__top {
+  .app-header__top {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -62,13 +70,12 @@ const isOpenedMenu = ref<boolean>(false)
     border-bottom: 1px solid #e7e9ef;
   }
 
-
-  .header__left-bar {
+  .app-header__left-bar {
     display: flex;
     align-items: center;
   }
 
-  .header__icon-block {
+  .app-header__icon-block {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -82,10 +89,10 @@ const isOpenedMenu = ref<boolean>(false)
     border-radius: 12px;
 
     .tn-icon {
-      color: #ED1C24;
+      color: #ed1c24;
     }
 
-    .header__logo-title {
+    .app-header__logo-title {
       color: #242424;
       margin: 0 0 0 11.5px;
     }
@@ -102,7 +109,7 @@ const isOpenedMenu = ref<boolean>(false)
     font-size: 16px;
 
     background-color: #fff;
-    color: #2E384B;
+    color: #2e384b;
 
     border-radius: 12px;
     cursor: pointer;
@@ -123,9 +130,10 @@ const isOpenedMenu = ref<boolean>(false)
   }
 }
 
+.app-header_open-menu {
+  display: flex;
+  flex-direction: column;
 
-
-.header_open-menu {
   position: fixed;
   top: 24px;
   left: 24px;
@@ -134,41 +142,43 @@ const isOpenedMenu = ref<boolean>(false)
   margin: 0 0;
   padding: 0 0;
   max-height: 90vh;
-  overflow-y: scroll;
+  overflow-y: hidden;
 
   background-color: #fff;
-  box-shadow: 0px 2px 8px 0px rgba(46, 56, 75, 0.08), 0px 0px 1px 0px rgba(46, 56, 75, 0.24), 0px 6px 58px 0px rgba(121, 145, 173, 0.19);
-  
+  box-shadow: 0px 2px 8px 0px rgba(46, 56, 75, 0.08),
+    0px 0px 1px 0px rgba(46, 56, 75, 0.24),
+    0px 6px 58px 0px rgba(121, 145, 173, 0.19);
+
   border-radius: 24px;
 
   backdrop-filter: none;
 
-  &::-webkit-scrollbar {
-    transform: translateX(40px);
-    width: 18px;
-    height: 18px;
-  }
+  // &::-webkit-scrollbar {
+  //   transform: translateX(40px);
+  //   width: 18px;
+  //   height: 18px;
+  // }
 
-  &::-webkit-scrollbar-track {
-    background: #fff;
-  }
+  // &::-webkit-scrollbar-track {
+  //   background: #fff;
+  // }
 
-  &::-webkit-scrollbar-thumb {
-    background-color: #d6dee1;
-    border-radius: 20px;
-    border: 6px solid transparent;
-    background-clip: content-box;
-  }
+  // &::-webkit-scrollbar-thumb {
+  //   background-color: #d6dee1;
+  //   border-radius: 20px;
+  //   border: 6px solid transparent;
+  //   background-clip: content-box;
+  // }
 
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: #a8bbbf;
-  }
+  // &::-webkit-scrollbar-thumb:hover {
+  //   background-color: #a8bbbf;
+  // }
 
-  &::-webkit-scrollbar-corner {
-    background: none;
-  }
+  // &::-webkit-scrollbar-corner {
+  //   background: none;
+  // }
 
-  .header__top {
+  .app-header__top {
     position: sticky;
     top: 0;
     left: 0;
@@ -176,26 +186,25 @@ const isOpenedMenu = ref<boolean>(false)
     width: 100%;
     padding: 24px 32px;
     z-index: 100;
-    
+
     background-color: #fff;
 
     backdrop-filter: blur(5px);
   }
 
-  .header__icon-block {
-    background-color: #F5F6FA;
+  .app-header__icon-block {
+    background-color: #f5f6fa;
   }
 
   .menu-button {
-
-    background-color: #F5F6FA;
+    background-color: #f5f6fa;
 
     .menu-button__text {
-      color: #2E384B;
+      color: #2e384b;
     }
   }
-  
-  .header__bg {
+
+  .app-header__bg {
     position: fixed;
     top: 0;
     left: 0;

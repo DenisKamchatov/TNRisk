@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { IMenucColumnData } from "../../../typings/menuData.ts";
-import TNIcon from "../../../components/uikit/icons/tn-icon.vue";
-import MainFooter from "./MainFooter.vue";
+import { IMenucColumnData } from "./typings";
 import Column from "./components/Column.vue";
 
 const { isBig } = withDefaults(
@@ -16,218 +14,113 @@ const { isBig } = withDefaults(
 const menu: IMenucColumnData[] = [
   {
     title: "Внутренний контроль",
-    // href: '',
-    // to: '',
     items: [
       {
         title: "Актуализация",
-        // href: '',
-        // to: '',
-        // icon: '',
-        // badge: '',
       },
       {
         title: "Оценка",
-        // href: '',
-        // to: '',
-        // icon: '',
-        // badge: '',
       },
       {
         title: "Управление",
-        // href: '',
-        // to: '',
-        // icon: '',
-        // badge: '',
       },
     ],
   },
   {
     title: "Внутренний аудит",
-    // href: '',
-    // to: '',
     items: [
       {
         title: "Планирование",
-        // subtitle: '',
-        // href: '',
-        // to: '',
-        // icon: '',
-        // badge: '',
       },
       {
         title: "Аудиты и расследования",
-        // subtitle: '',
-        // href: '',
-        // to: '',
-        // icon: '',
-        // badge: '',
       },
       {
         title: "Анкетирование",
-        // subtitle: '',
-        // href: '',
-        // to: '',
-        // icon: '',
-        // badge: '',
       },
     ],
   },
   {
     title: "Непрерывный мониторинг",
-    // href: '',
-    // to: '',
     items: [
       {
         title: "Мониторинг",
-        // subtitle: '',
-        // href: '',
-        // to: '',
-        // icon: '',
-        // badge: '',
       },
       {
         title: "Отчеты СВК",
         subtitle: "Система внутреннего контроля",
-        // href: '',
-        // to: '',
-        // icon: '',
-        // badge: '',
       },
       {
         title: "Отчеты ДВА",
         subtitle: "Департамент внутреннего аудита",
-        // href: '',
-        // to: '',
-        // icon: '',
-        // badge: '',
       },
     ],
   },
   {
     title: "Управление изменениями",
     href: "https://ya.ru/",
-    // to: '',
     items: [
       {
-        title:
-          "Зоны развития Зоны развития Зоны развития Зоны развития Зоны развития Зоны развития",
-        // subtitle: '',
+        title: "Зоны развития Зоны развития Зоны развития Зоны развития",
         href: "yandex.ru",
-        // to: '',
         icon: "menu",
         badge: "2",
       },
       {
         title: "Задачи",
-        // subtitle: '',
-        // href: '',
-        // to: '',
-        // icon: '',
         badge: "0",
       },
     ],
   },
   {
     title: "Внешние системы",
-    // href: '',
-    // to: '',
     items: [
       {
         title: "Охрана труда",
-        // subtitle: '',
-        // href: '',
-        // to: '',
-        // icon: '',
-        // badge: '',
       },
       {
         title: "ТОиР",
         subtitle: "Техническое обслуживание и ремонт",
-        // href: '',
-        // to: '',
-        // icon: '',
-        // badge: '',
       },
+      // {
+      //   title: "ОПС",
+      //   subtitle: "Оценка производственной системы",
+      // },
+      // {
+      //   title: "Комитет ВК",
+      //   subtitle: "Комитет внутреннего контроля",
+      // },
+      // {
+      //   title: "ТОиР",
+      //   subtitle: "Техническое обслуживание и ремонт",
+      // },
+      // {
+      //   title: "ОПС",
+      //   subtitle: "Оценка производственной системы",
+      // },
+      // {
+      //   title: "Комитет ВК",
+      //   subtitle: "Комитет внутреннего контроля",
+      // },
       {
         title: "ОПС",
         subtitle: "Оценка производственной системы",
-        // href: '',
-        // to: '',
-        // icon: '',
-        // badge: '',
       },
       {
         title: "Комитет ВК",
         subtitle: "Комитет внутреннего контроля",
-        // href: '',
-        // to: '',
-        // icon: '',
-        // badge: '',
       },
       {
         title: "ТОиР",
         subtitle: "Техническое обслуживание и ремонт",
-        // href: '',
-        // to: '',
-        // icon: '',
-        // badge: '',
       },
       {
         title: "ОПС",
         subtitle: "Оценка производственной системы",
-        // href: '',
-        // to: '',
-        // icon: '',
-        // badge: '',
       },
       {
         title: "Комитет ВК",
         subtitle: "Комитет внутреннего контроля",
-        // href: '',
-        // to: '',
-        // icon: '',
-        // badge: '',
-      },
-      {
-        title: "ОПС",
-        subtitle: "Оценка производственной системы",
-        // href: '',
-        // to: '',
-        // icon: '',
-        // badge: '',
-      },
-      {
-        title: "Комитет ВК",
-        subtitle: "Комитет внутреннего контроля",
-        // href: '',
-        // to: '',
-        // icon: '',
-        // badge: '',
-      },
-      {
-        title: "ТОиР",
-        subtitle: "Техническое обслуживание и ремонт",
-        // href: '',
-        // to: '',
-        // icon: '',
-        // badge: '',
-      },
-      {
-        title: "ОПС",
-        subtitle: "Оценка производственной системы",
-        // href: '',
-        // to: '',
-        // icon: '',
-        // badge: '',
-      },
-      {
-        title: "Комитет ВК",
-        subtitle: "Комитет внутреннего контроля",
-        // href: '',
-        // to: '',
-        // icon: '',
-        // badge: '',
       },
     ],
   },
@@ -253,33 +146,53 @@ const menu: IMenucColumnData[] = [
   grid-auto-flow: column;
   overflow: scroll;
 
-  height: 100%;
+  height: inherit;
 
   background-color: #fff;
 
   &::-webkit-scrollbar {
-    width: 18px;
-    height: 18px;
+    width: 8px;
+    height: 8px;
   }
 
   &::-webkit-scrollbar-track {
-    background: none;
+    background-color: transparent;
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #d6dee1;
-    border-radius: 20px;
-    border: 6px solid transparent;
+    background-color: #bfc4cd;
+    border-radius: 8px;
     background-clip: content-box;
   }
 
-  &::-webkit-scrollbar-thumb:hover {
-    background-color: #a8bbbf;
+  &::-webkit-scrollbar-corner {
+    background-color: transparent;
   }
 
-  &::-webkit-scrollbar-corner {
-    background: none;
-  }
+  // &::-webkit-scrollbar {
+  //   width: 6px;
+  //   height: 6px;
+  //   border: 1px solid transparent;
+  // }
+
+  // &::-webkit-scrollbar-track {
+  //   background-color: transparent;
+  // }
+
+  // &::-webkit-scrollbar-thumb {
+  //   background-color: #d6dee1;
+  //   border-radius: 20px;
+  //   border: 6px solid transparent;
+  //   background-clip: content-box;
+  // }
+
+  // &::-webkit-scrollbar-thumb:hover {
+  //   background-color: #a8bbbf;
+  // }
+
+  // &::-webkit-scrollbar-corner {
+  //   background: none;
+  // }
 }
 
 .main-nav_big {
