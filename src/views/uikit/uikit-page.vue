@@ -17,6 +17,7 @@ import TnInput from "@/components/uikit/input/tn-input.vue";
 import TnTextarea from "@/components/uikit/textarea/tn-textarea.vue";
 import TnTabs from "@/components/uikit/tabs/tn-tabs.vue";
 import TnChips from "@/components/uikit/chips/tn-chips.vue";
+import TNDialog from "@/components/uikit/dialog/tn-dialog.vue";
 
 const isTumblerActive = ref<boolean>(false);
 const isCheckboxActive = ref<boolean>(false);

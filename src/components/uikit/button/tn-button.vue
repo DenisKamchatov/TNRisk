@@ -134,7 +134,7 @@ function onClickButton(e: Event) {
 
 <style lang="scss">
 .tn-button {
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
