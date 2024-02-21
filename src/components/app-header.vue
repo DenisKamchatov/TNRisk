@@ -9,7 +9,7 @@ const isOpenedMenu = ref<boolean>(false);
   <div class="app-header__cap" v-if="isOpenedMenu"></div>
   <header
     class="app-header container"
-    :class="{ 'header_open-menu': isOpenedMenu }"
+    :class="{ 'app-header_open-menu': isOpenedMenu }"
   >
     <div class="app-header__top">
       <div class="app-header__left-bar">
@@ -26,15 +26,18 @@ const isOpenedMenu = ref<boolean>(false);
           <p class="menu-button__text">Меню</p>
         </div>
       </div>
+
       <!-- TODO: Добавить в header__right-bar кнопки -->
       <nav class="app-header__right-bar"></nav>
     </div>
     <slot name="menu" v-if="isOpenedMenu"></slot>
+
     <div
       v-if="isOpenedMenu"
       @click="isOpenedMenu = !isOpenedMenu"
       class="app-header__bg"
     ></div>
+
   </header>
 </template>
 
