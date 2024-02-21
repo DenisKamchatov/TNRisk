@@ -14,24 +14,26 @@ import TNIcon from "@/components/uikit/icons/tn-icon.vue";
 // TODO: добавить лоадер из кита и вернуть состояние загрузки в кнопку
 // import TnLoader from "@/components/uikit/elements/loader/tn-loader.vue";
 
-const props = defineProps({
-  size: {
-    type: String as PropType<"md" | "lg">,
-    default: "lg",
-  },
-  block: { type: Boolean, default: false },
-  primary: { type: Boolean, default: false },
-  secondary: { type: Boolean, default: false },
-  disabled: { type: Boolean, default: false },
-  icon: { type: String, required: false },
-  iconRight: { type: String, required: false },
-  href: { required: false, type: String },
-  norouter: { type: Boolean },
-  target: { required: false, type: String },
-  width: { type: [Number, String], required: false },
-});
-
-// TODO: можно ли как-то проверять передан слот или нет
+const props = withDefaults(
+  defineProps<{
+    size?: "md" | "lg",
+    block?: boolean,
+    primary?: boolean,
+    secondary?: boolean,
+    isIcon?: boolean,
+    disabled?: boolean,
+    icon?: string,
+    iconRight?: string,
+    href?: string,
+    norouter?: boolean,
+    target?: string,
+    width?: number | string,
+  }>(),
+  {
+    size: "lg",
+    primary: true,
+  }
+);
 
 const router = useRouter();
 
@@ -49,7 +51,7 @@ const hasContent = computed<boolean>(() => !!slots["default"]);
 const hasIconSlot = computed<boolean>(() => !!slots["icon"]);
 const hasRightIconSlot = computed<boolean>(() => !!slots["icon-right"]);
 const hasIcon = computed<boolean>(() => hasIconSlot.value || !!props.icon);
-const isOnlyIcon = computed<boolean>(() => !hasContent.value && hasIcon.value);
+const isOnlyIcon = computed<boolean>(() => !hasContent.value && hasIcon.value && !props.isIcon);
 const hasLeftIcon = computed<boolean>(() => hasIcon.value);
 const hasRightIcon = computed<boolean>(
   () => hasRightIconSlot.value || !!props.iconRight
@@ -93,11 +95,12 @@ function onClickButton(e: Event) {
       'tn-button_large': sizeOutput === 'lg',
       'tn-button_lefticon': hasLeftIcon,
       'tn-button_righticon': hasRightIcon,
-      'tn-button_disabled': disabled,
       'tn-button_primary': primary,
       'tn-button_secondary': secondary,
       'tn-button_only-icon': isOnlyIcon,
       'tn-button_block': block,
+      'tn-button_disabled': disabled,
+      'tn-button_is-icon': isIcon,
     }"
     :style="{ width: buttonWidth }"
     @click="onClickButton"
@@ -114,11 +117,11 @@ function onClickButton(e: Event) {
       </slot>
     </span>
 
-    <span v-if="hasContent" class="tn-button__text">
+    <span v-if="hasContent && !isIcon" class="tn-button__text">
       <slot></slot>
     </span>
 
-    <span v-if="hasRightIcon" class="tn-button__icon tn-button__icon_right">
+    <span v-if="hasRightIcon && !isIcon" class="tn-button__icon tn-button__icon_right">
       <slot name="icon-right">
         <TNIcon :size="20" :name="iconRight" />
       </slot>
@@ -255,6 +258,16 @@ function onClickButton(e: Event) {
     background-color: #9ea5b5;
     color: #fff;
   }
+}
+
+.tn-button_is-icon {
+  background: none;
+  border-radius: 50%;
+  min-width: 0;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  margin: 0;
 }
 
 .tn-button_block {
