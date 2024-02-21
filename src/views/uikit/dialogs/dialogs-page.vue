@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import TnDialog from "@/components/uikit/dialog/tn-dialog.vue";
 import TnDialogHeader from "@/components/uikit/dialog/tn-dialog-header.vue";
+import TnDialogHeaderDouble from "@/components/uikit/dialog/tn-dialog-header-double.vue";
 import SomeList from "./some-list.vue";
 import TnButton from "@/components/uikit/button/tn-button.vue";
 
@@ -16,6 +17,7 @@ const props = withDefaults(
 
 const list = ref(["1", "2", "3"]);
 const isDialogVisible = ref(false);
+const isDialogSecondVisible = ref(false);
 </script>
 
 <template>
@@ -28,10 +30,30 @@ const isDialogVisible = ref(false);
         >
 
         <TnDialog v-if="isDialogVisible" @close="isDialogVisible = false">
-          <TnDialogHeader title="QWERTYU asdfgh"></TnDialogHeader>
+          <TnDialogHeader title="Text"></TnDialogHeader>
           <SomeList :list="list"></SomeList>
         </TnDialog>
       </div>
+
+      <div class="uikit-page__block-items">
+        <TnButton primary @click="isDialogSecondVisible = true"
+          >Открыть диалог</TnButton
+        >
+
+        <TnDialog v-if="isDialogSecondVisible" @close="isDialogSecondVisible = false">
+          <TnDialogHeaderDouble title="Text" second-title="Text 2">
+            <template #buttons>
+              <TnButton secondary icon="dots-vertical" is-icon />
+            </template>
+            <template #buttonsRight>
+              <TnButton secondary icon="dots-vertical" is-icon />
+            </template>
+          </TnDialogHeaderDouble>
+          <SomeList :list="list"></SomeList>
+        </TnDialog>
+      </div>
+
+
     </div>
   </div>
 </template>

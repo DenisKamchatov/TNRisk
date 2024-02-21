@@ -10,6 +10,7 @@ import {
 import { useFocusTrap } from "@vueuse/integrations/useFocusTrap";
 import { useElementBounding } from "@vueuse/core";
 import TnDialogHeader from "./tn-dialog-header.vue";
+import TnButton from "@/components/uikit/button/tn-button.vue";
 
 export type TnDialogPosition =
   | "top"
@@ -72,6 +73,7 @@ function close() {
 }
 
 provide("close", close);
+provide("closeable", props.closeable);
 
 const headerEl = ref(null);
 const headerBounding = useElementBounding(headerEl);
@@ -138,7 +140,11 @@ onBeforeUnmount(() => {
               ref="headerEl"
             >
               <slot name="header" :title="title">
-                <TnDialogHeader :title="title"></TnDialogHeader>
+                <TnDialogHeader :title="title">
+
+                  <!-- TODO: Один из вариантов избавления от provide/inject для кнопки закрытия -->
+                  <!-- <template #close-button v-if="closeable"></template> -->
+                </TnDialogHeader>
               </slot>
             </header>
             <div class="tn-dialog__body" v-if="$slots['default']">
@@ -152,12 +158,7 @@ onBeforeUnmount(() => {
             >
               <slot name="footer"></slot>
             </footer>
-            <TnButton
-              class="tn-dialog__close"
-              icon="x"
-              v-if="props.closeable"
-              @click="close"
-            />
+
           </div>
         </div>
       </div>
@@ -222,11 +223,11 @@ onBeforeUnmount(() => {
 
   overflow: hidden;
 
-  min-width: 240px;
+  min-width: 464px;
   max-width: 100%;
 
   background-color: #fff;
-  border-radius: 16px;
+  border-radius: 24px;
   box-shadow: 0px 2px 8px 0px rgba(46, 56, 75, 0.15);
   animation: dialog-reveal 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
@@ -238,10 +239,9 @@ onBeforeUnmount(() => {
 .tn-dialog__header {
   position: sticky;
   top: 0;
-  padding: 24px;
   background-color: #fff;
   z-index: 1;
-  border-radius: 16px 16px 0 0;
+  border-radius: 24px 24px 0 0;
 }
 
 .tn-dialog__header_stuck {
@@ -250,7 +250,6 @@ onBeforeUnmount(() => {
 
 .tn-dialog__body {
   position: relative;
-  padding: 24px;
   overflow-y: auto;
   flex: 1;
 }
@@ -266,22 +265,6 @@ onBeforeUnmount(() => {
 
 .tn-dialog__footer_stuck {
   box-shadow: 0px -2px 8px 0px rgba(46, 56, 75, 0.15);
-}
-
-.tn-dialog__close {
-  position: absolute;
-  top: 28px;
-  right: 24px;
-
-  &.tn-button {
-    min-width: 0;
-    width: 24px;
-    height: 24px;
-    padding: 0;
-    margin: 0;
-  }
-
-  font-size: 24px;
 }
 
 .tn-dialog_position-center {

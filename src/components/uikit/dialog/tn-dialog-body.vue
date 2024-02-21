@@ -11,7 +11,7 @@
     <div class="tn-dialog-body__header" v-if="$slots.header">
       <slot name="header">удалить этот текст</slot>
     </div>
-    <div class="tn-dialog-body__content">
+    <div class="tn-dialog-body__content scrollbox">
       <slot></slot>
     </div>
   </div>
