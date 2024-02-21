@@ -174,8 +174,22 @@ legend {
 .container {
   padding: 0 24px;
 }
-// .container {
-//   max-width: 425px;
-//   margin: 0 auto;
-//   padding: 0 11px;
-// }
+
+.scrollbox {
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    width: 4px;
+    height: 4px;
+
+    background-color: #D0D4DB;
+    border-radius: 20px;
+    background-clip: content-box;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+}

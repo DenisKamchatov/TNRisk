@@ -128,7 +128,7 @@ const menu: IMenucColumnData[] = [
 </script>
 
 <template>
-  <div class="main-nav" :class="{ 'main-nav_big': isBig }">
+  <div class="main-nav scrollbox" :class="{ 'main-nav_big': isBig }">
     <Column
       v-for="column in menu"
       :key="column.title"
@@ -149,50 +149,6 @@ const menu: IMenucColumnData[] = [
   height: inherit;
 
   background-color: #fff;
-
-  &::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: #bfc4cd;
-    border-radius: 8px;
-    background-clip: content-box;
-  }
-
-  &::-webkit-scrollbar-corner {
-    background-color: transparent;
-  }
-
-  // &::-webkit-scrollbar {
-  //   width: 6px;
-  //   height: 6px;
-  //   border: 1px solid transparent;
-  // }
-
-  // &::-webkit-scrollbar-track {
-  //   background-color: transparent;
-  // }
-
-  // &::-webkit-scrollbar-thumb {
-  //   background-color: #d6dee1;
-  //   border-radius: 20px;
-  //   border: 6px solid transparent;
-  //   background-clip: content-box;
-  // }
-
-  // &::-webkit-scrollbar-thumb:hover {
-  //   background-color: #a8bbbf;
-  // }
-
-  // &::-webkit-scrollbar-corner {
-  //   background: none;
-  // }
 }
 
 .main-nav_big {
