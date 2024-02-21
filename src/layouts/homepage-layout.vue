@@ -2,7 +2,7 @@
 
 <template>
   <div class="homepage-layout">
-      <slot></slot>
+    <slot></slot>
     <div class="homepage-layout__footer">
       <slot name="footer"></slot>
     </div>
@@ -16,7 +16,6 @@
   justify-content: space-between;
   height: 100%;
   padding: 96px 0 0 0;
-
 }
 
 .homepage-layout__footer {

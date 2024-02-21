@@ -13,7 +13,12 @@ const { columnTitle, columnTo, columnHref } = withDefaults(
 </script>
 
 <template>
-  <router-link class="column__title-block" :class="{ 'column__title-block_big': isBig }" v-if="columnTo" :to="columnTo">
+  <router-link
+    class="column__title-block"
+    :class="{ 'column__title-block_big': isBig }"
+    v-if="columnTo"
+    :to="columnTo"
+  >
     <p class="column__title">{{ columnTitle }}</p>
 
     <div class="column__title-arrow">
@@ -21,7 +26,12 @@ const { columnTitle, columnTo, columnHref } = withDefaults(
     </div>
   </router-link>
 
-  <a class="column__title-block" :class="{ 'column__title-block_big': isBig }" v-else-if="columnHref" :href="columnHref">
+  <a
+    class="column__title-block"
+    :class="{ 'column__title-block_big': isBig }"
+    v-else-if="columnHref"
+    :href="columnHref"
+  >
     <p class="column__title">{{ columnTitle }}</p>
 
     <div class="column__title-arrow">
@@ -29,7 +39,11 @@ const { columnTitle, columnTo, columnHref } = withDefaults(
     </div>
   </a>
 
-  <div class="column__title-block" :class="{ 'column__title-block_big': isBig }" v-else>
+  <div
+    class="column__title-block"
+    :class="{ 'column__title-block_big': isBig }"
+    v-else
+  >
     <p class="column__title">{{ columnTitle }}</p>
 
     <div class="column__title-arrow">
@@ -40,6 +54,9 @@ const { columnTitle, columnTo, columnHref } = withDefaults(
 
 <style lang="scss">
 .column__title-block {
+  position: sticky;
+  top: 0;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -49,10 +66,13 @@ const { columnTitle, columnTo, columnHref } = withDefaults(
   padding: 0 16px 0 31px;
 
   color: #2e384b;
+  background-color: #fff;
 
   border-bottom: 1px solid #e7e9ef;
   transition: 300ms;
   cursor: pointer;
+
+  z-index: 2;
 
   &:hover {
     transition: 300ms;
@@ -90,14 +110,15 @@ const { columnTitle, columnTo, columnHref } = withDefaults(
 }
 
 .column__title-block_big {
-    padding: 0 24px 0 24px;
+  padding: 0 24px 0 24px;
+  background-color: #f5f6fa;
 
-    &:hover {
-      background: none;
+  &:hover {
+    background: none;
 
-      .column__title {
-        color: #2e384b;
-      }
+    .column__title {
+      color: #2e384b;
     }
   }
+}
 </style>

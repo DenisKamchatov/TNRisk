@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { inject } from "vue";
 
 const props = withDefaults(
   defineProps<{
@@ -12,11 +12,11 @@ const props = withDefaults(
   }
 );
 
-defineEmits(["click"]);
+// TODO: подумать нужно ли это здесь
+const close = inject("close", () => {});
 
-onMounted(() => {
-  console.log("th-dialog-header: mounted");
-});
+// TODO: подумать как получить closeable в хедере
+// const closeable = inject("closeable", () => true);
 </script>
 
 <template>

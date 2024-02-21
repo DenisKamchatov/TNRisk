@@ -11,6 +11,7 @@ import {
 import { useRouter } from "vue-router";
 
 import TNIcon from "@/components/uikit/icons/tn-icon.vue";
+// TODO: добавить лоадер из кита и вернуть состояние загрузки в кнопку
 // import TnLoader from "@/components/uikit/elements/loader/tn-loader.vue";
 
 const props = defineProps({
@@ -18,6 +19,7 @@ const props = defineProps({
     type: String as PropType<"md" | "lg">,
     default: "lg",
   },
+  block: { type: Boolean, default: false },
   primary: { type: Boolean, default: false },
   secondary: { type: Boolean, default: false },
   disabled: { type: Boolean, default: false },
@@ -52,15 +54,6 @@ const hasLeftIcon = computed<boolean>(() => hasIcon.value);
 const hasRightIcon = computed<boolean>(
   () => hasRightIconSlot.value || !!props.iconRight
 );
-// const iconSize = computed<number>(() => {
-//   if (props.size === "md") {
-//     return 20;
-//   }
-//   if (props.size === "lg") {
-//     return 20;
-//   }
-//   return 20;
-// });
 
 const buttonWidth = computed(() => {
   if (props.width && props.width.toString().includes("%")) {
@@ -104,6 +97,7 @@ function onClickButton(e: Event) {
       'tn-button_primary': primary,
       'tn-button_secondary': secondary,
       'tn-button_only-icon': isOnlyIcon,
+      'tn-button_block': block,
     }"
     :style="{ width: buttonWidth }"
     @click="onClickButton"
@@ -174,7 +168,6 @@ function onClickButton(e: Event) {
     font-weight: 600;
   }
 }
-
 .tn-button__icon {
   display: flex;
   align-items: center;
@@ -262,6 +255,11 @@ function onClickButton(e: Event) {
     background-color: #9ea5b5;
     color: #fff;
   }
+}
+
+.tn-button_block {
+  display: flex;
+  width: 100%;
 }
 
 @keyframes focus-animation-secondary {

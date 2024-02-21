@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import TnDialog from "@/components/uikit/dialog/tn-dialog.vue";
 import TnButton from "@/components/uikit/button/tn-button.vue";
 import TnConfirm from "@/components/uikit/confirm/tn-confirm.vue";
+import TnDialogHeader from "@/components/uikit/dialog/tn-dialog-header.vue";
+import TnDialogBody from "@/components/uikit/dialog/tn-dialog-body.vue";
 
 const props = withDefaults(
   defineProps<{
@@ -17,15 +19,9 @@ const isDialogVisible = ref(false);
 const confirmDialog = ref<any>(null);
 
 async function deleteElement(idx: number) {
-  console.log("some-list: deleteElement", idx, confirmDialog.value);
-
   const result = await confirmDialog.value?.open();
   result && props.list.splice(idx, 1);
 }
-
-onMounted(() => {
-  console.log("some-list: mounted");
-});
 </script>
 
 <template>
@@ -42,12 +38,21 @@ onMounted(() => {
       </li>
     </ul>
 
-    <TnButton primary @click="isDialogVisible = true"
+    <TnButton block primary @click="isDialogVisible = true"
       >Добавить покупку</TnButton
     >
 
-    <TnDialog v-if="isDialogVisible" @close="isDialogVisible = false">
-      <div v-for="i in 55" :key="i">Новая покупка</div>
+    <TnDialog
+      v-if="isDialogVisible"
+      @close="isDialogVisible = false"
+      :overflow="false"
+      title="Новая покупка 123456"
+    >
+      <TnDialogBody>
+        <template #header>hhhhhhhhhh</template>
+        <div v-for="i in 55" :key="i">Новая покупка {{ i }}</div>
+      </TnDialogBody>
+      <template #footer>List Footer</template>
     </TnDialog>
 
     <TnConfirm ref="confirmDialog">
@@ -58,6 +63,11 @@ onMounted(() => {
 
 <style lang="scss">
 .some-list {
-  /**/
+  ul > li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
 }
 </style>

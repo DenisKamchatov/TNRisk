@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import TnDialog from "../dialog/tn-dialog.vue";
 import TnButton from "../button/tn-button.vue";
 
@@ -16,11 +16,9 @@ let _resolve: any = () => {};
 let _reject: any = () => {};
 
 function open() {
-  console.log("tn-confirm: open");
   isOpen.value = true;
 
   return new Promise((resolve, reject) => {
-    console.log("Create promise", resolve, reject);
     _resolve = resolve;
     _reject = reject;
   }).finally(() => {
@@ -47,14 +45,10 @@ function close() {
   _resolve(false);
   isOpen.value = false;
 }
-
-onMounted(() => {
-  console.log("tn-confirm: mounted", props.item);
-});
 </script>
 
 <template>
-  <TnDialog v-if="isOpen" @close="close" class="tn-confirm">
+  <TnDialog v-if="isOpen" @close="close" class="tn-confirm" position="top">
     <template #header>
       <slot name="header">
         <div class="tn-confirm__header">
@@ -62,9 +56,7 @@ onMounted(() => {
         </div>
       </slot>
     </template>
-
     <slot></slot>
-
     <template #footer>
       <div class="tn-confirm__buttons">
         <slot name="buttons" :reject="onReject" :resolve="onResolve">
@@ -77,10 +69,6 @@ onMounted(() => {
 </template>
 
 <style lang="scss">
-.tn-confirm {
-  /**/
-}
-
 .tn-confirm__buttons {
   display: flex;
   flex-direction: row;

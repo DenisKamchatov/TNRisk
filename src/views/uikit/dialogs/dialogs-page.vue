@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import TnDialog from "@/components/uikit/dialog/tn-dialog.vue";
 import TnDialogHeader from "@/components/uikit/dialog/tn-dialog-header.vue";
 import SomeList from "./some-list.vue";
@@ -16,10 +16,6 @@ const props = withDefaults(
 
 const list = ref(["1", "2", "3"]);
 const isDialogVisible = ref(false);
-
-onMounted(() => {
-  console.log("dialogs-page: mounted", props.item);
-});
 </script>
 
 <template>
@@ -33,9 +29,7 @@ onMounted(() => {
 
         <TnDialog v-if="isDialogVisible" @close="isDialogVisible = false">
           <TnDialogHeader title="QWERTYU asdfgh"></TnDialogHeader>
-          <div style="height: 200px">
-            <SomeList :list="list"></SomeList>
-          </div>
+          <SomeList :list="list"></SomeList>
         </TnDialog>
       </div>
     </div>
