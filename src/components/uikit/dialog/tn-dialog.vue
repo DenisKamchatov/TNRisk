@@ -223,7 +223,7 @@ onBeforeUnmount(() => {
 
   overflow: hidden;
 
-  min-width: 464px;
+  min-width: 336px;
   max-width: 100%;
 
   background-color: #fff;

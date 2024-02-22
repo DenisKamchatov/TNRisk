@@ -56,7 +56,6 @@ async function deleteElement(idx: number) {
     </TnDialog>
 
     <TnConfirm ref="confirmDialog">
-      <template #header><strong>Вы точно уверены?</strong></template>
     </TnConfirm>
   </div>
 </template>

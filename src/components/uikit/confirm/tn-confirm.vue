@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import TnDialog from "../dialog/tn-dialog.vue";
 import TnButton from "../button/tn-button.vue";
+import TnConfirmHeader from "./tn-confirm-header.vue";
 
 const props = withDefaults(
   defineProps<{
@@ -51,9 +52,7 @@ function close() {
   <TnDialog v-if="isOpen" @close="close" class="tn-confirm" position="top">
     <template #header>
       <slot name="header">
-        <div class="tn-confirm__header">
-          <h4>Вы уверены?</h4>
-        </div>
+        <TnConfirmHeader title="Вы действительно хотите удалить?" subtitle="Будут удалены связи" />
       </slot>
     </template>
     <slot></slot>
@@ -74,5 +73,10 @@ function close() {
   flex-direction: row;
   justify-content: space-between;
   gap: 16px;
+}
+
+.tn-confirm .tn-dialog__container {
+  max-width: 336px;
+  width: 100%;
 }
 </style>
