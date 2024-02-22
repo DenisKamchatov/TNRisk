@@ -38,6 +38,7 @@ const closeable = inject("closeable");
       v-if="closeable"
       @click="close"
     />
+    </div>
 </template>
 
 <style lang="scss">
