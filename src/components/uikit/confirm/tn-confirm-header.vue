@@ -38,7 +38,6 @@ const closeable = inject("closeable");
       v-if="closeable"
       @click="close"
     />
-  </div>
 </template>
 
 <style lang="scss">
@@ -46,7 +45,6 @@ const closeable = inject("closeable");
   position: relative;
   display: flex;
   flex-direction: column;
-
 }
 
 .tn-confirm-header__image {
