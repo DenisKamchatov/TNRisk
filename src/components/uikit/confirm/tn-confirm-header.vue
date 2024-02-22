@@ -29,7 +29,6 @@ const closeable = inject("closeable");
     <h4 class="tn-confirm-header__title">{{ title }}</h4>
 
     <p class="tn-confirm-header__subtitle">{{ subtitle }}</p>
-
     <TnButton
       class="tn-confirm-header__close"
       icon="x"
@@ -38,7 +37,7 @@ const closeable = inject("closeable");
       v-if="closeable"
       @click="close"
     />
-    </div>
+  </div>
 </template>
 
 <style lang="scss">

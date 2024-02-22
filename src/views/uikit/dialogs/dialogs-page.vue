@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import TnDialog from "@/components/uikit/dialog/tn-dialog.vue";
+import TnDialogBody from "@/components/uikit/dialog/tn-dialog-body.vue";
 import TnDialogHeader from "@/components/uikit/dialog/tn-dialog-header.vue";
 import TnDialogHeaderDouble from "@/components/uikit/dialog/tn-dialog-header-double.vue";
 import SomeList from "./some-list.vue";
 import TnButton from "@/components/uikit/button/tn-button.vue";
+import TnInput from "@/components/uikit/input/tn-input.vue";
 
 const props = withDefaults(
   defineProps<{
@@ -29,8 +31,10 @@ const isDialogSecondVisible = ref(false);
           >Открыть диалог</TnButton
         >
 
-        <TnDialog v-if="isDialogVisible" @close="isDialogVisible = false">
-          <TnDialogHeader title="Text"></TnDialogHeader>
+        <TnDialog v-if="isDialogVisible" @close="isDialogVisible = false" :closeable="false">
+          <template #header>
+            <TnDialogHeader title="Text"></TnDialogHeader>
+          </template>
           <SomeList :list="list"></SomeList>
         </TnDialog>
       </div>
@@ -40,20 +44,49 @@ const isDialogSecondVisible = ref(false);
           >Открыть диалог</TnButton
         >
 
-        <TnDialog v-if="isDialogSecondVisible" @close="isDialogSecondVisible = false">
-          <TnDialogHeaderDouble title="Text" second-title="Text 2">
-            <template #buttons>
-              <TnButton secondary icon="dots-vertical" is-icon />
+        <TnDialog
+          v-if="isDialogSecondVisible"
+          @close="isDialogSecondVisible = false"
+          has-double-body
+        >
+          <template #header>
+            <TnDialogHeaderDouble title="Text" second-title="Text 2">
+              <template #buttons>
+                <TnButton secondary icon="dots-vertical" is-icon />
+              </template>
+              <template #buttonsRight>
+                <TnButton secondary icon="dots-vertical" is-icon />
+              </template>
+            </TnDialogHeaderDouble>
+          </template>
+
+          <TnDialogBody>
+            <template #header>
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  gap: 16px;
+                "
+              >
+                <TnInput placeholder="Поиск" icon="search" />
+                <TnButton secondary icon-right="plus" size="lg">Добавить</TnButton>
+              </div>
             </template>
-            <template #buttonsRight>
-              <TnButton secondary icon="dots-vertical" is-icon />
-            </template>
-          </TnDialogHeaderDouble>
-          <SomeList :list="list"></SomeList>
+            <ul style="padding: 24px">
+              <li v-for="i in 55" :key="i">{{ "Услуга " + i }}</li>
+            </ul>
+          </TnDialogBody>
+          <TnDialogBody>
+            <ul style="padding: 24px">
+              <li v-for="i in 55" :key="i">{{ "Услуга " + i }}</li>
+            </ul>
+          </TnDialogBody>
+
+          <template #footer>dasdasdasdasdasd</template>
         </TnDialog>
       </div>
-
-
     </div>
   </div>
 </template>

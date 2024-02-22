@@ -10,7 +10,6 @@ import {
 import { useFocusTrap } from "@vueuse/integrations/useFocusTrap";
 import { useElementBounding } from "@vueuse/core";
 import TnDialogHeader from "./tn-dialog-header.vue";
-import TnButton from "@/components/uikit/button/tn-button.vue";
 
 export type TnDialogPosition =
   | "top"
@@ -48,6 +47,10 @@ const props = withDefaults(
      * Окно может быть длиннее высоты экрана
      */
     overflow?: boolean;
+    /**
+     *
+     */
+    hasDoubleBody?: boolean
   }>(),
   {
     title: "",
@@ -56,6 +59,7 @@ const props = withDefaults(
     canEsc: true,
     position: "center",
     overflow: false,
+    hasDoubleBody: false,
   }
 );
 
@@ -147,7 +151,7 @@ onBeforeUnmount(() => {
                 </TnDialogHeader>
               </slot>
             </header>
-            <div class="tn-dialog__body" v-if="$slots['default']">
+            <div class="tn-dialog__body" :class="{ 'tn-dialog__body_double': hasDoubleBody }" v-if="$slots['default']" >
               <slot></slot>
             </div>
             <footer
@@ -240,7 +244,7 @@ onBeforeUnmount(() => {
   position: sticky;
   top: 0;
   background-color: #fff;
-  z-index: 1;
+  z-index: 2;
   border-radius: 24px 24px 0 0;
 }
 
@@ -252,6 +256,17 @@ onBeforeUnmount(() => {
   position: relative;
   overflow-y: auto;
   flex: 1;
+}
+
+.tn-dialog__body_double {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  & > * {
+    &:first-child {
+      border-right: 1px solid #E7E9EF;
+    }
+  }
 }
 
 .tn-dialog__footer {

@@ -9,7 +9,7 @@
 <template>
   <div class="tn-dialog-body">
     <div class="tn-dialog-body__header" v-if="$slots.header">
-      <slot name="header">удалить этот текст</slot>
+      <slot name="header"></slot>
     </div>
     <div class="tn-dialog-body__content scrollbox">
       <slot></slot>
@@ -29,9 +29,9 @@
 .tn-dialog-body__header {
   position: relative;
   width: 100%;
-  padding: 4px;
+  padding: 8px 24px;
 
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #E7E9EF;
   background-color: #fff;
   z-index: 1;
 }
