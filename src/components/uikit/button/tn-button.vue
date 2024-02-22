@@ -268,6 +268,10 @@ function onClickButton(e: Event) {
   height: 24px;
   padding: 0;
   margin: 0;
+
+  &:hover:enabled {
+    background: none;
+  }
 }
 
 .tn-button_block {
