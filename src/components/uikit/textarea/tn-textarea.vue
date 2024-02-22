@@ -143,7 +143,7 @@ onMounted(() => {
       </span>
 
       <textarea
-        class="tn-textarea__input"
+        class="tn-textarea__input scrollbox"
         ref="textarea"
         :rows="rows"
         :cols="cols"
@@ -209,6 +209,8 @@ onMounted(() => {
   background-color: #f5f6fa;
   color: #171c25;
   border-radius: 12px;
+  border: 1px solid transparent;
+  outline: 2px solid transparent;
 
   transition: 300ms;
 
@@ -227,8 +229,8 @@ onMounted(() => {
     font-weight: 400;
 
     background: none;
-    border: none;
-    outline: none;
+    border: 1px solid transparent;
+    outline: 2px solid transparent;
 
     color: #171c25;
 
@@ -367,7 +369,7 @@ onMounted(() => {
   .tn-textarea__wrapper {
     background-color: #fff;
 
-    outline: none;
+    outline: 2px solid transparent;
     border: 1px solid #c02b31;
 
     .tn-textarea__input {

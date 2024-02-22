@@ -49,6 +49,7 @@ const hasIcon = computed<boolean>(
       'tn-input_disabled': disabled,
       'tn-input_error': error,
       'tn-input_has-label': hasLabel,
+      'tn-input_has-floating-label': hasFloatingLabel,
     }"
   >
     <label
@@ -91,7 +92,7 @@ const hasIcon = computed<boolean>(
         :readonly="readonly"
         v-bind="$attrs"
       />
-      
+
       <label
         v-if="hasFloatingLabel && !hasLabel"
         class="tn-input__floating-label"
@@ -126,6 +127,11 @@ const hasIcon = computed<boolean>(
   width: 100%;
 }
 
+.tn-input_has-floating-label .tn-input__wrapper .tn-input__input {
+  padding: 4px 0 0 0;
+
+}
+
 .tn-input__wrapper {
   display: flex;
   align-items: center;
@@ -136,12 +142,14 @@ const hasIcon = computed<boolean>(
 
   padding: 0 15px;
 
-  height: 54px;
+  height: 48px;
   width: 100%;
 
   background-color: #f5f6fa;
   color: #171c25;
   border-radius: 12px;
+  border: 1px solid transparent;
+  outline: 2px solid transparent;
 
   transition: 300ms;
 
@@ -153,8 +161,6 @@ const hasIcon = computed<boolean>(
   .tn-input__input {
     height: 100%;
     width: 100%;
-
-    padding: 4px 0 0 0;
 
     font-size: 14px;
     font-weight: 400;
@@ -311,7 +317,7 @@ const hasIcon = computed<boolean>(
   .tn-input__wrapper {
     background-color: #fff;
 
-    outline: none;
+    outline: 2px solid transparent;
     border: 1px solid #c02b31;
 
     .tn-input__input {
