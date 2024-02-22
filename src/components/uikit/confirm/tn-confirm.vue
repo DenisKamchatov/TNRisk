@@ -51,9 +51,12 @@ function close() {
 <template>
   <TnDialog v-if="isOpen" @close="close" class="tn-confirm" position="top">
     <template #header>
-      <slot name="header">
-        <TnConfirmHeader title="Вы действительно хотите удалить?" subtitle="Будут удалены связи" />
-      </slot>
+      <div class="tn-confirm__header">
+        <slot name="header">
+          <TnConfirmHeader title="Вы действительно хотите удалить?" subtitle="Будут удалены связи" />
+        </slot>
+      </div>
+
     </template>
     <slot></slot>
     <template #footer>
@@ -68,6 +71,15 @@ function close() {
 </template>
 
 <style lang="scss">
+.tn-confirm__header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  padding: 24px 24px 16px 24px;
+
+  border-bottom: 1px solid #E7E9EF;
+}
 .tn-confirm__buttons {
   display: flex;
   flex-direction: row;

@@ -19,10 +19,7 @@ const closeable = inject("closeable");
 </script>
 
 <template>
-  <div
-    class="tn-confirm-header"
-    :class="{ 'tn-confirm-header_closeable': closeable }"
-  >
+
     <div class="tn-confirm-header__image">
       <slot name="image">
         <TnConfirmImage />
@@ -41,18 +38,11 @@ const closeable = inject("closeable");
       v-if="closeable"
       @click="close"
     />
-  </div>
 </template>
 
 <style lang="scss">
 .tn-confirm-header {
-  position: relative;
-  display: flex;
-  flex-direction: column;
 
-  padding: 24px 24px 16px 24px;
-
-  border-bottom: 1px solid #E7E9EF;
 }
 
 .tn-confirm-header__image {
