@@ -47,10 +47,6 @@ const props = withDefaults(
      * Окно может быть длиннее высоты экрана
      */
     overflow?: boolean;
-    /**
-     *
-     */
-    hasDoubleBody?: boolean
   }>(),
   {
     title: "",
@@ -59,7 +55,6 @@ const props = withDefaults(
     canEsc: true,
     position: "center",
     overflow: false,
-    hasDoubleBody: false,
   }
 );
 
@@ -151,7 +146,7 @@ onBeforeUnmount(() => {
                 </TnDialogHeader>
               </slot>
             </header>
-            <div class="tn-dialog__body" :class="{ 'tn-dialog__body_double': hasDoubleBody }" v-if="$slots['default']" >
+            <div class="tn-dialog__body" v-if="$slots['default']" >
               <slot></slot>
             </div>
             <footer
@@ -258,23 +253,19 @@ onBeforeUnmount(() => {
   flex: 1;
 }
 
-.tn-dialog__body_double {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-
-  & > * {
-    &:first-child {
-      border-right: 1px solid #E7E9EF;
-    }
-  }
-}
-
 .tn-dialog__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   position: sticky;
   bottom: 0;
   padding: 24px;
+
   border-radius: 0 0 16px 16px;
+
   background-color: #fff;
+  border-top: 1px solid #e7e9ef;
+
   z-index: 1;
 }
 

@@ -2,6 +2,7 @@
 import { ref, computed } from "vue";
 import TnDialog from "@/components/uikit/dialog/tn-dialog.vue";
 import TnDialogBody from "@/components/uikit/dialog/tn-dialog-body.vue";
+import TnDialogBodyDouble from "@/components/uikit/dialog/tn-dialog-body-double.vue";
 import TnDialogHeader from "@/components/uikit/dialog/tn-dialog-header.vue";
 import TnDialogHeaderDouble from "@/components/uikit/dialog/tn-dialog-header-double.vue";
 import SomeList from "./some-list.vue";
@@ -49,7 +50,6 @@ const isDialogSecondVisible = ref(false);
         <TnDialog
           v-if="isDialogSecondVisible"
           @close="isDialogSecondVisible = false"
-          has-double-body
         >
           <template #header>
             <TnDialogHeaderDouble title="Text" second-title="Text 2" description="First description" second-description="Second description">
@@ -70,7 +70,7 @@ const isDialogSecondVisible = ref(false);
             </TnDialogHeaderDouble>
           </template>
 
-          <TnDialogBody>
+          <TnDialogBodyDouble>
             <template #header>
               <div
                 style="
@@ -84,17 +84,23 @@ const isDialogSecondVisible = ref(false);
                 <TnButton secondary icon-right="plus" size="lg">Добавить</TnButton>
               </div>
             </template>
-            <ul style="padding: 24px">
-              <li v-for="i in 55" :key="i">{{ "Услуга " + i }}</li>
-            </ul>
-          </TnDialogBody>
-          <TnDialogBody>
-            <ul style="padding: 24px">
-              <li v-for="i in 55" :key="i">{{ "Услуга " + i }}</li>
-            </ul>
-          </TnDialogBody>
 
-          <template #footer>dasdasdasdasdasd</template>
+            <template #body>
+              <ul style="padding: 24px">
+                <li v-for="i in 55" :key="i">{{ "Услуга " + i }}</li>
+              </ul>
+            </template>
+
+            <template #secondBody>
+              <ul style="padding: 24px">
+                <li v-for="i in 20" :key="i">{{ "Услуга " + i }}</li>
+              </ul>
+            </template>
+          </TnDialogBodyDouble>
+          <template #footer>
+            <TnButton secondary>Отменить</TnButton>
+            <TnButton>Сохранить</TnButton>
+          </template>
         </TnDialog>
       </div>
     </div>
