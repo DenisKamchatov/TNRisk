@@ -31,9 +31,11 @@ const isDialogSecondVisible = ref(false);
           >Открыть диалог</TnButton
         >
 
-        <TnDialog v-if="isDialogVisible" @close="isDialogVisible = false" :closeable="false">
+        <TnDialog v-if="isDialogVisible" @close="isDialogVisible = false">
           <template #header>
-            <TnDialogHeader title="Text"></TnDialogHeader>
+            <TnDialogHeader title="Доступ" description="Аудит: Перевод документов Аудит: Перевод документов Аудит: Перевод документов">
+                <p>Some default slot</p>
+            </TnDialogHeader>
           </template>
           <SomeList :list="list"></SomeList>
         </TnDialog>
@@ -50,13 +52,21 @@ const isDialogSecondVisible = ref(false);
           has-double-body
         >
           <template #header>
-            <TnDialogHeaderDouble title="Text" second-title="Text 2">
+            <TnDialogHeaderDouble title="Text" second-title="Text 2" description="First description" second-description="Second description">
               <template #buttons>
                 <TnButton secondary icon="dots-vertical" is-icon />
               </template>
               <template #buttonsRight>
                 <TnButton secondary icon="dots-vertical" is-icon />
               </template>
+
+              <template #body>
+                First Body
+              </template>
+              <template #secondBody>
+                Second Body
+              </template>
+
             </TnDialogHeaderDouble>
           </template>
 

@@ -6,10 +6,12 @@ const props = withDefaults(
   defineProps<{
     title?: string;
     closeable?: boolean;
+    description?: string;
   }>(),
   {
     title: undefined,
     closeable: true,
+    description: "",
   }
 );
 
@@ -23,41 +25,56 @@ const closeable = inject("closeable");
 
 <template>
   <div
-    class="th-dialog-header"
-    :class="{ 'th-dialog-header_closeable': closeable }"
+    class="tn-dialog-header"
+    :class="{ 'tn-dialog-header_closeable': closeable }"
   >
-    <h4 class="th-dialog-header__title">
-      <slot name="title">{{ title }}</slot>
-    </h4>
-    <div class="th-dialog-header__buttons">
-      <slot name="buttons"></slot>
+    <div class="tn-dialog-header__title-block" v-if="title || $slots.title || closeable">
+      <h4 class="tn-dialog-header__title">
+        <slot name="title">{{ title }}</slot>
+      </h4>
+      <div class="tn-dialog-header__buttons">
+        <slot name="buttons"></slot>
 
-      <TnButton
-        class="tn-dialog__close"
-        icon="x"
-        is-icon
-        secondary
-        v-if="closeable"
-        @click="close"
-      />
+        <TnButton
+          class="tn-dialog__close"
+          icon="x"
+          is-icon
+          secondary
+          v-if="closeable"
+          @click="close"
+        />
+      </div>
     </div>
+
+    <p class="tn-dialog-header__description" v-if="description || $slots.description">
+      <slot name="description">{{ description }}</slot>
+    </p>
+
+    <slot></slot>
   </div>
 </template>
 
 <style lang="scss">
-.th-dialog-header {
+.tn-dialog-header {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  flex-direction: column;
+  gap: 8px;
 
   padding: 28px 24px;
 
   border-bottom: 1px solid #E7E9EF;
 }
 
-.th-dialog-header__title {
+.tn-dialog-header__title-block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 16px;
+}
+
+.tn-dialog-header__title {
   font-size: 20px;
   font-weight: 700;
   line-height: 24px;
@@ -67,7 +84,7 @@ const closeable = inject("closeable");
 
 
 
-.th-dialog-header__buttons button {
+.tn-dialog-header__buttons button {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -78,8 +95,20 @@ const closeable = inject("closeable");
   color: #9EA5B5;
 }
 
-// .th-dialog-header_closeable {
-//   .th-dialog-header__buttons {
+.tn-dialog-header__description {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+
+  color: #747C8C;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// .tn-dialog-header_closeable {
+//   .tn-dialog-header__buttons {
 //     right: 32px;
 //   }
 // }

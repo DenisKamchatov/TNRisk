@@ -6,11 +6,15 @@ const props = withDefaults(
   defineProps<{
     title?: string;
     secondTitle?: string,
+    description?: string,
+    secondDescription?: string,
     closeable?: boolean;
   }>(),
   {
     title: undefined,
     closeable: true,
+    description: "",
+    secondDescription: "",
   }
 );
 
@@ -21,35 +25,52 @@ const closeable = inject("closeable");
 <template>
   <div
     class="tn-dialog-header-double"
-    :class="{ 'tn-dialog-header-double_closeable': closeable }"
   >
     <div class="tn-dialog-header-double__col-1">
-      <h4>
-        <slot name="title">{{ title }}</slot>
-      </h4>
+      <div class="tn-dialog-header-double__title-block" v-if="title || $slots.title">
+        <h4>
+          <slot name="title">{{ title }}</slot>
+        </h4>
 
-      <div class="tn-dialog-header-double__buttons">
-        <slot name="buttons"></slot>
+        <div class="tn-dialog-header-double__buttons">
+          <slot name="buttons"></slot>
+        </div>
       </div>
+
+      <p class="tn-dialog-header__description" v-if="description || $slots.description">
+        <slot name="description">{{ description }}</slot>
+      </p>
+
+      <slot name="body"></slot>
+
     </div>
 
     <div class="tn-dialog-header-double__col-2">
-      <h4>
-        <slot name="secondTitle">{{ secondTitle }}</slot>
-      </h4>
+      <div class="tn-dialog-header-double__title-block" v-if="secondTitle || $slots.secondTitle || closeable">
+        <h4>
+          <slot name="secondTitle">{{ secondTitle }}</slot>
+        </h4>
 
-      <div class="tn-dialog-header-double__buttons">
-        <slot name="buttonsRight"></slot>
+        <div class="tn-dialog-header-double__buttons">
+          <slot name="buttonsRight"></slot>
 
-        <TnButton
-          class="tn-dialog__close"
-          icon="x"
-          is-icon
-          secondary
-          v-if="closeable"
-          @click="close"
-        />
+          <TnButton
+            class="tn-dialog__close"
+            icon="x"
+            is-icon
+            secondary
+            v-if="closeable"
+            @click="close"
+          />
+        </div>
       </div>
+
+      <p class="tn-dialog-header__description" v-if="secondDescription || $slots.secondDescription">
+        <slot name="secondDescription">{{ secondDescription }}</slot>
+      </p>
+
+      <slot name="secondBody"></slot>
+
     </div>
 
   </div>
@@ -63,16 +84,12 @@ const closeable = inject("closeable");
   border-bottom: 1px solid #E7E9EF;
 }
 
-.tn-dialog-header-double__col-1 {
-  border-right: 1px solid #E7E9EF;
-}
-
-.tn-dialog-header-double__col-1, .tn-dialog-header-double__col-2 {
+.tn-dialog-header-double__title-block {
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  padding: 28px 24px;
+  gap: 16px;
 
   h4 {
     font-size: 20px;
@@ -91,5 +108,30 @@ const closeable = inject("closeable");
       color: #9EA5B5;
     }
   }
+}
+
+.tn-dialog-header-double__col-1 {
+  border-right: 1px solid #E7E9EF;
+}
+
+.tn-dialog-header-double__col-1, .tn-dialog-header-double__col-2 {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  padding: 28px 24px;
+}
+
+.tn-dialog-header__description {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+
+  color: #747C8C;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
