@@ -260,17 +260,44 @@ function onClickButton(e: Event) {
   }
 }
 
-.tn-button_is-icon {
-  background: none;
-  border-radius: 50%;
-  min-width: 0;
+.tn-button_medium.tn-button_is-icon {
   width: 24px;
   height: 24px;
+
+  span {
+    font-size: 20px;
+  }
+}
+.tn-button_large.tn-button_is-icon {
+  width: 32px;
+  height: 32px;
+
+  span {
+    font-size: 24px;
+  }
+}
+
+.tn-button_is-icon {
+  background: none;
+  border-radius: 8px;
+  min-width: 0;
+
   padding: 0;
   margin: 0;
 
+  color: inherit;
+
+  .tn-button__icon {
+    color: inherit;
+  }
+
   &:hover:enabled {
-    background: none;
+    background: #E7E9EF;
+  }
+
+  &:focus {
+    background: #E7E9EF;
+    animation: none;
   }
 }
 
