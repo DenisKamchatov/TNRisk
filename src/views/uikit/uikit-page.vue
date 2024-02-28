@@ -18,6 +18,8 @@ import TnTextarea from "@/components/uikit/textarea/tn-textarea.vue";
 import TnTabs from "@/components/uikit/tabs/tn-tabs.vue";
 import TnChips from "@/components/uikit/chips/tn-chips.vue";
 import TNDialog from "@/components/uikit/dialog/tn-dialog.vue";
+import TnNotification from "@/components/uikit/notification/tn-notification.vue";
+import TnAlert from "@/components/uikit/alert/tn-alert.vue";
 
 const isTumblerActive = ref<boolean>(false);
 const isCheckboxActive = ref<boolean>(false);
@@ -928,6 +930,103 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
           @delete="deleteChipItem"
         />
       </div>
+    </div>
+
+    <!-- Notifications -->
+    <div class="uikit-page__block">
+      <h2 class="uikit-page__block-title">Notification</h2>
+
+      <h5 class="uikit-page__block-subtitle">With Icon</h5>
+      <div class="uikit-page__block-items uikit-page__block-items_column">
+        <TnNotification title="Актуализация рисков проведена" description="Теперь, нужно актуализировать список контрольных процедур для приказа" icon="alert-circle">
+          <template #button>
+            <TnButton>Актулизировать КП</TnButton>
+          </template>
+        </TnNotification>
+      </div>
+
+      <h5 class="uikit-page__block-subtitle">Without Icon</h5>
+      <div class="uikit-page__block-items uikit-page__block-items_column">
+        <TnNotification title="Актуализация рисков проведена" description="Теперь, нужно актуализировать список контрольных процедур для приказа">
+          <template #button>
+            <TnButton>Актулизировать КП</TnButton>
+          </template>
+        </TnNotification>
+      </div>
+    </div>
+
+    <div class="uikit-page__block">
+      <h2 class="uikit-page__block-title">Alert</h2>
+
+      <h5 class="uikit-page__block-subtitle">Error</h5>
+      <div class="uikit-page__block-items uikit-page__block-items_column">
+        <TnAlert error>
+          <template #buttons>
+            <TnButton size="md">Нет</TnButton>
+            <TnButton size="md">Да</TnButton>
+          </template>
+        </TnAlert>
+
+        <TnAlert error description="В своём стремлении улучшить пользовательский опыт мы упускаем, что базовые сценарии поведения пользователей будут призваны.">
+          <template #buttons>
+            <TnButton size="md">Нет</TnButton>
+            <TnButton size="md">Да</TnButton>
+          </template>
+        </TnAlert>
+
+        <TnAlert error>
+          <template #buttons>
+            <TnButton is-icon icon="x"></TnButton>
+          </template>
+        </TnAlert>
+      </div>
+
+      <h5 class="uikit-page__block-subtitle">Warning</h5>
+      <div class="uikit-page__block-items uikit-page__block-items_column">
+        <TnAlert warning>
+          <template #buttons>
+            <TnButton size="md">Нет</TnButton>
+            <TnButton size="md">Да</TnButton>
+          </template>
+        </TnAlert>
+
+        <TnAlert warning description="В своём стремлении улучшить пользовательский опыт мы упускаем, что базовые сценарии поведения пользователей будут призваны.">
+          <template #buttons>
+            <TnButton size="md">Нет</TnButton>
+            <TnButton size="md">Да</TnButton>
+          </template>
+        </TnAlert>
+
+        <TnAlert warning>
+          <template #buttons>
+            <TnButton is-icon icon="x"></TnButton>
+          </template>
+        </TnAlert>
+      </div>
+
+      <h5 class="uikit-page__block-subtitle">Success</h5>
+      <div class="uikit-page__block-items uikit-page__block-items_column">
+        <TnAlert>
+          <template #buttons>
+            <TnButton size="md">Нет</TnButton>
+            <TnButton size="md">Да</TnButton>
+          </template>
+        </TnAlert>
+
+        <TnAlert description="В своём стремлении улучшить пользовательский опыт мы упускаем, что базовые сценарии поведения пользователей будут призваны.">
+          <template #buttons>
+            <TnButton size="md">Нет</TnButton>
+            <TnButton size="md">Да</TnButton>
+          </template>
+        </TnAlert>
+
+        <TnAlert>
+          <template #buttons>
+            <TnButton is-icon icon="x"></TnButton>
+          </template>
+        </TnAlert>
+      </div>
+
     </div>
   </div>
 </template>
