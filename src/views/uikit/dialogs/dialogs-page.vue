@@ -41,7 +41,9 @@ const isDialogSecondVisible = ref(false);
               <p>Some default slot</p>
             </TnDialogHeader>
           </template>
-          <SomeList :list="list"></SomeList>
+          <TnDialogBody>
+            <SomeList :list="list"></SomeList>
+          </TnDialogBody>
         </TnDialog>
       </div>
 
@@ -91,13 +93,13 @@ const isDialogSecondVisible = ref(false);
             </template>
 
             <template #body>
-              <ul style="padding: 24px">
+              <ul>
                 <li v-for="i in 55" :key="i">{{ "Услуга " + i }}</li>
               </ul>
             </template>
 
             <template #secondBody>
-              <ul style="padding: 24px">
+              <ul>
                 <li v-for="i in 20" :key="i">{{ "Услуга " + i }}</li>
               </ul>
             </template>
@@ -118,7 +120,7 @@ const isDialogSecondVisible = ref(false);
   flex-direction: column;
   gap: 40px;
 
-  padding: 130px 96px 96px 96px;
+  padding: 130px 96px 240px 96px;
   margin: 0 auto;
 
   background-color: #fff;

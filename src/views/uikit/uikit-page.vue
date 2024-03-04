@@ -25,6 +25,8 @@ import TnAlert from "@/components/uikit/alert/tn-alert.vue";
 import HomepageButton from "@/layouts/homepage-layout/components/homepage-button/homepage-button.vue";
 import HomepageNavFirst from "@/layouts/homepage-layout/components/homepage-nav-first/homepage-nav-first.vue";
 
+import DropdownSection from "./sections/dropdown-section.vue";
+
 const isTumblerActive = ref<boolean>(false);
 const isCheckboxActive = ref<boolean>(false);
 const animalAsObject = ref<TNRadioButtonOption | null>(null);
@@ -1105,6 +1107,8 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
       </div>
 
     </div>
+
+    <DropdownSection />
   </div>
 </template>
 
@@ -1114,7 +1118,7 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
   flex-direction: column;
   gap: 40px;
 
-  padding: 130px 96px 96px 96px;
+  padding: 130px 96px 240px 96px;
   margin: 0 auto;
 
   background-color: #fff;
@@ -1175,6 +1179,21 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
   }
 }
 
+.uikit-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
+.uikit-section__title {
+  margin: 0 0 10px 0;
+}
+
+.uikit-section__items {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 
 </style>

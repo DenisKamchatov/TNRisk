@@ -55,6 +55,6 @@
 
 .tn-dialog-body-double__content {
   overflow-y: auto;
-
+  padding: 24px;
 }
 </style>

@@ -6,10 +6,11 @@ import TnConfirmHeader from "./tn-confirm-header.vue";
 
 const props = withDefaults(
   defineProps<{
-    item: any;
+    title: string;
+    subtitle: string;
   }>(),
   {
-    item: null,
+    subtitle: "",
   }
 );
 
@@ -53,7 +54,7 @@ function close() {
     <template #header>
       <div class="tn-confirm__header">
         <slot name="header">
-          <TnConfirmHeader title="Вы действительно хотите удалить?" subtitle="Будут удалены связи" />
+          <TnConfirmHeader :title="title" :subtitle="subtitle" />
         </slot>
       </div>
 
@@ -85,6 +86,7 @@ function close() {
   flex-direction: row;
   justify-content: space-between;
   gap: 16px;
+  width: 100%;
 }
 
 .tn-confirm .tn-dialog__container {

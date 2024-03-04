@@ -6,6 +6,10 @@ import tnIconPack from "./components/uikit/icons";
 import Main from "./views/main/Main.vue";
 import UikitPage from "./views/uikit/uikit-page.vue";
 import UikitDialogPage from "./views/uikit/dialogs/dialogs-page.vue";
+import {
+  vTooltip,
+  vClosePopper,
+} from 'floating-vue';
 
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -28,6 +32,9 @@ const app = createApp(App);
 
 app.use(router);
 app.use(tnIconPack);
+
+app.directive("tooltip", vTooltip);
+app.directive("close-popper", vClosePopper);
 
 app.directive("focus", {
   mounted(el) {
