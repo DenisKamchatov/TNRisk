@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import TnButton from "@/components/uikit/button/tn-button.vue";
-import LangSelect from "@/layouts/homepage-layout/components/lang-select/lang-select.vue";
+import LangSelect from "@/components/widgets/lang-select/lang-select.vue";
 
 onMounted(() => {});
 

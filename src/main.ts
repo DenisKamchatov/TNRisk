@@ -6,10 +6,8 @@ import tnIconPack from "./components/uikit/icons";
 import Main from "./views/main/Main.vue";
 import UikitPage from "./views/uikit/uikit-page.vue";
 import UikitDialogPage from "./views/uikit/dialogs/dialogs-page.vue";
-import {
-  vTooltip,
-  vClosePopper,
-} from 'floating-vue';
+import FloatingVue from 'floating-vue';
+import { autoAnimatePlugin } from '@formkit/auto-animate/vue';
 
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -33,8 +31,15 @@ const app = createApp(App);
 app.use(router);
 app.use(tnIconPack);
 
-app.directive("tooltip", vTooltip);
-app.directive("close-popper", vClosePopper);
+app.use(FloatingVue, {
+  themes: {
+    'notifications': {
+      $extend: 'dropdown',
+    },
+  },
+});
+
+app.use(autoAnimatePlugin);
 
 app.directive("focus", {
   mounted(el) {

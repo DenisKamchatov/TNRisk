@@ -6,6 +6,7 @@ import HomepageButton from "@/layouts/homepage-layout/components/homepage-button
 import HomepageNotification from "@/layouts/homepage-layout/components/homepage-notification/homepage-notification.vue";
 import HomepageNavFirst from "@/layouts/homepage-layout/components/homepage-nav-first/homepage-nav-first.vue";
 import TnAvatar from "@/components/uikit/avatar/tn-avatar.vue";
+import NotificationsWidget from "@/components/widgets/notifications/notifications-widget.vue";
 
 import { IHomepageNavFirst } from "@/layouts/homepage-layout/components/homepage-nav-first/typings";
 
@@ -60,8 +61,9 @@ let navFirstOptions = ref<IHomepageNavFirst[]>([
       </div>
 
       <nav class="app-header__right-bar">
-        <HomepageNotification has-notification :light="!isOpenedMenu" />
-        <HomepageNotification :light="!isOpenedMenu" />
+        <NotificationsWidget />
+        <!-- <HomepageNotification has-notification :light="!isOpenedMenu" />
+        <HomepageNotification :light="!isOpenedMenu" /> -->
         <!-- <HomepageButton icon="bell" :light="!isOpenedMenu"></HomepageButton> -->
 
         <HomepageButton :light="!isOpenedMenu">

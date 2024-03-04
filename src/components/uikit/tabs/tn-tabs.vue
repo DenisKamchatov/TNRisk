@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { defineComponent, PropType, ref, Ref, watch } from "vue";
 import TNIcon from "@/components/uikit/icons/tn-icon.vue";
-import { TNTabsOption } from "./typings.ts";
+import { TNTabsOption } from "./typings";
 
 const props = withDefaults(
   defineProps<{
@@ -108,9 +108,9 @@ watch(
       </li>
     </ul>
   </template>
-  
 
-  
+
+
   <style lang="css">
   .tn-tabs {
     margin: 0;
@@ -122,29 +122,29 @@ watch(
     height: 42px;
     border: 1px solid #d7dae1;
   }
-  
+
   .tn-tabs::-webkit-scrollbar {
     display: none;
   }
-  
+
   .tn-tabs {
     -ms-overflow-style: none;
     scrollbar-width: none;
     max-width: 100%;
   }
-  
+
   .tn-tabs,
   .tn-tabs * {
     box-sizing: border-box;
   }
-  
+
   .tn-tabs__item {
     display: inline-block;
     vertical-align: middle;
     flex: 0 0 auto;
     margin: 0 3px;
   }
-  
+
   .tn-tabs__item-btn {
     transition: all 0.1s ease;
     user-select: none;
@@ -159,36 +159,36 @@ watch(
     cursor: pointer;
     outline: none;
   }
-  
+
   .tn-tabs__item-btn:hover {
     background-color: #fcfcfd;
   }
-  
+
   .tn-tabs__item-btn:active {
     background-color: #f9f9fa;
   }
-  
+
   .tn-tabs__item-btn_active {
     background-color: #f3f5f7;
     color: #1e2228;
   }
-  
+
   .tn-tabs__item-btn_active:hover {
     background-color: #e6e8ed;
   }
-  
+
   .tn-tabs__item-btn_active:active {
     background-color: #d7dae1;
   }
-  
+
   .tn-tabs_disabled {
     pointer-events: none;
   }
-  
+
   .tn-tabs_disabled .tn-tabs__item-btn {
     color: #bcc1ce;
   }
-  
+
   .tn-tabs__item-icon {
     display: inline-block;
     vertical-align: middle;
@@ -197,54 +197,54 @@ watch(
     transform: translateY(-2px);
     text-align: center;
   }
-  
+
   .tn-tabs__item-btn-text ~ .tn-tabs__item-icon {
     margin-left: 4px;
   }
-  
+
   .tn-tabs__item-btn-text,
   .tn-tabs__item-btn-secondary-text {
     display: inline-block;
     vertical-align: middle;
   }
-  
+
   .tn-tabs__item-btn-secondary-text {
     color: #9ca3b6;
     font-weight: 700;
     margin-left: 4px;
     transition: color 0.1s linear;
   }
-  
+
   .tn-tabs_disabled .tn-tabs__item-btn-secondary-text {
     color: #9ca3b6;
   }
-  
+
   .tn-tabs__item-icon {
     margin-right: 0;
     transform: translateY(-1.5px);
   }
-  
+
   .tn-tabs__item-btn_disabled {
     pointer-events: none;
   }
-  
+
   /**
    Large
    */
   .tn-tabs.tn-tabs_large {
     height: 48px;
   }
-  
+
   .tn-tabs_large .tn-tabs__item-btn {
     font-size: 16px;
     line-height: 21px;
     padding: 9px 16px;
   }
-  
+
   /**
    * Soft
    */
-  
+
   .tn-tabs_soft {
     background-color: transparent;
     border-radius: 0;
@@ -260,7 +260,7 @@ watch(
     );
     background-position: bottom;
   }
-  
+
   .tn-tabs_soft .tn-tabs__item-btn {
     color: #9B9FA9;
     border-radius: 0;
@@ -268,19 +268,19 @@ watch(
     position: relative;
     padding: 6px 0;
   }
-  
+
   .tn-tabs_soft.tn-tabs_large .tn-tabs__item-btn {
     padding: 9px 0;
   }
-  
+
   .tn-tabs_soft .tn-tabs__item:not(:last-child) {
     margin-right: 24px;
   }
-  
+
   .tn-tabs_soft.tn-tabs_large .tn-tabs__item:not(:last-child) {
     margin-right: 16px;
   }
-  
+
   .tn-tabs_soft .tn-tabs__item-btn::after {
     content: "";
     position: absolute;
@@ -292,17 +292,17 @@ watch(
     bottom: -19px;
     border-radius: 2px;
   }
-  
+
   .tn-tabs_soft .tn-tabs__item-btn:hover {
     color: #444c59;
     background-color: transparent;
   }
-  
+
   .tn-tabs_soft .tn-tabs__item-btn:active {
     color: #1e2228;
     background-color: transparent;
   }
-  
+
   .tn-tabs_soft .tn-tabs__item-btn_active {
     box-shadow: none;
     background-color: transparent;
@@ -311,39 +311,38 @@ watch(
   .tn-tabs_soft .tn-tabs__item-btn_active.tn-tabs__item-btn_active::after {
     background-color: #EB3B41;
   }
-  
+
   /* .tn-tabs_soft .tn-tabs__item-btn_active:hover {
     color: #ae1603;
     background-color: transparent;
   } */
-  
+
   .tn-tabs_soft .tn-tabs__item-btn_active:hover::after {
     background-color: #ce2b30;
   }
-  
+
   /* .tn-tabs_soft .tn-tabs__item-btn_active:active {
     color: #961500;
     background-color: transparent;
   } */
-/*   
+/*
   .tn-tabs_soft .tn-tabs__item-btn_active:active::after {
     background-color: #961500;
   } */
-  
+
   .tn-tabs__item-btn_active .tn-tabs__item-icon {
     opacity: 1;
   }
-  
+
   .tn-tabs_soft.tn-tabs_disabled .tn-tabs__item-btn {
     color: #bcc1ce;
   }
-  
+
   .tn-tabs_soft.tn-tabs_disabled .tn-tabs__item-btn_active {
     border-bottom-color: #bcc1ce;
   }
-  
+
   .tn-tabs_soft.tn-tabs_disabled .tn-tabs__item-btn_active::after {
     background-color: #bcc1ce;
   }
   </style>
-  

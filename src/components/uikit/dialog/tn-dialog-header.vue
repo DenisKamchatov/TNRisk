@@ -17,10 +17,13 @@ const props = withDefaults(
 
 // TODO: подумать нужно ли это здесь
 const close = inject("close", () => {});
-const closeable = inject("closeable");
 
-// TODO: подумать как получить closeable в хедере
-// const closeable = inject("closeable", () => true);
+const emit = defineEmits(["close"]);
+
+function onClickClose() {
+  close();
+  emit("close");
+}
 </script>
 
 <template>
@@ -41,7 +44,8 @@ const closeable = inject("closeable");
           is-icon
           secondary
           v-if="closeable"
-          @click="close"
+          @click="onClickClose"
+          v-close-popper
         />
       </div>
     </div>

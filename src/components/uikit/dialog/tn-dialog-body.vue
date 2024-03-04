@@ -40,5 +40,8 @@
   flex: 1;
   overflow-y: auto;
   padding: 24px;
+  padding-right: 16px;
+
+  scrollbar-gutter: stable;
 }
 </style>
