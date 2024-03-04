@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import MainNav from "./components/mainNav/MainNav.vue";
 import MainFooter from "@/views/main/components/MainFooter.vue";
-import HomepageLayout from "@/layouts/homepage-layout.vue";
+import HomepageLayout from "@/layouts/homepage-layout/homepage-layout.vue";
 </script>
 
 <template>

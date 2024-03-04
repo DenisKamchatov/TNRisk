@@ -34,8 +34,11 @@ const isDialogSecondVisible = ref(false);
 
         <TnDialog v-if="isDialogVisible" @close="isDialogVisible = false">
           <template #header>
-            <TnDialogHeader title="Доступ" description="Аудит: Перевод документов Аудит: Перевод документов Аудит: Перевод документов">
-                <p>Some default slot</p>
+            <TnDialogHeader
+              title="Доступ"
+              description="Аудит: Перевод документов Аудит: Перевод документов Аудит: Перевод документов"
+            >
+              <p>Some default slot</p>
             </TnDialogHeader>
           </template>
           <SomeList :list="list"></SomeList>
@@ -52,7 +55,12 @@ const isDialogSecondVisible = ref(false);
           @close="isDialogSecondVisible = false"
         >
           <template #header>
-            <TnDialogHeaderDouble title="Text" second-title="Text 2" description="First description" second-description="Second description">
+            <TnDialogHeaderDouble
+              title="Text"
+              second-title="Text 2"
+              description="First description"
+              second-description="Second description"
+            >
               <template #buttons>
                 <TnButton secondary icon="dots-vertical" is-icon />
               </template>
@@ -60,13 +68,8 @@ const isDialogSecondVisible = ref(false);
                 <TnButton secondary icon="dots-vertical" is-icon />
               </template>
 
-              <template #body>
-                First Body
-              </template>
-              <template #secondBody>
-                Second Body
-              </template>
-
+              <template #body> First Body </template>
+              <template #secondBody> Second Body </template>
             </TnDialogHeaderDouble>
           </template>
 
@@ -81,7 +84,9 @@ const isDialogSecondVisible = ref(false);
                 "
               >
                 <TnInput placeholder="Поиск" icon="search" />
-                <TnButton secondary icon-right="plus" size="lg">Добавить</TnButton>
+                <TnButton secondary icon-right="plus" size="lg"
+                  >Добавить</TnButton
+                >
               </div>
             </template>
 

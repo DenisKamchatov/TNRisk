@@ -81,10 +81,6 @@ function deleteChip(itemId: TNChipsOption["id"]) {
   align-items: center;
   flex-wrap: wrap;
   gap: 12px;
-  /* display: grid;
-  grid-template-columns:repeat( auto-fit, minmax( 120px, 1fr) );;
-  grid-template-rows: 40px 40px;
-  grid-gap: 12px; */
 
   margin: 0;
   max-height: 92px;

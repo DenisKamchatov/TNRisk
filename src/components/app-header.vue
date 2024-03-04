@@ -1,8 +1,38 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRouter } from 'vue-router'
 import TNIcon from "./uikit/icons/tn-icon.vue";
+import HomepageButton from "@/layouts/homepage-layout/components/homepage-button/homepage-button.vue";
+import HomepageNotification from "@/layouts/homepage-layout/components/homepage-notification/homepage-notification.vue";
+import HomepageNavFirst from "@/layouts/homepage-layout/components/homepage-nav-first/homepage-nav-first.vue";
+import TnAvatar from "@/components/uikit/avatar/tn-avatar.vue";
 
+import { IHomepageNavFirst } from "@/layouts/homepage-layout/components/homepage-nav-first/typings";
+
+const router = useRouter();
 const isOpenedMenu = ref<boolean>(false);
+
+// TODO: Подумать как передавать данные об меню в header (мб перенести header из App в layout)
+const currentNavFirstOptionUrl = ref<string>('MainPage');
+
+let navFirstOptions = ref<IHomepageNavFirst[]>([
+  {
+    id: 1,
+    name: "uikit",
+    urlName: "UikitPage",
+  },
+  {
+    id: 2,
+    name: "uikit-dialog",
+    urlName: "UikitDialogPage",
+  },
+  {
+    id: 3,
+    name: "Label 3",
+    urlName: "MainPage",
+    disabled: true,
+  },
+]);
 </script>
 
 <template>
@@ -13,22 +43,40 @@ const isOpenedMenu = ref<boolean>(false);
   >
     <div class="app-header__top">
       <div class="app-header__left-bar">
-        <div class="app-header__icon-block">
-          <TNIcon name="logotype" :size="24" />
-          <h5 class="app-header__logo-title">Risk</h5>
-        </div>
+        <HomepageButton logo @click="router.push({ path: '/' })" />
 
-        <div
-          class="app-header__menu-button menu-button"
+        <HomepageButton
+          class="app-header__menu-button"
           @click="isOpenedMenu = !isOpenedMenu"
+          :icon="isOpenedMenu ? 'x' : 'menu'"
+          >Меню</HomepageButton
         >
-          <TNIcon :name="isOpenedMenu ? 'x' : 'menu'" :size="24" />
-          <p class="menu-button__text">Меню</p>
-        </div>
+
+        <HomepageNavFirst
+          class="app-header__nav-first"
+          v-model="currentNavFirstOptionUrl"
+          :options="navFirstOptions"
+        />
       </div>
 
-      <!-- TODO: Добавить в header__right-bar кнопки -->
-      <nav class="app-header__right-bar"></nav>
+      <nav class="app-header__right-bar">
+        <HomepageNotification has-notification :light="!isOpenedMenu" />
+        <HomepageNotification :light="!isOpenedMenu" />
+        <!-- <HomepageButton icon="bell" :light="!isOpenedMenu"></HomepageButton> -->
+
+        <HomepageButton :light="!isOpenedMenu">
+          <div class="homepage-profile">
+            <TnAvatar size="md" image="https://i.pinimg.com/originals/84/01/13/84011369742c4581e76047ec420733f2.jpg" />
+
+            <div class="homepage-profile__text-block">
+              <p class="homepage-profile__name">Егоренко А.</p>
+              <p class="homepage-profile__role">Контролер</p>
+            </div>
+
+            <TNIcon class="homepage-profile__icon" name="chevron-down" :size="16" />
+          </div>
+        </HomepageButton>
+      </nav>
     </div>
     <slot name="menu" v-if="isOpenedMenu"></slot>
 
@@ -37,7 +85,6 @@ const isOpenedMenu = ref<boolean>(false);
       @click="isOpenedMenu = !isOpenedMenu"
       class="app-header__bg"
     ></div>
-
   </header>
 </template>
 
@@ -69,7 +116,10 @@ const isOpenedMenu = ref<boolean>(false);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
     padding: 24px 0;
+
     border-bottom: 1px solid #e7e9ef;
   }
 
@@ -101,35 +151,18 @@ const isOpenedMenu = ref<boolean>(false);
     }
   }
 
-  .menu-button {
+  .app-header__menu-button {
+    margin: 0 0 0 16px;
+  }
+
+  .app-header__nav-first {
+    margin: 0 0 0 20px;
+  }
+
+  .app-header__right-bar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-
-    padding: 12px 16px 11px 16px;
-    margin: 0 0 0 16px;
-
-    font-size: 16px;
-
-    background-color: #fff;
-    color: #2e384b;
-
-    border-radius: 12px;
-    cursor: pointer;
-
-    .tn-icon {
-      font-size: 24px;
-    }
-
-    .menu-button__text {
-      margin: 0 0 0 8px;
-
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 24px;
-
-      color: #1d1e22;
-    }
+    gap: 16px;
   }
 }
 

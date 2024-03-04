@@ -52,7 +52,6 @@ const hasIconSlot = computed<boolean>(() => !!slots["icon"]);
 const hasRightIconSlot = computed<boolean>(() => !!slots["icon-right"]);
 const hasIcon = computed<boolean>(() => hasIconSlot.value || !!props.icon);
 const isOnlyIcon = computed<boolean>(() => !hasContent.value && hasIcon.value && !props.isIcon);
-const hasLeftIcon = computed<boolean>(() => hasIcon.value);
 const hasRightIcon = computed<boolean>(
   () => hasRightIconSlot.value || !!props.iconRight
 );
@@ -93,8 +92,6 @@ function onClickButton(e: Event) {
     :class="{
       'tn-button_medium': sizeOutput === 'md',
       'tn-button_large': sizeOutput === 'lg',
-      'tn-button_lefticon': hasLeftIcon,
-      'tn-button_righticon': hasRightIcon,
       'tn-button_primary': primary,
       'tn-button_secondary': secondary,
       'tn-button_only-icon': isOnlyIcon,
@@ -108,9 +105,6 @@ function onClickButton(e: Event) {
     <span
       v-if="hasIcon"
       class="tn-button__icon"
-      :class="{
-        'tn-button__icon_left': !isOnlyIcon,
-      }"
     >
       <slot name="icon">
         <TNIcon :size="20" :name="icon" />
@@ -121,7 +115,7 @@ function onClickButton(e: Event) {
       <slot></slot>
     </span>
 
-    <span v-if="hasRightIcon && !isIcon" class="tn-button__icon tn-button__icon_right">
+    <span v-if="hasRightIcon && !isIcon" class="tn-button__icon">
       <slot name="icon-right">
         <TNIcon :size="20" :name="iconRight" />
       </slot>
@@ -268,6 +262,7 @@ function onClickButton(e: Event) {
     font-size: 20px;
   }
 }
+
 .tn-button_large.tn-button_is-icon {
   width: 32px;
   height: 32px;

@@ -4,6 +4,7 @@ import { TNTabsOption } from "@/components/uikit/tabs/typings";
 import { TNChipsOption } from "@/components/uikit/chips/typings";
 import { IAvatarGroupItem } from "@/components/uikit/avatar-group/typings";
 import { TNRadioButtonOption } from "@/components/uikit/radio/typings";
+import { IHomepageNavFirst } from "@/layouts/homepage-layout/components/homepage-nav-first/typings";
 
 import TnBadge from "@/components/uikit/badge/tn-badge.vue";
 import TnIcon from "@/components/uikit/icons/tn-icon.vue";
@@ -21,11 +22,15 @@ import TNDialog from "@/components/uikit/dialog/tn-dialog.vue";
 import TnNotification from "@/components/uikit/notification/tn-notification.vue";
 import TnAlert from "@/components/uikit/alert/tn-alert.vue";
 
+import HomepageButton from "@/layouts/homepage-layout/components/homepage-button/homepage-button.vue";
+import HomepageNavFirst from "@/layouts/homepage-layout/components/homepage-nav-first/homepage-nav-first.vue";
+
 const isTumblerActive = ref<boolean>(false);
 const isCheckboxActive = ref<boolean>(false);
 const animalAsObject = ref<TNRadioButtonOption | null>(null);
 const searchValue = ref<string>("");
 const currentOptionId = ref<string | number>(0);
+const currentNavFirstOptionUrl = ref<IHomepageNavFirst['urlName']>('MainPage');
 
 const animal1 = reactive({
   id: "1",
@@ -113,6 +118,25 @@ let chipsOptions = ref<TNChipsOption[]>([
         "https://i.pinimg.com/originals/84/01/13/84011369742c4581e76047ec420733f2.jpg",
       alt: "some alt",
     },
+    disabled: true,
+  },
+]);
+
+let navFirstOptions = ref<IHomepageNavFirst[]>([
+  {
+    id: 1,
+    name: "uikit",
+    urlName: "UikitPage",
+  },
+  {
+    id: 2,
+    name: "uikit-dialog",
+    urlName: "UikitDialogPage",
+  },
+  {
+    id: 3,
+    name: "Label 3",
+    urlName: "MainPage",
     disabled: true,
   },
 ]);
@@ -955,6 +979,7 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
       </div>
     </div>
 
+    <!-- Alert -->
     <div class="uikit-page__block">
       <h2 class="uikit-page__block-title">Alert</h2>
 
@@ -1028,6 +1053,58 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
       </div>
 
     </div>
+
+    <!-- HomepageButtonn -->
+    <div class="uikit-page__block">
+      <h2 class="uikit-page__block-title">HomepageButton</h2>
+
+      <h5 class="uikit-page__block-subtitle">Logo</h5>
+      <div class="uikit-page__block-items uikit-page__block-items_column">
+        <HomepageButton logo></HomepageButton>
+      </div>
+
+      <h5 class="uikit-page__block-subtitle">Menu</h5>
+      <div class="uikit-page__block-items uikit-page__block-items_column">
+        <HomepageButton icon="menu">Структура СВК</HomepageButton>
+      </div>
+
+      <h5 class="uikit-page__block-subtitle">Profile</h5>
+      <div class="uikit-page__block-items uikit-page__block-items_column">
+        <HomepageButton>
+          <div class="homepage-profile">
+            <TnAvatar size="md" image="https://i.pinimg.com/originals/84/01/13/84011369742c4581e76047ec420733f2.jpg" />
+
+            <div class="homepage-profile__text-block">
+              <p class="homepage-profile__name">Егоренко А.</p>
+              <p class="homepage-profile__role">Контролер</p>
+            </div>
+
+            <TnIcon class="homepage-profile__icon" name="chevron-down" :size="16" />
+          </div>
+        </HomepageButton>
+      </div>
+
+      <!-- TODO: Внутри Notification должна быть информация об уведомлениях, если есть добавляется красная точка и меняется иконка -->
+      <!-- Подумать, мб лучше сделать отдельным компонентом -->
+      <h5 class="uikit-page__block-subtitle">Notification</h5>
+      <div class="uikit-page__block-items uikit-page__block-items_column">
+        <HomepageButton icon="bell"></HomepageButton>
+      </div>
+
+    </div>
+
+    <!-- HomepageNavFirst -->
+    <div class="uikit-page__block">
+      <h2 class="uikit-page__block-title">HomepageNavFirst</h2>
+
+      <div class="uikit-page__block-items uikit-page__block-items_column">
+        <HomepageNavFirst
+          v-model="currentNavFirstOptionUrl"
+          :options="navFirstOptions"
+        />
+      </div>
+
+    </div>
   </div>
 </template>
 
@@ -1064,4 +1141,40 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
     align-items: start;
   }
 }
+
+.homepage-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  min-width: 167px;
+
+  .homepage-profile__text-block {
+    text-align: left;
+  }
+
+  .homepage-profile__name {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+
+    color: #2E384B;
+  }
+
+  .homepage-profile__role {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+
+    color: #747C8C;
+  }
+
+  .homepage-profile__icon {
+    transform: rotate(-90deg);
+    margin-left: auto;
+  }
+}
+
+
+
 </style>
