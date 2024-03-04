@@ -104,4 +104,8 @@ defineEmits(["select"]);
   display: none;
 }
 
+.v-popper--theme-dropdown .v-popper__inner {
+  border-radius: 16px;
+}
+
 </style>

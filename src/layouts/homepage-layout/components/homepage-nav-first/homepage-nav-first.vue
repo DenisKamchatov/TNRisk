@@ -43,6 +43,7 @@ function chooseItem(itemUrlName: IHomepageNavFirst["urlName"]) {
           'nav-first__item-btn_active':
             modelValue && !item.disabled && !disabled && item.urlName === $route.name,
         }"
+        :tabindex="disabled || item.disabled ? -1 : 0"
         :disabled="disabled || item.disabled"
         @click="chooseItem(item.urlName)"
         tag="button"
@@ -62,6 +63,7 @@ function chooseItem(itemUrlName: IHomepageNavFirst["urlName"]) {
   gap: 12px;
 
   margin: 0;
+  padding: 2px;
   overflow-x: auto;
 }
 
@@ -81,19 +83,24 @@ function chooseItem(itemUrlName: IHomepageNavFirst["urlName"]) {
   transition: all 0.2s ease;
   border-radius: 12px;
   white-space: nowrap;
-}
 
-.nav-first__item-btn:hover {
-  color: #2E384B;
+  &:hover {
+    color: #2E384B;
+  }
+
+  &:focus {
+    animation: focus-animation-secondary 500ms ease forwards;
+    transition: 300ms;
+  }
 }
 
 .nav-first__item-btn_active {
   background: #E7E9EF;
   color: #2E384B;
-}
 
-.nav-first__item-btn_active:hover {
-  background: #d3d6df;
+  &:hover {
+    background: #d3d6df;
+  }
 }
 
 .nav-first_disabled .nav-first__item-btn {
@@ -106,6 +113,17 @@ function chooseItem(itemUrlName: IHomepageNavFirst["urlName"]) {
 
 .nav-first__item-btn_disabled {
   color: #d9dbe1;
+}
 
+
+@keyframes focus-animation-secondary {
+  from {
+    outline: 1px solid #ffffff00;
+    outline-offset: 1px;
+  }
+  to {
+    outline: 1px solid #9ea5b5;
+    outline-offset: 1px;
+  }
 }
 </style>
