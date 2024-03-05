@@ -9,12 +9,17 @@ import TnAvatar from "@/components/uikit/avatar/tn-avatar.vue";
 import NotificationsWidget from "@/components/widgets/notifications/notifications-widget.vue";
 
 import { IHomepageNavFirst } from "@/layouts/homepage-layout/components/homepage-nav-first/typings";
+import LangSelect from "./widgets/lang-select/lang-select.vue";
+
+import { useLocalStorage } from "@vueuse/core";
 
 const router = useRouter();
 const isOpenedMenu = ref<boolean>(false);
 
 // TODO: Подумать как передавать данные об меню в header (мб перенести header из App в layout)
 const currentNavFirstOptionUrl = ref<string>('MainPage');
+
+const language = useLocalStorage("risk.lang", "ru");
 
 let navFirstOptions = ref<IHomepageNavFirst[]>([
   {
@@ -61,9 +66,8 @@ let navFirstOptions = ref<IHomepageNavFirst[]>([
       </div>
 
       <nav class="app-header__right-bar">
+        <LangSelect v-model="language" />
         <NotificationsWidget />
-        <!-- <HomepageNotification has-notification :light="!isOpenedMenu" />
-        <HomepageNotification :light="!isOpenedMenu" /> -->
         <!-- <HomepageButton icon="bell" :light="!isOpenedMenu"></HomepageButton> -->
 
         <HomepageButton :light="!isOpenedMenu">
