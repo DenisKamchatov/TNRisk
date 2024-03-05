@@ -3,7 +3,7 @@ import { computed, ref, unref, useSlots } from "vue";
 import TNIcon from "@/components/uikit/icons/tn-icon.vue";
 // import TnCell from "../cell/cell.vue";
 import { ICellDataItem } from "./typings";
-import { Dropdown, hideAllPoppers } from "floating-vue";
+import { Dropdown } from "floating-vue";
 
 const props = withDefaults(
   defineProps<{
@@ -22,6 +22,7 @@ const props = withDefaults(
     cell?: boolean;
     showResult?: boolean;
     rightButtonIcon?: string;
+    light?: boolean;
   }>(),
   {
     description: "",
@@ -30,6 +31,7 @@ const props = withDefaults(
     result: null,
     resultMaxHeight: 360,
     rightButtonIcon: "x",
+    light: true,
   }
 );
 
@@ -58,6 +60,8 @@ const savedResult = ref<
 >([]);
 
 const isPopperShown = ref<boolean>(false);
+const isInputActive = ref<boolean>(!!modelValue.value)
+const overlapModelValue = ref<string | null>(null);
 
 const descriptionText = computed<string>(() => {
   if (props.result && !props.result.length && props.showResult) {
@@ -77,14 +81,18 @@ const showInlineResult = computed<boolean>(() => {
 
 const focusHandler = (event: FocusEvent) => {
   emits("focus", (event.target as HTMLInputElement).value);
+  isInputActive.value = true;
   isPopperShown.value = true;
 };
 
 const blurHandler = (event: FocusEvent) => {
   emits("blur", (event.target as HTMLInputElement).value);
   isPopperShown.value = false;
+  isInputActive.value = !!modelValue.value;
+
 };
 
+// TODO: Подумать нужна ли эта функция и переменная savedResult
 const clickOutsideHandler = () => {
   if (props.result) {
     if (!haveValueSlot.value) {
@@ -114,14 +122,13 @@ const listOutput = computed(() => {
     : savedResult.value;
 });
 
-
 const highlightedElement = ref<{
       title: string;
       id: string;
     } | ICellDataItem | null>();
 
 function arrowKeyHandler(direction: "up" | "down") {
-  if (props.result && props.result.length) {
+  if (props.result && props.result.length && modelValue.value) {
     if (direction === "up") {
       if (highlightedElement.value) {
         const index = unref(listOutput.value).findIndex(
@@ -130,11 +137,13 @@ function arrowKeyHandler(direction: "up" | "down") {
         if (index > 0) {
           highlightedElement.value = unref(listOutput.value)[index - 1];
         }
-      } else {
+      }
+      if (!highlightedElement.value || index === 0) {
         highlightedElement.value = unref(listOutput.value)[
           unref(listOutput.value).length - 1
         ];
       }
+
     } else if (direction === "down") {
       if (highlightedElement.value) {
         const index = unref(listOutput.value).findIndex(
@@ -143,10 +152,15 @@ function arrowKeyHandler(direction: "up" | "down") {
         if (index < unref(listOutput.value).length - 1) {
           highlightedElement.value = unref(listOutput.value)[index + 1];
         }
-      } else {
+      }
+      if (!highlightedElement.value || index === unref(listOutput.value).length - 1) {
         highlightedElement.value = unref(listOutput.value)[0];
       }
+
+      overlapModelValue.value = highlightedElement.value.title;
     }
+
+    overlapModelValue.value = highlightedElement.value.title;
   }
 }
 
@@ -154,9 +168,20 @@ function onEnter() {
   modelValue.value = highlightedElement.value?.title || modelValue.value;
 
   highlightedElement.value = null;
-  emits('enter', modelValue);
+  selectHandler(modelValue.value);
+}
 
-  isPopperShown.value = false;
+function onEsc() {
+  overlapModelValue.value = null;
+  highlightedElement.value = null;
+}
+
+function onInput(value: string) {
+  modelValue.value = value;
+  emits('update:modelValue', value)
+
+  overlapModelValue.value = null;
+  highlightedElement.value = null;
 }
 </script>
 
@@ -171,26 +196,39 @@ function onEnter() {
       :triggers="[]"
       :shown="showInlineResult"
       :autoHide="false"
-      placement="auto-start"
+      placement="bottom-start"
     >
-      <button type="button" class="tn-search__container">
-        <div class="tn-search__input-container">
+      <div class="tn-search__container">
+        <div
+          class="tn-search__input-container"
+          :class="{
+              'tn-search__input-container_light': light,
+          }"
+        >
           <input
             class="tn-search__inner-input"
+            :class="{
+              'tn-search__inner-input_active': isInputActive,
+            }"
             type="search"
             autocorrect="off"
             autocomplete="off"
             aria-autocomplete="none"
             spellcheck="false"
             tabindex="0"
-            :placeholder="placeholder"
-            v-model="modelValue"
+            :placeholder="isInputActive ? placeholder : ''"
+            :value="overlapModelValue || modelValue"
             @blur="blurHandler"
             @focus="focusHandler"
+            @input="onInput($event.target.value)"
             @keyup.enter.prevent="onEnter"
+            @keydown.esc.prevent="onEsc"
             @keydown.up="arrowKeyHandler('up')"
             @keydown.down="arrowKeyHandler('down')"
           />
+          <TNIcon class="tn-search__search-icon" name="search" />
+          <!-- @input="$emit('update:modelValue', onInput($event.target.value))" -->
+          <!-- @input="$emit('update:modelValue', $event.target.value)" -->
           <transition name="tn-search__right-button-icon">
             <TNIcon
               v-if="rightButtonIcon && !showResult && !modelValue"
@@ -199,9 +237,8 @@ function onEnter() {
               @click="rightButtonClickHandler"
             />
           </transition>
-          <div class="tn-search__input-highlighted" v-if="highlightedElement">{{ highlightedElement?.title || modelValue }}</div>
         </div>
-      </button>
+      </div>
       <template #popper v-if="isPopperShown">
         <div
           class="tn-search__result-container"
@@ -232,7 +269,7 @@ function onEnter() {
               :class="{
                 'tn-search__result-item_highlighted': highlightedElement === resultItem
               }"
-              @mousedown="selectHandler(resultItem.id)"
+              @mousedown="selectHandler(resultItem.title)"
               v-close-popper
             >
               {{ resultItem.title }}
@@ -268,6 +305,8 @@ function onEnter() {
 
 .tn-search__inner-input {
   font-weight: 400;
+  max-width: 48px;
+  width: 48px;
   height: 48px;
   background-color: #F5F6FA;
   border: 1px solid transparent;
@@ -280,9 +319,66 @@ function onEnter() {
   box-sizing: border-box;
   background-position: 12px center;
   background-repeat: no-repeat;
+  // padding: 12px 12px 12px 48px;
+  padding: 12px 12px 12px 12px;
+  // background-image: url("data:image/svg+xml,%3Csvg width='17' height='16' viewBox='0 0 17 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M13 7.5C13 10.5376 10.5376 13 7.5 13C4.46243 13 2 10.5376 2 7.5C2 4.46243 4.46243 2 7.5 2C10.5376 2 13 4.46243 13 7.5ZM12.3266 13.2408C11.0222 14.3386 9.33833 15 7.5 15C3.35786 15 0 11.6421 0 7.5C0 3.35786 3.35786 0 7.5 0C11.6421 0 15 3.35786 15 7.5C15 9.08208 14.5101 10.5498 13.6738 11.7596L16.2071 14.2929C16.5976 14.6834 16.5976 15.3166 16.2071 15.7071C15.8166 16.0976 15.1834 16.0976 14.7929 15.7071L12.3266 13.2408Z' fill='%23667387'/%3E%3C/svg%3E%0A");
+
+  cursor: pointer;
+
+  &::placeholder {
+    opacity: 0;
+    transition: 500ms;
+  }
+}
+
+.tn-search__input-container_light {
+  .tn-search__inner-input {
+    background-color: #FFFFFF;
+
+    &:hover {
+    background-color: #FFFFFF;
+
+      border: 1px solid #dfe2e7;
+      transition: 300ms;
+    }
+
+    &:focus {
+      background-color: #FFFFFF;
+      border-color: #e63f46;
+      outline: 2px solid #fcddde;
+      color: #2E384B;
+    }
+  }
+  .tn-search__search-icon {
+      color: #2E384B;
+    }
+}
+
+
+.tn-search__inner-input_active {
   padding: 12px 12px 12px 48px;
-  background-image: url("data:image/svg+xml,%3Csvg width='17' height='16' viewBox='0 0 17 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M13 7.5C13 10.5376 10.5376 13 7.5 13C4.46243 13 2 10.5376 2 7.5C2 4.46243 4.46243 2 7.5 2C10.5376 2 13 4.46243 13 7.5ZM12.3266 13.2408C11.0222 14.3386 9.33833 15 7.5 15C3.35786 15 0 11.6421 0 7.5C0 3.35786 3.35786 0 7.5 0C11.6421 0 15 3.35786 15 7.5C15 9.08208 14.5101 10.5498 13.6738 11.7596L16.2071 14.2929C16.5976 14.6834 16.5976 15.3166 16.2071 15.7071C15.8166 16.0976 15.1834 16.0976 14.7929 15.7071L12.3266 13.2408Z' fill='%23667387'/%3E%3C/svg%3E%0A");
-  width: 100%;
+  max-width: 300px;
+  width: 300px;
+
+  cursor: text;
+
+  &::placeholder {
+    opacity: 1;
+    transition: 500ms;
+  }
+}
+
+.tn-search__search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+
+  font-size: 24px;
+
+  color: #747C8C;
+
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
 .tn-search__inner-input::-webkit-search-decoration {

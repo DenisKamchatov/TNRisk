@@ -4,7 +4,7 @@ import { TNTabsOption } from "@/components/uikit/tabs/typings";
 import { TNChipsOption } from "@/components/uikit/chips/typings";
 import { IAvatarGroupItem } from "@/components/uikit/avatar-group/typings";
 import { TNRadioButtonOption } from "@/components/uikit/radio/typings";
-import { IHomepageNavFirst } from "@/layouts/homepage-layout/components/homepage-nav-first/typings";
+import { IHomepageNavFirst } from "@/layouts/homepage-layout/components/header-nav-first/typings";
 
 import TnBadge from "@/components/uikit/badge/tn-badge.vue";
 import TnIcon from "@/components/uikit/icons/tn-icon.vue";
@@ -23,8 +23,8 @@ import TnNotification from "@/components/uikit/notification/tn-notification.vue"
 import TnAlert from "@/components/uikit/alert/tn-alert.vue";
 import TnSearch from "@/components/uikit/search/tn-search.vue";
 
-import HomepageButton from "@/layouts/homepage-layout/components/homepage-button/homepage-button.vue";
-import HomepageNavFirst from "@/layouts/homepage-layout/components/homepage-nav-first/homepage-nav-first.vue";
+import HomepageButton from "@/layouts/homepage-layout/components/header-button/header-button.vue";
+import HomepageNavFirst from "@/layouts/homepage-layout/components/header-nav-first/header-nav-first.vue";
 
 import DropdownSection from "./sections/dropdown-section.vue";
 
@@ -33,7 +33,7 @@ const isCheckboxActive = ref<boolean>(false);
 const animalAsObject = ref<TNRadioButtonOption | null>(null);
 const searchValue = ref<string>("");
 const currentOptionId = ref<string | number>(0);
-const currentNavFirstOptionUrl = ref<IHomepageNavFirst['urlName']>('MainPage');
+const currentNavFirstOptionUrl = ref<IHomepageNavFirst["urlName"]>("MainPage");
 const searchResult = ref<any[]>([
   {
     title: "Граница обучения кадров сделала своё дело",
@@ -44,7 +44,8 @@ const searchResult = ref<any[]>([
     id: "2",
   },
   {
-    title: "Цена вопроса не важна, когда сознание наших соотечественников не замутнено пропагандой",
+    title:
+      "Цена вопроса не важна, когда сознание наших соотечественников не замутнено пропагандой",
     id: "3",
   },
   {
@@ -982,7 +983,11 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
 
       <h5 class="uikit-page__block-subtitle">With Icon</h5>
       <div class="uikit-page__block-items uikit-page__block-items_column">
-        <TnNotification title="Актуализация рисков проведена" description="Теперь, нужно актуализировать список контрольных процедур для приказа" icon="alert-circle">
+        <TnNotification
+          title="Актуализация рисков проведена"
+          description="Теперь, нужно актуализировать список контрольных процедур для приказа"
+          icon="alert-circle"
+        >
           <template #button>
             <TnButton>Актулизировать КП</TnButton>
           </template>
@@ -991,7 +996,10 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
 
       <h5 class="uikit-page__block-subtitle">Without Icon</h5>
       <div class="uikit-page__block-items uikit-page__block-items_column">
-        <TnNotification title="Актуализация рисков проведена" description="Теперь, нужно актуализировать список контрольных процедур для приказа">
+        <TnNotification
+          title="Актуализация рисков проведена"
+          description="Теперь, нужно актуализировать список контрольных процедур для приказа"
+        >
           <template #button>
             <TnButton>Актулизировать КП</TnButton>
           </template>
@@ -1012,7 +1020,10 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
           </template>
         </TnAlert>
 
-        <TnAlert error description="В своём стремлении улучшить пользовательский опыт мы упускаем, что базовые сценарии поведения пользователей будут призваны.">
+        <TnAlert
+          error
+          description="В своём стремлении улучшить пользовательский опыт мы упускаем, что базовые сценарии поведения пользователей будут призваны."
+        >
           <template #buttons>
             <TnButton size="md">Нет</TnButton>
             <TnButton size="md">Да</TnButton>
@@ -1035,7 +1046,10 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
           </template>
         </TnAlert>
 
-        <TnAlert warning description="В своём стремлении улучшить пользовательский опыт мы упускаем, что базовые сценарии поведения пользователей будут призваны.">
+        <TnAlert
+          warning
+          description="В своём стремлении улучшить пользовательский опыт мы упускаем, что базовые сценарии поведения пользователей будут призваны."
+        >
           <template #buttons>
             <TnButton size="md">Нет</TnButton>
             <TnButton size="md">Да</TnButton>
@@ -1058,7 +1072,9 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
           </template>
         </TnAlert>
 
-        <TnAlert description="В своём стремлении улучшить пользовательский опыт мы упускаем, что базовые сценарии поведения пользователей будут призваны.">
+        <TnAlert
+          description="В своём стремлении улучшить пользовательский опыт мы упускаем, что базовые сценарии поведения пользователей будут призваны."
+        >
           <template #buttons>
             <TnButton size="md">Нет</TnButton>
             <TnButton size="md">Да</TnButton>
@@ -1071,7 +1087,6 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
           </template>
         </TnAlert>
       </div>
-
     </div>
 
     <!-- HomepageButtonn -->
@@ -1092,14 +1107,21 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
       <div class="uikit-page__block-items uikit-page__block-items_column">
         <HomepageButton>
           <div class="homepage-profile">
-            <TnAvatar size="md" image="https://i.pinimg.com/originals/84/01/13/84011369742c4581e76047ec420733f2.jpg" />
+            <TnAvatar
+              size="md"
+              image="https://i.pinimg.com/originals/84/01/13/84011369742c4581e76047ec420733f2.jpg"
+            />
 
             <div class="homepage-profile__text-block">
               <p class="homepage-profile__name">Егоренко А.</p>
               <p class="homepage-profile__role">Контролер</p>
             </div>
 
-            <TnIcon class="homepage-profile__icon" name="chevron-down" :size="16" />
+            <TnIcon
+              class="homepage-profile__icon"
+              name="chevron-down"
+              :size="16"
+            />
           </div>
         </HomepageButton>
       </div>
@@ -1110,7 +1132,6 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
       <div class="uikit-page__block-items uikit-page__block-items_column">
         <HomepageButton icon="bell"></HomepageButton>
       </div>
-
     </div>
 
     <!-- Search -->
@@ -1124,11 +1145,10 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
           show-result
           search-hint="Введите что-нибудь для поиска"
           nothing-found-title="Я ничего не нашёл"
+          :light="false"
         />
         <!-- @update:modelValue="searchUpdateHandlerEmpty" -->
-
       </div>
-
     </div>
 
     <!-- HomepageNavFirst -->
@@ -1141,7 +1161,6 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
           :options="navFirstOptions"
         />
       </div>
-
     </div>
 
     <DropdownSection />
@@ -1198,7 +1217,7 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
     font-weight: 600;
     line-height: 20px;
 
-    color: #2E384B;
+    color: #2e384b;
   }
 
   .homepage-profile__role {
@@ -1206,7 +1225,7 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
     font-weight: 400;
     line-height: 16px;
 
-    color: #747C8C;
+    color: #747c8c;
   }
 
   .homepage-profile__icon {
@@ -1231,5 +1250,5 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
   flex-wrap: wrap;
   gap: 10px;
 }
-
 </style>
+@/layouts/homepage-layout/components/header-nav-first/typings
