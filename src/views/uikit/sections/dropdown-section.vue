@@ -57,6 +57,14 @@ const language = useLocalStorage("risk.lang", "ru");
           </TnDropdownMenuItem>
         </template>
       </TnDropdownMenu>
+
+      <TnDropdownMenu :placement="`bottom-start`" search>
+        <TnButton action>Открыть меню</TnButton>
+        <template #menu>
+          <TnDropdownMenuItem icon="pencil">Редактировать</TnDropdownMenuItem>
+          <TnDropdownMenuItem icon="trash">Удалить</TnDropdownMenuItem>
+        </template>
+      </TnDropdownMenu>
     </div>
   </div>
 </template>

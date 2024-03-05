@@ -1,26 +1,44 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
-import { Menu } from "floating-vue";
+import { onMounted, provide } from "vue";
+import { Menu, Placement } from "floating-vue";
 import TnButton from "../button/tn-button.vue";
+import { DropdownItemRegisterKey, DropdownItemUnregisterKey, type IDropdownItemData } from "./typings";
 
 const props = withDefaults(
   defineProps<{
     icon?: string;
+    placement?: Placement;
+    nested?: boolean;
   }>(),
   {
     icon: "dots-vertical",
+    placement: "auto-start",
+    nested: false,
   }
 );
 
 defineEmits(["click"]);
+
+const childs = new Map<symbol, IDropdownItemData>();
+
+function registerChild(data: IDropdownItemData) {
+  childs.set(data.id, data);
+}
+
+function unregisterChild(id: symbol) {
+  childs.delete(id);
+}
+
+provide(DropdownItemRegisterKey, registerChild);
+provide(DropdownItemUnregisterKey, unregisterChild);
 </script>
 
 <template>
   <Menu
     class="tn-dropdown-menu"
-    :placement="`auto-start`"
+    :placement="placement"
     :auto-hide="false"
-    :skidding="-12"
+    :skidding="nested ? -12 : 0"
   >
     <slot>
       <TnButton
