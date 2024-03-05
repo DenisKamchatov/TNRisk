@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref, useSlots } from "vue";
+import { computed, ref, unref, useSlots } from "vue";
 import TNIcon from "@/components/uikit/icons/tn-icon.vue";
 // import TnCell from "../cell/cell.vue";
 import { ICellDataItem } from "./typings";
@@ -106,6 +106,58 @@ const selectHandler = (value: string) => {
 const rightButtonClickHandler = (event: MouseEvent) => {
   emits("click:rightButton", event);
 };
+
+
+const listOutput = computed(() => {
+  return props.result
+    ? props.result
+    : savedResult.value;
+});
+
+
+const highlightedElement = ref<{
+      title: string;
+      id: string;
+    } | ICellDataItem | null>();
+
+function arrowKeyHandler(direction: "up" | "down") {
+  if (props.result && props.result.length) {
+    if (direction === "up") {
+      if (highlightedElement.value) {
+        const index = unref(listOutput.value).findIndex(
+          (el) => el === highlightedElement.value
+        );
+        if (index > 0) {
+          highlightedElement.value = unref(listOutput.value)[index - 1];
+        }
+      } else {
+        highlightedElement.value = unref(listOutput.value)[
+          unref(listOutput.value).length - 1
+        ];
+      }
+    } else if (direction === "down") {
+      if (highlightedElement.value) {
+        const index = unref(listOutput.value).findIndex(
+          (el) => el === highlightedElement.value
+        );
+        if (index < unref(listOutput.value).length - 1) {
+          highlightedElement.value = unref(listOutput.value)[index + 1];
+        }
+      } else {
+        highlightedElement.value = unref(listOutput.value)[0];
+      }
+    }
+  }
+}
+
+function onEnter() {
+  modelValue.value = highlightedElement.value?.title || modelValue.value;
+
+  highlightedElement.value = null;
+  emits('enter', modelValue);
+
+  isPopperShown.value = false;
+}
 </script>
 
 <template>
@@ -132,11 +184,12 @@ const rightButtonClickHandler = (event: MouseEvent) => {
             spellcheck="false"
             tabindex="0"
             :placeholder="placeholder"
-            :value="modelValue"
-            @input="$emit('update:modelValue', $event.target.value)"
+            v-model="modelValue"
             @blur="blurHandler"
             @focus="focusHandler"
-            @keyup.enter="$emit('enter', $event.target.value)"
+            @keyup.enter.prevent="onEnter"
+            @keydown.up="arrowKeyHandler('up')"
+            @keydown.down="arrowKeyHandler('down')"
           />
           <transition name="tn-search__right-button-icon">
             <TNIcon
@@ -146,6 +199,7 @@ const rightButtonClickHandler = (event: MouseEvent) => {
               @click="rightButtonClickHandler"
             />
           </transition>
+          <div class="tn-search__input-highlighted" v-if="highlightedElement">{{ highlightedElement?.title || modelValue }}</div>
         </div>
       </button>
       <template #popper v-if="isPopperShown">
@@ -172,11 +226,12 @@ const rightButtonClickHandler = (event: MouseEvent) => {
             class="tn-search__result-list"
           >
             <li
-              v-for="resultItem in result && result.length
-                ? result
-                : savedResult"
+              v-for="resultItem in listOutput"
               :key="resultItem.id"
               class="tn-search__result-item"
+              :class="{
+                'tn-search__result-item_highlighted': highlightedElement === resultItem
+              }"
               @mousedown="selectHandler(resultItem.id)"
               v-close-popper
             >
@@ -309,6 +364,10 @@ const rightButtonClickHandler = (event: MouseEvent) => {
 
     transition: 300ms;
   }
+}
+
+.tn-search__result-item_highlighted {
+  background-color: #f5f6fa;
 }
 
 .tn-search__hint {
