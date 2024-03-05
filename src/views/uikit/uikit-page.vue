@@ -21,6 +21,7 @@ import TnChips from "@/components/uikit/chips/tn-chips.vue";
 import TNDialog from "@/components/uikit/dialog/tn-dialog.vue";
 import TnNotification from "@/components/uikit/notification/tn-notification.vue";
 import TnAlert from "@/components/uikit/alert/tn-alert.vue";
+import TnSearch from "@/components/uikit/search/tn-search.vue";
 
 import HomepageButton from "@/layouts/homepage-layout/components/homepage-button/homepage-button.vue";
 import HomepageNavFirst from "@/layouts/homepage-layout/components/homepage-nav-first/homepage-nav-first.vue";
@@ -33,7 +34,24 @@ const animalAsObject = ref<TNRadioButtonOption | null>(null);
 const searchValue = ref<string>("");
 const currentOptionId = ref<string | number>(0);
 const currentNavFirstOptionUrl = ref<IHomepageNavFirst['urlName']>('MainPage');
-
+const searchResult = ref<any[]>([
+  {
+    title: "Граница обучения кадров сделала своё дело",
+    id: "1",
+  },
+  {
+    title: "Сейчас всё чаще звучит ласковый перезвон вертикали власти",
+    id: "2",
+  },
+  {
+    title: "Цена вопроса не важна, когда сознание наших соотечественников не замутнено пропагандой",
+    id: "3",
+  },
+  {
+    title: "Эксперты утверждают, что частотность поисковых запросов бодрит",
+    id: "4",
+  },
+]);
 const animal1 = reactive({
   id: "1",
   label: "Собака",
@@ -1091,6 +1109,24 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
       <h5 class="uikit-page__block-subtitle">Notification</h5>
       <div class="uikit-page__block-items uikit-page__block-items_column">
         <HomepageButton icon="bell"></HomepageButton>
+      </div>
+
+    </div>
+
+    <!-- Search -->
+    <div class="uikit-page__block">
+      <h2 class="uikit-page__block-title">Search</h2>
+
+      <div class="uikit-page__block-items uikit-page__block-items_column">
+        <TnSearch
+          v-model="searchValue"
+          :result="searchResult"
+          show-result
+          search-hint="Введите что-нибудь для поиска"
+          nothing-found-title="Я ничего не нашёл"
+        />
+        <!-- @update:modelValue="searchUpdateHandlerEmpty" -->
+
       </div>
 
     </div>
