@@ -2,19 +2,39 @@
 import { ref } from "vue";
 import { useRouter } from 'vue-router'
 import TNIcon from "./uikit/icons/tn-icon.vue";
-import HomepageButton from "@/layouts/homepage-layout/components/homepage-button/homepage-button.vue";
-import HomepageNotification from "@/layouts/homepage-layout/components/homepage-notification/homepage-notification.vue";
-import HomepageNavFirst from "@/layouts/homepage-layout/components/homepage-nav-first/homepage-nav-first.vue";
+import HomepageButton from "@/layouts/homepage-layout/components/header-button/header-button.vue";
+import HomepageNavFirst from "@/layouts/homepage-layout/components/header-nav-first/header-nav-first.vue";
 import TnAvatar from "@/components/uikit/avatar/tn-avatar.vue";
 import NotificationsWidget from "@/components/widgets/notifications/notifications-widget.vue";
 
-import { IHomepageNavFirst } from "@/layouts/homepage-layout/components/homepage-nav-first/typings";
+import { IHomepageNavFirst } from "@/layouts/homepage-layout/components/header-nav-first/typings";
 import LangSelect from "./widgets/lang-select/lang-select.vue";
+import TnSearch from "@/components/uikit/search/tn-search.vue";
 
 import { useLocalStorage } from "@vueuse/core";
 
 const router = useRouter();
 const isOpenedMenu = ref<boolean>(false);
+const searchValue = ref<string>("");
+const searchResult = ref<any[]>([
+  {
+    title: "Граница обучения кадров сделала своё дело",
+    id: "1",
+  },
+  {
+    title: "Сейчас всё чаще звучит ласковый перезвон вертикали власти",
+    id: "2",
+  },
+  {
+    title:
+      "Цена вопроса не важна, когда сознание наших соотечественников не замутнено пропагандой",
+    id: "3",
+  },
+  {
+    title: "Эксперты утверждают, что частотность поисковых запросов бодрит",
+    id: "4",
+  },
+]);
 
 // TODO: Подумать как передавать данные об меню в header (мб перенести header из App в layout)
 const currentNavFirstOptionUrl = ref<string>('MainPage');
@@ -67,6 +87,16 @@ let navFirstOptions = ref<IHomepageNavFirst[]>([
 
       <nav class="app-header__right-bar">
         <LangSelect v-model="language" />
+
+        <TnSearch
+          v-if="!isOpenedMenu"
+          v-model="searchValue"
+          :result="searchResult"
+          show-result
+          search-hint="Введите что-нибудь для поиска"
+          nothing-found-title="Я ничего не нашёл"
+        />
+
         <NotificationsWidget />
         <!-- <HomepageButton icon="bell" :light="!isOpenedMenu"></HomepageButton> -->
 
@@ -258,3 +288,4 @@ let navFirstOptions = ref<IHomepageNavFirst[]>([
   }
 }
 </style>
+@/layouts/homepage-layout/components/header-nav-first/typings
