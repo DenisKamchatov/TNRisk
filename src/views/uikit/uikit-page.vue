@@ -82,7 +82,11 @@ const checkboxList = ref<{
   }
 ])
 const checkboxListStringify = computed(() => {
-  return JSON.stringify(checkboxList.value)
+  const selectedCheckboxes = checkboxList.value.filter(checkbox => checkbox.isActive);
+  if (selectedCheckboxes.length) {
+    return JSON.stringify(selectedCheckboxes)
+  }
+  return []
 })
 
 const animal1 = reactive({
@@ -98,7 +102,10 @@ const animal3 = reactive({
   label: "Крыса",
 });
 const animalAsObjectStringify = computed(() => {
-  return JSON.stringify(animalAsObject.value)
+  if (animalAsObject.value) {
+    return JSON.stringify(animalAsObject.value)
+  }
+  return null
 })
 
 const avatars = reactive<IAvatarGroupItem[]>([
@@ -604,8 +611,10 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
           :readonly="checkbox.readonly"
           :label="checkbox.label"
         />
+        <p style="width: 100%">
+          {{ checkboxListStringify }}
 
-        {{ checkboxListStringify }}
+        </p>
       </div>
     </div>
 
