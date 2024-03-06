@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import { computed, ComputedRef, useSlots } from "vue";
+import { computed, ComputedRef, useSlots, toRaw } from "vue";
 
 const props = withDefaults(
   defineProps<{
     label?: string;
+    value: {};
     disabled?: boolean;
     error?: string;
     warn?: string;
@@ -13,25 +14,73 @@ const props = withDefaults(
   {}
 );
 
-const modelValue = defineModel<boolean>("modelValue", {
-  type: Boolean,
-  default: false,
-});
+const modelValue = defineModel<any>();
 const slots = useSlots();
 
 const inputId: ComputedRef<string> = computed(
   () => `tn-checkbox-${Math.floor(Math.random() * 9999) + 1}`
 );
-const hasLabelSlot: ComputedRef<boolean> = computed(() => !!slots.label);
+const hasLabelSlot: ComputedRef<boolean> = computed(() => !!slots.default);
 
-function handleMouseUp(event: MouseEvent) {
-  (event.target as HTMLButtonElement).blur();
-}
+const valueString = computed(() => {
+  return JSON.stringify(props.value);
+});
+
+/**
+ * `true` Если модель это массив
+ * и в нём есть это значение
+ */
+const inModelArray = computed((): boolean => {
+  if (!Array.isArray(modelValue.value)) {
+    return false;
+  }
+
+  return !!modelValue.value.find((el) => {
+    if (typeof props.value === "object") {
+      return JSON.stringify(el) === valueString.value;
+    }
+    return toRaw(el) === toRaw(props.value);
+  });
+});
+
+const isChecked = computed((): boolean => {
+  if (props.value === undefined) {
+    return !!modelValue.value;
+  }
+
+  if (Array.isArray(modelValue.value)) {
+    return inModelArray.value;
+  }
+
+  return JSON.stringify(modelValue.value) === JSON.stringify(props.value);
+});
+
+// function handleMouseUp(event: MouseEvent) {
+//   (event.target as HTMLButtonElement).blur();
+// }
 
 function clickHandler() {
-  modelValue.value = !modelValue.value;
+  modelValue.value = modelValue.value;
 }
 
+function onInput() {
+  if (props.value === undefined) {
+    return (modelValue.value = !modelValue.value);
+  }
+
+  if (Array.isArray(modelValue.value)) {
+    if (inModelArray.value) {
+      return (modelValue.value = modelValue.value.filter(
+        (el) => JSON.stringify(el) !== valueString.value
+      ));
+    }
+    return (modelValue.value = [
+      ...toRaw(modelValue.value),
+      toRaw(props.value),
+    ]);
+  }
+  modelValue.value = isChecked.value ? null : props.value;
+}
 </script>
 
 <template>
@@ -49,17 +98,16 @@ function clickHandler() {
       type="button"
       :class="{
         'tn-checkbox__btn_disabled': disabled,
-        'tn-checkbox__btn_checked': modelValue,
+        'tn-checkbox__btn_checked': isChecked,
       }"
       :disabled="disabled"
-      @click="clickHandler"
-      @mouseup="handleMouseUp"
+      @click="onInput"
     ></button>
 
     <span v-if="label || hasLabelSlot" class="tn-checkbox__text">
-      <label v-if="hasLabelSlot" class="tn-checkbox__text-inner" :for="inputId"
-        ><slot name="label"></slot
-      ></label>
+      <label v-if="hasLabelSlot" class="tn-checkbox__text-inner" :for="inputId">
+        <slot></slot>
+      </label>
       <label v-else class="tn-checkbox__text-inner" :for="inputId">{{
         label
       }}</label>
@@ -97,7 +145,7 @@ function clickHandler() {
 }
 
 .tn-checkbox__description {
-  color: #171C25;
+  color: #171c25;
   font-size: 16px;
   margin-top: 6px;
   display: block;
@@ -114,7 +162,7 @@ function clickHandler() {
   font-size: 14px;
   line-height: 16px;
   display: block;
-  color: '#D91921';
+  color: "#D91921";
 }
 
 .tn-checkbox__text-warn {
@@ -122,7 +170,7 @@ function clickHandler() {
   font-size: 14px;
   line-height: 16px;
   display: block;
-  color: '#D91921';
+  color: "#D91921";
 }
 
 .tn-checkbox__btn {
@@ -132,8 +180,8 @@ function clickHandler() {
   width: 22px;
   height: 22px;
   flex: 0 0 22px;
-  border: 2px solid #D0D4DB;
-  background-color: #FFFFFF;
+  border: 2px solid #d0d4db;
+  background-color: #ffffff;
   border-radius: 6px;
   cursor: pointer;
   outline: none;
@@ -142,8 +190,6 @@ function clickHandler() {
   transition-property: background-color, border;
   transition-duration: 0.1s;
   transition-timing-function: linear;
-
-
 }
 
 .tn-checkbox__btn:before {
@@ -176,13 +222,13 @@ function clickHandler() {
 }
 
 .tn-checkbox__btn:hover {
-  border-color: #9EA5B5;
-  background-color: #F5F6FA;
+  border-color: #9ea5b5;
+  background-color: #f5f6fa;
 }
 
 .tn-checkbox__btn:active {
-  border-color: #9EA5B5;
-  background-color: #E9EBF1;
+  border-color: #9ea5b5;
+  background-color: #e9ebf1;
 }
 
 .tn-checkbox_readonly {
@@ -195,9 +241,8 @@ function clickHandler() {
 }
 
 .tn-checkbox__btn_checked {
-  background-color: #EB3B41;
-  border-color: #EB3B41;
-
+  background-color: #eb3b41;
+  border-color: #eb3b41;
 
   &:focus {
     outline: 1px solid #d91921;
@@ -211,8 +256,8 @@ function clickHandler() {
 }
 
 .tn-checkbox__btn_checked:hover {
-  background-color: #D91921;
-  border-color: #D91921;
+  background-color: #d91921;
+  border-color: #d91921;
 }
 
 .tn-checkbox__btn_checked.tn-checkbox__btn_disabled {
@@ -220,8 +265,8 @@ function clickHandler() {
 }
 
 .tn-checkbox__btn_checked:active {
-  background-color: #C02B31;
-  border-color: #C02B31;
+  background-color: #c02b31;
+  border-color: #c02b31;
 }
 
 .tn-checkbox_disabled {

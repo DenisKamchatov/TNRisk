@@ -53,6 +53,8 @@ const searchResult = ref<any[]>([
   },
 ]);
 
+const checkArr = ref<unknown[]>([]);
+const checkArrObj = ref<unknown[]>([]);
 const checkboxList = ref<{
   label?: string;
   isActive?: boolean;
@@ -81,13 +83,19 @@ const checkboxList = ref<{
     readonly: true,
   }
 ])
-const checkboxListStringify = computed(() => {
-  const selectedCheckboxes = checkboxList.value.filter(checkbox => checkbox.isActive);
-  if (selectedCheckboxes.length) {
-    return JSON.stringify(selectedCheckboxes)
-  }
-  return []
-})
+// const selected = ref<{
+//   label?: string;
+//   isActive?: boolean;
+//   disabled?: boolean;
+//   readonly?: boolean;
+// }[]>([]);
+// const checkboxListStringify = computed(() => {
+//   const selectedCheckboxes = checkboxList.value.filter(checkbox => checkbox.isActive);
+//   if (selectedCheckboxes.length) {
+//     return JSON.stringify(selectedCheckboxes)
+//   }
+//   return []
+// })
 
 const animal1 = reactive({
   id: "1",
@@ -582,40 +590,40 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
       <h2 class="uikit-page__block-title">Checkbox</h2>
 
       <div class="uikit-page__block-items">
-        <TnCheckbox
-          :modelValue="isCheckboxActive"
-          @update:modelValue="(value) => isCheckboxActive = value"
-        />
-
-        <TnCheckbox
-          :modelValue="isCheckboxActive"
-          @update:modelValue="(value) => isCheckboxActive = value"
-          :disabled="true"
-        />
-
-        <TnCheckbox
-          :modelValue="isCheckboxActive"
-          @update:modelValue="(value) => isCheckboxActive = value"
-          :readonly="true"
-        />
+        <TnCheckbox v-model="isCheckboxActive" value="done" >is done</TnCheckbox>
+        <TnCheckbox v-model="isCheckboxActive" value="hidden" :disabled="true">is hidden</TnCheckbox>
+        <TnCheckbox v-model="isCheckboxActive" value="shared" :readonly="true">is shared</TnCheckbox>
       </div>
 
       <h5 class="uikit-page__block-subtitle">Checkbox list</h5>
       <div class="uikit-page__block-items">
 
-        <TnCheckbox
-          v-for="checkbox in checkboxList"
-          :modelValue="checkbox.isActive"
-          @update:modelValue="(value: boolean) => checkbox.isActive = value"
-          :disabled="checkbox.disabled"
-          :readonly="checkbox.readonly"
-          :label="checkbox.label"
-        />
-        <p style="width: 100%">
-          {{ checkboxListStringify }}
+        <TnCheckbox v-model="checkArr" value="hidden">is hidden</TnCheckbox>
+        <TnCheckbox v-model="checkArr" value="shared">is shared</TnCheckbox>
 
+        <p style="width: 100%">
+          Value: {{ checkArr }}
         </p>
       </div>
+
+      <h5 class="uikit-page__block-subtitle">Checkbox list Obj</h5>
+      <div class="uikit-page__block-items">
+        <TnCheckbox
+          v-for="(item, index) in checkboxList"
+          :key="index"
+          v-model="checkArrObj"
+          :value="item"
+          :disabled="item.disabled"
+          :readonly="item.readonly"
+        >
+          {{ item.label }}
+        </TnCheckbox>
+
+        <p style="width: 100%">
+          Value: {{ checkArrObj }}
+        </p>
+      </div>
+
     </div>
 
     <!-- Input -->
