@@ -1,33 +1,48 @@
 <script lang="ts" setup>
 import { computed, ref, unref, useSlots } from "vue";
 import TNIcon from "@/components/uikit/icons/tn-icon.vue";
-// import TnCell from "../cell/cell.vue";
-import { ICellDataItem } from "./typings";
 import { Dropdown } from "floating-vue";
 
 const props = withDefaults(
   defineProps<{
-    description?: string;
+    /**
+     * Текст в dropdown, когда нет результатов
+     */
     nothingFoundTitle?: string;
     placeholder?: string;
+    /**
+     * Элементы, которые отображаются в dropdown
+     */
     result?:
       | {
           title: string;
           id: string;
         }[]
-      | ICellDataItem[]
       | null;
+    /**
+     * Максимальная высота dropdown
+     */
     resultMaxHeight?: string | number;
+    /**
+     * Подгрузка данных
+     */
     loading?: boolean;
-    cell?: boolean;
+    /**
+     * Отображать ли dropdown
+     */
     showResult?: boolean;
+    /**
+     * Правая иконка поиска (крестик)
+     */
     rightButtonIcon?: string;
+    /**
+     * Тема инпута
+     */
     light?: boolean;
   }>(),
   {
-    description: "",
     placeholder: "Найти",
-    nothingFoundTitle: "",
+    nothingFoundTitle: "Ничего не найдено",
     result: null,
     resultMaxHeight: 360,
     rightButtonIcon: "x",
@@ -49,29 +64,13 @@ const emits = defineEmits([
   "click:rightButton",
 ]);
 
-const slots = useSlots();
-
-const savedResult = ref<
-  | {
-      title: string;
-      id: string;
-    }[]
-  | ICellDataItem[]
->([]);
-
 const isPopperShown = ref<boolean>(false);
 const isInputActive = ref<boolean>(!!modelValue.value)
 const overlapModelValue = ref<string | null>(null);
 
-const descriptionText = computed<string>(() => {
-  if (props.result && !props.result.length && props.showResult) {
-    return props.nothingFoundTitle;
-  }
-  return props.description;
-});
-
-const haveValueSlot = computed<boolean>(() => !!slots.value);
-
+/**
+ * Определяет показывать ли dropdown
+ */
 const showInlineResult = computed<boolean>(() => {
   if (props.showResult && modelValue.value && props.result) {
     return true;
@@ -79,32 +78,23 @@ const showInlineResult = computed<boolean>(() => {
   return false;
 });
 
+/**
+ * При фокусе на input меняется состояние input и открывается dropdown
+ */
 const focusHandler = (event: FocusEvent) => {
   emits("focus", (event.target as HTMLInputElement).value);
   isInputActive.value = true;
   isPopperShown.value = true;
 };
 
+/**
+ * При клике вне элемента dropdown или input закрывается dropdown и меняется состояние input
+ */
 const blurHandler = (event: FocusEvent) => {
   emits("blur", (event.target as HTMLInputElement).value);
   isPopperShown.value = false;
   isInputActive.value = !!modelValue.value;
 
-};
-
-// TODO: Подумать нужна ли эта функция и переменная savedResult
-const clickOutsideHandler = () => {
-  if (props.result) {
-    if (!haveValueSlot.value) {
-      savedResult.value = [...props.result];
-    }
-    emits("click:outside", modelValue);
-    if (!haveValueSlot.value) {
-      setTimeout(() => {
-        savedResult.value = [];
-      }, 300);
-    }
-  }
 };
 
 const selectHandler = (value: string) => {
@@ -118,25 +108,21 @@ const rightButtonClickHandler = (event: MouseEvent) => {
 
 const listOutput = computed(() => {
   return props.result
-    ? props.result
-    : savedResult.value;
 });
 
 const highlightedElement = ref<{
       title: string;
       id: string;
-    } | ICellDataItem | null>();
+    } | null>();
 
 function arrowKeyHandler(direction: "up" | "down") {
-  if (props.result && props.result.length && modelValue.value) {
+  if (props.result && props.result.length && modelValue.value && listOutput.value) {
+    const index = unref(listOutput.value).findIndex(
+      (el) => el === highlightedElement.value
+    );
     if (direction === "up") {
-      if (highlightedElement.value) {
-        const index = unref(listOutput.value).findIndex(
-          (el) => el === highlightedElement.value
-        );
-        if (index > 0) {
-          highlightedElement.value = unref(listOutput.value)[index - 1];
-        }
+      if (highlightedElement.value && index > 0) {
+        highlightedElement.value = unref(listOutput.value)[index - 1];
       }
       if (!highlightedElement.value || index === 0) {
         highlightedElement.value = unref(listOutput.value)[
@@ -145,25 +131,22 @@ function arrowKeyHandler(direction: "up" | "down") {
       }
 
     } else if (direction === "down") {
-      if (highlightedElement.value) {
-        const index = unref(listOutput.value).findIndex(
-          (el) => el === highlightedElement.value
-        );
-        if (index < unref(listOutput.value).length - 1) {
-          highlightedElement.value = unref(listOutput.value)[index + 1];
-        }
+      if (highlightedElement.value && index < unref(listOutput.value).length - 1) {
+        highlightedElement.value = unref(listOutput.value)[index + 1];
       }
       if (!highlightedElement.value || index === unref(listOutput.value).length - 1) {
         highlightedElement.value = unref(listOutput.value)[0];
       }
 
-      overlapModelValue.value = highlightedElement.value.title;
     }
 
-    overlapModelValue.value = highlightedElement.value.title;
+    overlapModelValue.value = highlightedElement?.value?.title || null;
   }
 }
 
+/**
+ * Enter на highlightedElement записывает его в modelValue
+ */
 function onEnter() {
   modelValue.value = highlightedElement.value?.title || modelValue.value;
 
@@ -171,11 +154,17 @@ function onEnter() {
   selectHandler(modelValue.value);
 }
 
+/**
+ * Esc заменяет overlapModelValue на modelValue, а также обнуляет highlightedElement и overlapModelValue
+ */
 function onEsc() {
   overlapModelValue.value = null;
   highlightedElement.value = null;
 }
 
+/**
+ * Ввод меняет modelValue и обнуляет highlightedElement и overlapModelValue
+ */
 function onInput(value: string) {
   modelValue.value = value;
   emits('update:modelValue', value)
@@ -187,7 +176,6 @@ function onInput(value: string) {
 
 <template>
   <form
-    v-click-outside="clickOutsideHandler"
     class="tn-search"
     @keydown.enter.prevent
   >
@@ -227,8 +215,6 @@ function onInput(value: string) {
             @keydown.down="arrowKeyHandler('down')"
           />
           <TNIcon class="tn-search__search-icon" name="search" />
-          <!-- @input="$emit('update:modelValue', onInput($event.target.value))" -->
-          <!-- @input="$emit('update:modelValue', $event.target.value)" -->
           <transition name="tn-search__right-button-icon">
             <TNIcon
               v-if="rightButtonIcon && !showResult && !modelValue"
@@ -245,11 +231,10 @@ function onInput(value: string) {
           :style="{ maxHeight: resultMaxHeight + 'px' }"
         >
           <p
-            v-if="(!result?.length && !savedResult.length) || loading"
+            v-if="(!result?.length) || loading"
             class="tn-search__hint"
             :class="{ 'tn-search__hint_load': loading }"
           >
-            {{ descriptionText }}
             <!-- <transition name="tn-search__loading-icon"> -->
             <TNIcon
               v-if="loading"
@@ -259,7 +244,7 @@ function onInput(value: string) {
             <!-- </transition> -->
           </p>
           <ul
-            v-else-if="result?.length || savedResult.length"
+            v-else-if="result?.length"
             class="tn-search__result-list"
           >
             <li
