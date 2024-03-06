@@ -8,6 +8,7 @@ const props = withDefaults(
     error?: string;
     warn?: string;
     description?: string;
+    readonly?: boolean;
   }>(),
   {}
 );
@@ -39,6 +40,7 @@ function clickHandler() {
     :class="{
       'tn-checkbox_has-label': !!label,
       'tn-checkbox_disabled': disabled,
+      'tn-checkbox_readonly': readonly,
     }"
   >
     <button
@@ -85,10 +87,6 @@ function clickHandler() {
   align-items: flex-start;
   justify-content: flex-start;
   word-break: break-word;
-}
-
-.tn-checkbox_has-label {
-  width: 100%;
 }
 
 .tn-checkbox__text {
@@ -145,7 +143,7 @@ function clickHandler() {
   transition-duration: 0.1s;
   transition-timing-function: linear;
 
-  
+
 }
 
 .tn-checkbox__btn:before {
@@ -185,6 +183,10 @@ function clickHandler() {
 .tn-checkbox__btn:active {
   border-color: #9EA5B5;
   background-color: #E9EBF1;
+}
+
+.tn-checkbox_readonly {
+  pointer-events: none;
 }
 
 .tn-checkbox__btn_disabled {

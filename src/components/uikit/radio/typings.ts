@@ -1,7 +1,7 @@
 export type TNRadioButtonOption =
   | {
       id: string | number;
-      label: string;
+      label?: string;
     }
   | undefined
   | null;

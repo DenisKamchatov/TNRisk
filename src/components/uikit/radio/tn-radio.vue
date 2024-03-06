@@ -15,6 +15,7 @@ const props = defineProps({
   },
   uniqueKey: { required: false, type: String },
   disabled: { required: false, type: Boolean },
+  readonly: { required: false, type: Boolean },
   error: { required: false, type: String },
   warn: { required: false, type: String },
 });
@@ -47,6 +48,7 @@ function onChecked() {
     :class="{
       'tn-radio_has-label': !!itemValue?.label,
       'tn-radio_disabled': disabled,
+      'tn-radio_readonly': readonly,
     }"
   >
     <div class="tn-radio__checkbox">
@@ -61,7 +63,7 @@ function onChecked() {
         :disabled="disabled"
         @click="onChecked"
         @mouseup="handleMouseUp"
-      />
+      ></button>
     </div>
 
     <div v-if="itemValue?.label || hasLabelSlot" class="tn-radio__text">
@@ -116,6 +118,10 @@ function onChecked() {
 }
 
 .tn-radio_disabled {
+  pointer-events: none;
+}
+
+.tn-radio_readonly {
   pointer-events: none;
 }
 

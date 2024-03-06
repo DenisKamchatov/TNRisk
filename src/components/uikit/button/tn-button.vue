@@ -143,6 +143,8 @@ function onClickButton(e: Event) {
   background: none;
   user-select: none;
 
+  outline: 1px solid transparent;
+  outline-offset: 1px;
   transition: 300ms;
 
   &:disabled,

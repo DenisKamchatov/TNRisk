@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import { ref, reactive, computed } from "vue";
 import { TNTabsOption } from "@/components/uikit/tabs/typings";
 import { TNChipsOption } from "@/components/uikit/chips/typings";
 import { IAvatarGroupItem } from "@/components/uikit/avatar-group/typings";
@@ -18,7 +18,6 @@ import TnInput from "@/components/uikit/input/tn-input.vue";
 import TnTextarea from "@/components/uikit/textarea/tn-textarea.vue";
 import TnTabs from "@/components/uikit/tabs/tn-tabs.vue";
 import TnChips from "@/components/uikit/chips/tn-chips.vue";
-import TNDialog from "@/components/uikit/dialog/tn-dialog.vue";
 import TnNotification from "@/components/uikit/notification/tn-notification.vue";
 import TnAlert from "@/components/uikit/alert/tn-alert.vue";
 import TnSearch from "@/components/uikit/search/tn-search.vue";
@@ -53,6 +52,39 @@ const searchResult = ref<any[]>([
     id: "4",
   },
 ]);
+
+const checkboxList = ref<{
+  label?: string;
+  isActive?: boolean;
+  disabled?: boolean;
+  readonly?: boolean;
+}[]>([
+  {
+    label: 'Label 1',
+    isActive: false
+  },
+  {
+    label: 'Label 2',
+    isActive: false
+  },
+  {
+    isActive: false
+  },
+  {
+    label: 'Label 4',
+    isActive: false,
+    disabled: true,
+  },
+  {
+    label: 'Label 4',
+    isActive: true,
+    readonly: true,
+  }
+])
+const checkboxListStringify = computed(() => {
+  return JSON.stringify(checkboxList.value)
+})
+
 const animal1 = reactive({
   id: "1",
   label: "Собака",
@@ -61,6 +93,13 @@ const animal2 = reactive({
   id: "2",
   label: "Кошка",
 });
+const animal3 = reactive({
+  id: "3",
+  label: "Крыса",
+});
+const animalAsObjectStringify = computed(() => {
+  return JSON.stringify(animalAsObject.value)
+})
 
 const avatars = reactive<IAvatarGroupItem[]>([
   {
@@ -164,10 +203,6 @@ let navFirstOptions = ref<IHomepageNavFirst[]>([
 
 function setTumblerState(state: boolean) {
   isTumblerActive.value = state;
-}
-
-function setCheckboxState(state: boolean) {
-  isCheckboxActive.value = state;
 }
 
 function collectSearchValue(value: string) {
@@ -415,8 +450,25 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
     <!-- Radiobox -->
     <div class="uikit-page__block">
       <h2 class="uikit-page__block-title">Radiobox</h2>
+      <TnRadio
+        :item-value="animal3"
+        :summary-value="animalAsObject"
+        @input="animalAsObject = $event"
+      />
+      <TnRadio
+        :item-value="animal3"
+        :summary-value="animalAsObject"
+        @input="animalAsObject = $event"
+        disabled
+      />
 
-      <h5 class="uikit-page__block-subtitle"></h5>
+      <TnRadio
+        :item-value="animal3"
+        :summary-value="animalAsObject"
+        @input="animalAsObject = $event"
+        readonly
+      />
+      <h5 class="uikit-page__block-subtitle">Radiobox List</h5>
       <div class="uikit-page__block-items">
         <TnRadio
           :item-value="animal1"
@@ -428,6 +480,8 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
           :summary-value="animalAsObject"
           @input="animalAsObject = $event"
         />
+
+        {{ animalAsObjectStringify }}
       </div>
     </div>
 
@@ -523,14 +577,35 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
       <div class="uikit-page__block-items">
         <TnCheckbox
           :modelValue="isCheckboxActive"
-          @update:modelValue="setCheckboxState"
+          @update:modelValue="(value) => isCheckboxActive = value"
         />
 
         <TnCheckbox
           :modelValue="isCheckboxActive"
-          @update:modelValue="setCheckboxState"
+          @update:modelValue="(value) => isCheckboxActive = value"
           :disabled="true"
         />
+
+        <TnCheckbox
+          :modelValue="isCheckboxActive"
+          @update:modelValue="(value) => isCheckboxActive = value"
+          :readonly="true"
+        />
+      </div>
+
+      <h5 class="uikit-page__block-subtitle">Checkbox list</h5>
+      <div class="uikit-page__block-items">
+
+        <TnCheckbox
+          v-for="checkbox in checkboxList"
+          :modelValue="checkbox.isActive"
+          @update:modelValue="(value: boolean) => checkbox.isActive = value"
+          :disabled="checkbox.disabled"
+          :readonly="checkbox.readonly"
+          :label="checkbox.label"
+        />
+
+        {{ checkboxListStringify }}
       </div>
     </div>
 
