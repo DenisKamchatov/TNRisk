@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import { computed, ref, unref, useSlots } from "vue";
+import { computed, ref, unref } from "vue";
 import TNIcon from "@/components/uikit/icons/tn-icon.vue";
 import { Dropdown } from "floating-vue";
+import TnLoader from "@/components/uikit/loader/tn-loader.vue";
 
 const props = withDefaults(
   defineProps<{
@@ -50,7 +51,7 @@ const props = withDefaults(
   }
 );
 
-const modelValue = defineModel({
+const modelValue = defineModel<string>({
   default: "",
 });
 
@@ -61,11 +62,11 @@ const emits = defineEmits([
   "enter",
   "click:outside",
   "select",
-  "click:rightButton",
 ]);
 
+const searchInput = ref<HTMLInputElement | null>(null);
 const isPopperShown = ref<boolean>(false);
-const isInputActive = ref<boolean>(!!modelValue.value)
+const isInputActive = ref<boolean>(!!modelValue.value);
 const overlapModelValue = ref<string | null>(null);
 
 /**
@@ -94,29 +95,33 @@ const blurHandler = (event: FocusEvent) => {
   emits("blur", (event.target as HTMLInputElement).value);
   isPopperShown.value = false;
   isInputActive.value = !!modelValue.value;
-
 };
 
 const selectHandler = (value: string) => {
   emits("select", value);
 };
 
-const rightButtonClickHandler = (event: MouseEvent) => {
-  emits("click:rightButton", event);
+const closeButtonClickHandler = () => {
+  modelValue.value = "";
+  searchInput.value?.focus();
 };
 
-
 const listOutput = computed(() => {
-  return props.result
+  return props.result;
 });
 
 const highlightedElement = ref<{
-      title: string;
-      id: string;
-    } | null>();
+  title: string;
+  id: string;
+} | null>();
 
 function arrowKeyHandler(direction: "up" | "down") {
-  if (props.result && props.result.length && modelValue.value && listOutput.value) {
+  if (
+    props.result &&
+    props.result.length &&
+    modelValue.value &&
+    listOutput.value
+  ) {
     const index = unref(listOutput.value).findIndex(
       (el) => el === highlightedElement.value
     );
@@ -129,15 +134,19 @@ function arrowKeyHandler(direction: "up" | "down") {
           unref(listOutput.value).length - 1
         ];
       }
-
     } else if (direction === "down") {
-      if (highlightedElement.value && index < unref(listOutput.value).length - 1) {
+      if (
+        highlightedElement.value &&
+        index < unref(listOutput.value).length - 1
+      ) {
         highlightedElement.value = unref(listOutput.value)[index + 1];
       }
-      if (!highlightedElement.value || index === unref(listOutput.value).length - 1) {
+      if (
+        !highlightedElement.value ||
+        index === unref(listOutput.value).length - 1
+      ) {
         highlightedElement.value = unref(listOutput.value)[0];
       }
-
     }
 
     overlapModelValue.value = highlightedElement?.value?.title || null;
@@ -149,7 +158,7 @@ function arrowKeyHandler(direction: "up" | "down") {
  */
 function onEnter() {
   modelValue.value = highlightedElement.value?.title || modelValue.value;
-
+  console.log(modelValue.value);
   highlightedElement.value = null;
   selectHandler(modelValue.value);
 }
@@ -167,7 +176,7 @@ function onEsc() {
  */
 function onInput(value: string) {
   modelValue.value = value;
-  emits('update:modelValue', value)
+  emits("update:modelValue", value);
 
   overlapModelValue.value = null;
   highlightedElement.value = null;
@@ -175,10 +184,7 @@ function onInput(value: string) {
 </script>
 
 <template>
-  <form
-    class="tn-search"
-    @keydown.enter.prevent
-  >
+  <form class="tn-search" @keydown.enter.prevent>
     <Dropdown
       :arrow-overflow="true"
       :triggers="[]"
@@ -190,7 +196,7 @@ function onInput(value: string) {
         <div
           class="tn-search__input-container"
           :class="{
-              'tn-search__input-container_light': light,
+            'tn-search__input-container_light': light,
           }"
         >
           <input
@@ -206,6 +212,7 @@ function onInput(value: string) {
             tabindex="0"
             :placeholder="isInputActive ? placeholder : ''"
             :value="overlapModelValue || modelValue"
+            ref="searchInput"
             @blur="blurHandler"
             @focus="focusHandler"
             @input="onInput($event.target.value)"
@@ -216,12 +223,15 @@ function onInput(value: string) {
           />
           <TNIcon class="tn-search__search-icon" name="search" />
           <transition name="tn-search__right-button-icon">
-            <TNIcon
-              v-if="rightButtonIcon && !showResult && !modelValue"
+            <button
+              v-if="modelValue"
+              type="button"
+              @click="closeButtonClickHandler"
+              @keyup.enter="closeButtonClickHandler"
               class="tn-search__right-button-icon"
-              :name="rightButtonIcon"
-              @click="rightButtonClickHandler"
-            />
+            >
+              <TNIcon :name="rightButtonIcon" />
+            </button>
           </transition>
         </div>
       </div>
@@ -231,28 +241,25 @@ function onInput(value: string) {
           :style="{ maxHeight: resultMaxHeight + 'px' }"
         >
           <p
-            v-if="(!result?.length) || loading"
+            v-if="!result?.length || loading"
             class="tn-search__hint"
             :class="{ 'tn-search__hint_load': loading }"
           >
-            <!-- <transition name="tn-search__loading-icon"> -->
-            <TNIcon
+            <TnLoader
               v-if="loading"
               class="tn-search__loading-icon"
-              name="load"
+              size="lg"
             />
-            <!-- </transition> -->
+            <span v-else>{{ nothingFoundTitle }}</span>
           </p>
-          <ul
-            v-else-if="result?.length"
-            class="tn-search__result-list"
-          >
+          <ul v-else-if="result?.length" class="tn-search__result-list">
             <li
               v-for="resultItem in listOutput"
               :key="resultItem.id"
               class="tn-search__result-item"
               :class="{
-                'tn-search__result-item_highlighted': highlightedElement === resultItem
+                'tn-search__result-item_highlighted':
+                  highlightedElement === resultItem,
               }"
               @mousedown="selectHandler(resultItem.title)"
               v-close-popper
@@ -293,20 +300,18 @@ function onInput(value: string) {
   max-width: 48px;
   width: 48px;
   height: 48px;
-  background-color: #F5F6FA;
+  background-color: #f5f6fa;
   border: 1px solid transparent;
   border-radius: 10px;
   outline: 2px solid transparent;
   font-size: 14px;
   line-height: 22px;
-  color: #2E384B;
+  color: #2e384b;
   transition: 0.3s;
   box-sizing: border-box;
   background-position: 12px center;
   background-repeat: no-repeat;
-  // padding: 12px 12px 12px 48px;
   padding: 12px 12px 12px 12px;
-  // background-image: url("data:image/svg+xml,%3Csvg width='17' height='16' viewBox='0 0 17 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M13 7.5C13 10.5376 10.5376 13 7.5 13C4.46243 13 2 10.5376 2 7.5C2 4.46243 4.46243 2 7.5 2C10.5376 2 13 4.46243 13 7.5ZM12.3266 13.2408C11.0222 14.3386 9.33833 15 7.5 15C3.35786 15 0 11.6421 0 7.5C0 3.35786 3.35786 0 7.5 0C11.6421 0 15 3.35786 15 7.5C15 9.08208 14.5101 10.5498 13.6738 11.7596L16.2071 14.2929C16.5976 14.6834 16.5976 15.3166 16.2071 15.7071C15.8166 16.0976 15.1834 16.0976 14.7929 15.7071L12.3266 13.2408Z' fill='%23667387'/%3E%3C/svg%3E%0A");
 
   cursor: pointer;
 
@@ -314,31 +319,34 @@ function onInput(value: string) {
     opacity: 0;
     transition: 500ms;
   }
+
+  &::-webkit-search-cancel-button {
+    display: none;
+  }
 }
 
 .tn-search__input-container_light {
   .tn-search__inner-input {
-    background-color: #FFFFFF;
+    background-color: #ffffff;
 
     &:hover {
-    background-color: #FFFFFF;
+      background-color: #ffffff;
 
       border: 1px solid #dfe2e7;
       transition: 300ms;
     }
 
     &:focus {
-      background-color: #FFFFFF;
+      background-color: #ffffff;
       border-color: #e63f46;
       outline: 2px solid #fcddde;
-      color: #2E384B;
+      color: #2e384b;
     }
   }
   .tn-search__search-icon {
-      color: #2E384B;
-    }
+    color: #2e384b;
+  }
 }
-
 
 .tn-search__inner-input_active {
   padding: 12px 12px 12px 48px;
@@ -360,7 +368,7 @@ function onInput(value: string) {
 
   font-size: 24px;
 
-  color: #747C8C;
+  color: #747c8c;
 
   transform: translateY(-50%);
   pointer-events: none;
@@ -371,15 +379,15 @@ function onInput(value: string) {
 }
 
 .tn-search__inner-input:hover {
-  color: #171C25;
+  color: #171c25;
   background-color: #e9ebf1;
 }
 
 .tn-search__inner-input:focus {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-color: #e63f46;
   outline: 2px solid #fcddde;
-  color: #2E384B;
+  color: #2e384b;
 }
 
 .tn-search__inner-input::-ms-clear {
@@ -387,7 +395,7 @@ function onInput(value: string) {
 }
 
 .tn-search__inner-input::placeholder {
-  color: #747C8C;
+  color: #747c8c;
 }
 
 .tn-search__inner-input::-webkit-search-cancel-button {
@@ -402,17 +410,47 @@ function onInput(value: string) {
 }
 
 .tn-search__right-button-icon {
-  color: #9EA5B5;
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
   right: 12px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 18px;
+  height: 18px;
+
+  font-size: 14px;
+
+  color: #fff;
+  background-color: #9ea5b5;
+  border: 1px solid transparent;
+
+  border-radius: 50%;
   cursor: pointer;
+  transition: 300ms;
+
+  &:focus {
+    border: 1px solid #2E384B;
+    transition: 300ms;
+  }
+}
+
+.tn-search__right-button-icon-enter-active,
+.tn-search__right-button-icon-leave-active {
+  transition: opacity 0.15s ease;
+}
+
+.tn-search__right-button-icon-enter-from,
+.tn-search__right-button-icon-leave-to {
+  opacity: 0;
 }
 
 .tn-search__result-container {
   width: 100%;
   max-width: 580px;
+  min-width: 200px;
 
   padding: 8px 12px;
 
@@ -464,11 +502,14 @@ function onInput(value: string) {
 }
 
 .tn-search__loading-icon {
-  transition: color 0.1s linear;
-  color: var(--content-secondary-enabled);
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  .tn-loader__spinner {
+    border-color: #2e384b;
+    border-top-color: transparent;
+  }
 }
 </style>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useRouter } from 'vue-router'
 import TNIcon from "./uikit/icons/tn-icon.vue";
 import HomepageButton from "@/layouts/homepage-layout/components/header-button/header-button.vue";
@@ -13,31 +13,41 @@ import TnSearch from "@/components/uikit/search/tn-search.vue";
 
 import { useLocalStorage } from "@vueuse/core";
 
+interface ISearchValue {
+  id: string;
+  title: string;
+  urlName: string;
+}
+
 const router = useRouter();
 const isOpenedMenu = ref<boolean>(false);
-const searchValue = ref<string>("");
-const searchResult = ref<any[]>([
+const loading = ref<boolean>(false)
+const searchValue = ref<string>('');
+const searchResult = ref<ISearchValue[]>([
   {
-    title: "Граница обучения кадров сделала своё дело",
     id: "1",
+    title: "Страница Uikit",
+    urlName: 'UikitPage'
   },
   {
-    title: "Сейчас всё чаще звучит ласковый перезвон вертикали власти",
     id: "2",
+    title: "Перейти на страницу Uikit Dialog",
+    urlName: 'UikitDialogPage'
   },
   {
-    title:
-      "Цена вопроса не важна, когда сознание наших соотечественников не замутнено пропагандой",
     id: "3",
+    title:
+      "Главная страница",
+      urlName: 'MainPage'
   },
-  {
-    title: "Эксперты утверждают, что частотность поисковых запросов бодрит",
-    id: "4",
-  },
+  // {
+  //   id: "4",
+  //   title: "Эксперты утверждают, что частотность поисковых запросов бодрит",
+  //   urlName: ''
+  // },
 ]);
 
 // TODO: Подумать как передавать данные об меню в header (мб перенести header из App в layout)
-const currentNavFirstOptionUrl = ref<string>('MainPage');
 
 const language = useLocalStorage("risk.lang", "ru");
 
@@ -59,6 +69,38 @@ let navFirstOptions = ref<IHomepageNavFirst[]>([
     disabled: true,
   },
 ]);
+
+const currentSearchResult = ref<ISearchValue[]>([])
+
+const performSearch = async (): Promise<ISearchValue[]> => {
+  loading.value = true
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(searchResult.value.filter((item) => item.title.toLowerCase().includes(searchValue.value.toLowerCase())))
+    }, 1000);
+  });
+};
+
+watch(searchValue, async (newValue, oldValue) => {
+  if (newValue !== oldValue) {
+    try {
+      const results = await performSearch();
+      loading.value = false
+
+      currentSearchResult.value = results;
+    } catch (error) {
+      console.log('Ошибка поиска:', error);
+    }
+  }
+});
+
+const selectSearchValue = (value: string) => {
+  if (currentSearchResult.value) {
+    return router.push({ name: currentSearchResult.value.find((item) => item.title === value)?.urlName })
+  }
+
+  return;
+}
 </script>
 
 <template>
@@ -80,7 +122,6 @@ let navFirstOptions = ref<IHomepageNavFirst[]>([
 
         <HomepageNavFirst
           class="app-header__nav-first"
-          v-model="currentNavFirstOptionUrl"
           :options="navFirstOptions"
         />
       </div>
@@ -91,14 +132,15 @@ let navFirstOptions = ref<IHomepageNavFirst[]>([
         <TnSearch
           v-if="!isOpenedMenu"
           v-model="searchValue"
-          :result="searchResult"
+          :result="currentSearchResult"
           show-result
+          :loading="loading"
           search-hint="Введите что-нибудь для поиска"
           nothing-found-title="Я ничего не нашёл"
+          @select="selectSearchValue"
         />
 
         <NotificationsWidget />
-        <!-- <HomepageButton icon="bell" :light="!isOpenedMenu"></HomepageButton> -->
 
         <HomepageButton :light="!isOpenedMenu">
           <div class="homepage-profile">
