@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { IHomepageNavFirst } from "./typings";
-import { ref, Ref } from "vue";
+import { ref, Ref, computed } from "vue";
+import { useRouter, useRoute } from "vue-router";
 
 const props = withDefaults(
   defineProps<{
@@ -11,20 +12,11 @@ const props = withDefaults(
     disabled: false,
   }
 );
-
-const modelValue = defineModel<IHomepageNavFirst["urlName"]>("modelValue");
-
-const NavFirstItems: Ref<HTMLElement | null> = ref(null);
-
-function chooseItem(itemUrlName: IHomepageNavFirst["urlName"]) {
-  modelValue.value = itemUrlName;
-}
 </script>
 
 <template>
   <ul
     v-if="options && options.length"
-    ref="NavFirstItems"
     class="nav-first"
     :class="{
       'nav-first_disabled': disabled,
@@ -41,11 +33,10 @@ function chooseItem(itemUrlName: IHomepageNavFirst["urlName"]) {
         :class="{
           'nav-first__item-btn_disabled': item.disabled,
           'nav-first__item-btn_active':
-            modelValue && !item.disabled && !disabled && item.urlName === $route.name,
+            !item.disabled && !disabled && item.urlName === $route.name,
         }"
         :tabindex="disabled || item.disabled ? -1 : 0"
         :disabled="disabled || item.disabled"
-        @click="chooseItem(item.urlName)"
         tag="button"
         :to="{ name: item.urlName}"
       >

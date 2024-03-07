@@ -133,7 +133,7 @@ function onClickButton(e: Event) {
     </span>
 
     <span v-if="loading" class="tn-button__loader">
-      <TnLoader :size="loaderSize" class="tn-button__loader-icon" name="load" />
+      <TnLoader :size="loaderSize" class="tn-button__loader-icon" />
     </span>
   </button>
 </template>
@@ -275,7 +275,6 @@ function onClickButton(e: Event) {
       border-color: #2E384B;
       border-top-color: transparent;
     }
-
   }
 }
 

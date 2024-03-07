@@ -4,7 +4,7 @@ import { computed, ComputedRef, useSlots, toRaw } from "vue";
 const props = withDefaults(
   defineProps<{
     label?: string;
-    value: {};
+    value: string | {};
     disabled?: boolean;
     error?: string;
     warn?: string;
@@ -54,14 +54,6 @@ const isChecked = computed((): boolean => {
 
   return JSON.stringify(modelValue.value) === JSON.stringify(props.value);
 });
-
-// function handleMouseUp(event: MouseEvent) {
-//   (event.target as HTMLButtonElement).blur();
-// }
-
-function clickHandler() {
-  modelValue.value = modelValue.value;
-}
 
 function onInput() {
   if (props.value === undefined) {
