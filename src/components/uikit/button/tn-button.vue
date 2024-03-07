@@ -11,6 +11,7 @@ import {
 import { useRouter } from "vue-router";
 
 import TNIcon from "@/components/uikit/icons/tn-icon.vue";
+import TnLoader from "@/components/uikit/loader/tn-loader.vue";
 // TODO: добавить лоадер из кита и вернуть состояние загрузки в кнопку
 // import TnLoader from "@/components/uikit/elements/loader/tn-loader.vue";
 
@@ -28,6 +29,7 @@ const props = withDefaults(
     norouter?: boolean,
     target?: string,
     width?: number | string,
+    loading?: boolean,
   }>(),
   {
     size: "lg",
@@ -42,6 +44,10 @@ const sizeOutput = computed<string | boolean>(() => {
     return props.size;
   }
   return false;
+});
+
+const loaderSize = computed(() => {
+  return props.size;
 });
 
 const emit = defineEmits(["click"]);
@@ -69,6 +75,10 @@ const buttonWidth = computed(() => {
 });
 
 function onClickButton(e: Event) {
+  if (props.loading || props.disabled) {
+    return false;
+  }
+
   if (props.href) {
     if (props.norouter || props.target === "_blank") {
       if (props.target === "_blank") {
@@ -98,6 +108,7 @@ function onClickButton(e: Event) {
       'tn-button_block': block,
       'tn-button_disabled': disabled,
       'tn-button_is-icon': isIcon,
+      'tn-button_loading': loading,
     }"
     :style="{ width: buttonWidth }"
     @click="onClickButton"
@@ -119,6 +130,10 @@ function onClickButton(e: Event) {
       <slot name="icon-right">
         <TNIcon :size="20" :name="iconRight" />
       </slot>
+    </span>
+
+    <span v-if="loading" class="tn-button__loader">
+      <TnLoader :size="loaderSize" class="tn-button__loader-icon" name="load" />
     </span>
   </button>
 </template>
@@ -254,6 +269,14 @@ function onClickButton(e: Event) {
     background-color: #9ea5b5;
     color: #fff;
   }
+
+  .tn-button__loader {
+    .tn-loader__spinner {
+      border-color: #2E384B;
+      border-top-color: transparent;
+    }
+
+  }
 }
 
 .tn-button_medium.tn-button_is-icon {
@@ -301,6 +324,34 @@ function onClickButton(e: Event) {
 .tn-button_block {
   display: flex;
   width: 100%;
+}
+
+.tn-button_loading {
+  pointer-events: none;
+
+  .tn-button__icon {
+    opacity: 0;
+  }
+  .tn-button__text {
+    opacity: 0;
+  }
+}
+.tn-button_medium {
+
+}
+
+
+
+.tn-button_is-icon {
+
+}
+
+.tn-button__loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
 }
 
 @keyframes focus-animation-secondary {

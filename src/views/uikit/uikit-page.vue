@@ -296,6 +296,7 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
         </TnButton>
 
         <TnButton primary disabled>Button</TnButton>
+        <TnButton primary loading>Button</TnButton>
       </div>
 
       <h5 class="uikit-page__block-subtitle">Primary Medium</h5>
@@ -330,6 +331,7 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
         </TnButton>
 
         <TnButton primary size="md" disabled>Button</TnButton>
+        <TnButton primary size="md" loading>Button</TnButton>
       </div>
 
       <h5 class="uikit-page__block-subtitle">Secondary Large</h5>
@@ -364,6 +366,7 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
         </TnButton>
 
         <TnButton secondary size="lg" disabled>Button</TnButton>
+        <TnButton secondary size="lg" loading>Button</TnButton>
       </div>
 
       <h5 class="uikit-page__block-subtitle">Secondary Medium</h5>
@@ -398,6 +401,7 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
         </TnButton>
 
         <TnButton secondary size="md" disabled>Button</TnButton>
+        <TnButton secondary size="md" loading>Button</TnButton>
       </div>
     </div>
 
