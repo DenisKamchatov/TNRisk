@@ -6,10 +6,15 @@ import TnDropdownMenu from "@/components/uikit/dropdown/tn-dropdown-menu.vue";
 import TnDropdownMenuItem from "@/components/uikit/dropdown/tn-dropdown-menu-item.vue";
 import TnAvatar from "@/components/uikit/avatar/tn-avatar.vue";
 import { useLocalStorage } from "@vueuse/core";
+import TnDatepicker from "@/components/uikit/datepicker/tn-datepicker.vue";
+import TNCalendar from "@/components/uikit/datepicker/tn-calendar.vue";
 
 onMounted(() => {});
 
 const language = useLocalStorage("risk.lang", "ru");
+
+const date = ref(new Date(2025, 5, 15));
+const daterange = ref<Date[]>([]);
 </script>
 
 <template>
@@ -65,6 +70,26 @@ const language = useLocalStorage("risk.lang", "ru");
           <TnDropdownMenuItem icon="trash">Удалить</TnDropdownMenuItem>
         </template>
       </TnDropdownMenu>
+    </div>
+  </div>
+  <div class="uikit-section">
+    <h2 class="uikit-section__title">Datepicker</h2>
+    <div class="uikit-section__items">
+      <TnDatepicker :label="`Дата`" :locale="language" v-model="date" />
+      <TnDatepicker :floating-label="`Период`" :locale="language" v-model="daterange" range selectionMode="range" />
+    </div>
+  </div>
+  <div class="uikit-section">
+    <h2 class="uikit-section__title">Inline calendars</h2>
+    <div class="uikit-section__items">
+      <TNCalendar v-model="date" :locale="language" />
+      <TNCalendar v-model="daterange" :locale="language" selectionMode="range" />
+    </div>
+    <div class="uikit-section__items">
+      {{ date }}
+    </div>
+    <div class="uikit-section__items">
+      {{ daterange }}
     </div>
   </div>
 </template>
