@@ -127,7 +127,7 @@ function setShown(v: boolean) {
       <TnInput
         :label="label"
         :floatingLabel="floatingLabel"
-        :value="textInputValue"
+        v-model="textInputValue"
         clearable @clear="clearValue"
         :required="required"
         :warn="warn"

@@ -158,7 +158,6 @@ function arrowKeyHandler(direction: "up" | "down") {
  */
 function onEnter() {
   modelValue.value = highlightedElement.value?.title || modelValue.value;
-  console.log(modelValue.value);
   highlightedElement.value = null;
   selectHandler(modelValue.value);
 }
@@ -219,6 +218,7 @@ function onInput(value: string) {
             @keyup.enter.prevent="onEnter"
             @keydown.esc.prevent="onEsc"
             @keydown.up="arrowKeyHandler('up')"
+            @keydown.tab.prevent="arrowKeyHandler('down')"
             @keydown.down="arrowKeyHandler('down')"
           />
           <TNIcon class="tn-search__search-icon" name="search" />
