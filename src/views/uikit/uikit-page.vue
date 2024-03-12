@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from "vue";
+import { useLocalStorage } from "@vueuse/core";
+
 import { TNTabsOption } from "@/components/uikit/tabs/typings";
 import { TNChipsOption } from "@/components/uikit/chips/typings";
 import { IAvatarGroupItem } from "@/components/uikit/avatar-group/typings";
 import { TNRadioButtonOption } from "@/components/uikit/radio/typings";
 import { IHomepageNavFirst } from "@/layouts/homepage-layout/components/header-nav-first/typings";
+import { ISignificanceStatuses } from "@/components/uikit/significance/typings";
 
 import TnBadge from "@/components/uikit/badge/tn-badge.vue";
 import TnIcon from "@/components/uikit/icons/tn-icon.vue";
@@ -21,11 +24,15 @@ import TnChips from "@/components/uikit/chips/tn-chips.vue";
 import TnNotification from "@/components/uikit/notification/tn-notification.vue";
 import TnAlert from "@/components/uikit/alert/tn-alert.vue";
 import TnSearch from "@/components/uikit/search/tn-search.vue";
+import TnSignificance from "@/components/uikit/significance/tn-significance.vue";
+import TnSignificanceSelect from "@/components/uikit/significance/tn-significance-select.vue";
 
 import HomepageButton from "@/layouts/homepage-layout/components/header-button/header-button.vue";
 import HomepageNavFirst from "@/layouts/homepage-layout/components/header-nav-first/header-nav-first.vue";
 
 import DropdownSection from "./sections/dropdown-section.vue";
+
+const language = useLocalStorage("risk.lang", "ru");
 
 const isTumblerActive = ref<boolean>(false);
 const isCheckboxActive = ref<boolean>(false);
@@ -55,34 +62,40 @@ const searchResult = ref<any[]>([
 
 const checkArr = ref<unknown[]>([]);
 const checkArrObj = ref<unknown[]>([]);
-const checkboxList = ref<{
-  label?: string;
-  isActive?: boolean;
-  disabled?: boolean;
-  readonly?: boolean;
-}[]>([
+const checkboxList = ref<
   {
-    label: 'Label 1',
-    isActive: false
+    label?: string;
+    isActive?: boolean;
+    disabled?: boolean;
+    readonly?: boolean;
+  }[]
+>([
+  {
+    label: "Label 1",
+    isActive: false,
   },
   {
-    label: 'Label 2',
-    isActive: false
+    label: "Label 2",
+    isActive: false,
   },
   {
-    isActive: false
+    isActive: false,
   },
   {
-    label: 'Label 4',
+    label: "Label 4",
     isActive: false,
     disabled: true,
   },
   {
-    label: 'Label 4',
+    label: "Label 4",
     isActive: true,
     readonly: true,
-  }
-])
+  },
+]);
+
+const currentSignificance = ref<ISignificanceStatuses | null>(
+  ISignificanceStatuses.empty
+);
 
 const animal1 = reactive({
   id: "1",
@@ -98,10 +111,10 @@ const animal3 = reactive({
 });
 const animalAsObjectStringify = computed(() => {
   if (animalAsObject.value) {
-    return JSON.stringify(animalAsObject.value)
+    return JSON.stringify(animalAsObject.value);
   }
-  return null
-})
+  return null;
+});
 
 const avatars = reactive<IAvatarGroupItem[]>([
   {
@@ -585,20 +598,21 @@ function clearInput() {
       <h2 class="uikit-page__block-title">Checkbox</h2>
 
       <div class="uikit-page__block-items">
-        <TnCheckbox v-model="isCheckboxActive" value="done" >is done</TnCheckbox>
-        <TnCheckbox v-model="isCheckboxActive" value="hidden" :disabled="true">is hidden</TnCheckbox>
-        <TnCheckbox v-model="isCheckboxActive" value="shared" :readonly="true">is shared</TnCheckbox>
+        <TnCheckbox v-model="isCheckboxActive" value="done">is done</TnCheckbox>
+        <TnCheckbox v-model="isCheckboxActive" value="hidden" :disabled="true"
+          >is hidden</TnCheckbox
+        >
+        <TnCheckbox v-model="isCheckboxActive" value="shared" :readonly="true"
+          >is shared</TnCheckbox
+        >
       </div>
 
       <h5 class="uikit-page__block-subtitle">Checkbox list</h5>
       <div class="uikit-page__block-items">
-
         <TnCheckbox v-model="checkArr" value="hidden">is hidden</TnCheckbox>
         <TnCheckbox v-model="checkArr" value="shared">is shared</TnCheckbox>
 
-        <p style="width: 100%">
-          Value: {{ checkArr }}
-        </p>
+        <p style="width: 100%">Value: {{ checkArr }}</p>
       </div>
 
       <h5 class="uikit-page__block-subtitle">Checkbox list Obj</h5>
@@ -614,11 +628,8 @@ function clearInput() {
           {{ item.label }}
         </TnCheckbox>
 
-        <p style="width: 100%">
-          Value: {{ checkArrObj }}
-        </p>
+        <p style="width: 100%">Value: {{ checkArrObj }}</p>
       </div>
-
     </div>
 
     <!-- Input -->
@@ -1263,6 +1274,72 @@ function clearInput() {
           v-model="currentNavFirstOptionUrl"
           :options="navFirstOptions"
         />
+      </div>
+    </div>
+
+    <!-- Significance -->
+    <div class="uikit-page__block">
+      <h2 class="uikit-page__block-title">Significance</h2>
+
+      <div class="uikit-page__block-items">
+        <TnSignificance
+          :locale="language"
+          style="width: fit-content"
+          :shown-label="false"
+          :value="currentSignificance"
+        />
+        <TnSignificance
+          :locale="language"
+          style="width: fit-content"
+          :shown-label="false"
+          :value="currentSignificance"
+          disabled
+        />
+      </div>
+      <div class="uikit-page__block-items uikit-page__block-items_column">
+        <TnSignificance
+          :locale="language"
+          style="width: fit-content"
+          :value="currentSignificance"
+        />
+        <TnSignificance
+          :locale="language"
+          style="width: fit-content"
+          :value="currentSignificance"
+          disabled
+        />
+      </div>
+    </div>
+
+    <!-- SignificanceSelect -->
+    <div class="uikit-page__block">
+      <h2 class="uikit-page__block-title">Significance Select</h2>
+
+      <div class="uikit-page__block-items">
+        <TnSignificanceSelect v-model="currentSignificance" :locale="language">
+          <TnSignificance
+            :locale="language"
+            :value="currentSignificance"
+          />
+        </TnSignificanceSelect>
+      </div>
+
+      <h5 class="uikit-page__block-subtitle">Significance Select without label</h5>
+      <div class="uikit-page__block-items">
+        <TnSignificanceSelect v-model="currentSignificance" :locale="language">
+          <TnSignificance
+            :locale="language"
+            :value="currentSignificance"
+            :shownLabel="false"
+          />
+        </TnSignificanceSelect>
+      </div>
+
+      <h5 class="uikit-page__block-subtitle">Significance Select Disabled</h5>
+      <div class="uikit-page__block-items">
+        <TnSignificanceSelect v-model="currentSignificance" :locale="language" disabled>
+          <TnSignificance :locale="language" disabled :value="currentSignificance" />
+        </TnSignificanceSelect>
       </div>
     </div>
 
