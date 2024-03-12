@@ -83,19 +83,6 @@ const checkboxList = ref<{
     readonly: true,
   }
 ])
-// const selected = ref<{
-//   label?: string;
-//   isActive?: boolean;
-//   disabled?: boolean;
-//   readonly?: boolean;
-// }[]>([]);
-// const checkboxListStringify = computed(() => {
-//   const selectedCheckboxes = checkboxList.value.filter(checkbox => checkbox.isActive);
-//   if (selectedCheckboxes.length) {
-//     return JSON.stringify(selectedCheckboxes)
-//   }
-//   return []
-// })
 
 const animal1 = reactive({
   id: "1",
@@ -226,6 +213,10 @@ function collectSearchValue(value: string) {
 
 function deleteChipItem(itemId: TNChipsOption["id"]) {
   chipsOptions.value = chipsOptions.value.filter((item) => item.id !== itemId);
+}
+
+function clearInput() {
+  searchValue.value = "";
 }
 </script>
 
@@ -639,7 +630,8 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
         <TnInput
           floatingLabel="label"
           @update:modelValue="collectSearchValue"
-          :model-value="searchValue"
+          v-model="searchValue"
+          @clear="clearInput"
           :required="false"
         >
         </TnInput>
@@ -647,14 +639,16 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
         <TnInput
           floatingLabel="label"
           @update:modelValue="collectSearchValue"
-          :model-value="searchValue"
+          v-model="searchValue"
+          @clear="clearInput"
         >
         </TnInput>
 
         <TnInput
           floatingLabel="label"
           @update:modelValue="collectSearchValue"
-          :model-value="searchValue"
+          v-model="searchValue"
+          @clear="clearInput"
         >
           <template #icon-right>
             <TnIcon name="plus" />
@@ -664,7 +658,8 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
         <TnInput
           floatingLabel="label"
           @update:modelValue="collectSearchValue"
-          :model-value="searchValue"
+          v-model="searchValue"
+          @clear="clearInput"
         >
           <template #icon-right>
             <TnIcon name="plus" />
@@ -678,7 +673,8 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
         <TnInput
           floatingLabel="label"
           @update:modelValue="collectSearchValue"
-          :model-value="searchValue"
+          v-model="searchValue"
+          @clear="clearInput"
           disabled
           description="This is the description area"
         >
@@ -690,7 +686,8 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
         <TnInput
           floatingLabel="label"
           @update:modelValue="collectSearchValue"
-          :model-value="searchValue"
+          v-model="searchValue"
+          @clear="clearInput"
           readonly
           description="This is the description area"
         >
@@ -702,7 +699,8 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
         <TnInput
           floatingLabel="label"
           @update:modelValue="collectSearchValue"
-          :model-value="searchValue"
+          v-model="searchValue"
+          @clear="clearInput"
           description="This is the description area"
         >
           <template #icon-right>
@@ -713,7 +711,8 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
         <TnInput
           floatingLabel="label"
           @update:modelValue="collectSearchValue"
-          :model-value="searchValue"
+          v-model="searchValue"
+          @clear="clearInput"
           description="This is the description area"
           error
         >
@@ -728,7 +727,8 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
         <TnInput
           label="label"
           @update:modelValue="collectSearchValue"
-          :model-value="searchValue"
+          v-model="searchValue"
+          @clear="clearInput"
           placeholder="Placeholder"
           :required="false"
         >
@@ -737,7 +737,8 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
         <TnInput
           label="label"
           @update:modelValue="collectSearchValue"
-          :model-value="searchValue"
+          v-model="searchValue"
+          @clear="clearInput"
           placeholder="Placeholder"
         >
         </TnInput>
@@ -745,7 +746,8 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
         <TnInput
           label="label"
           @update:modelValue="collectSearchValue"
-          :model-value="searchValue"
+          v-model="searchValue"
+          @clear="clearInput"
           placeholder="Placeholder"
         >
           <template #icon-right>
@@ -756,7 +758,8 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
         <TnInput
           label="label"
           @update:modelValue="collectSearchValue"
-          :model-value="searchValue"
+          v-model="searchValue"
+          @clear="clearInput"
           placeholder="Placeholder"
         >
           <template #icon-right>
@@ -771,7 +774,8 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
         <TnInput
           label="label"
           @update:modelValue="collectSearchValue"
-          :model-value="searchValue"
+          v-model="searchValue"
+          @clear="clearInput"
           placeholder="Placeholder"
           disabled
           description="This is the description area"
@@ -784,7 +788,8 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
         <TnInput
           label="label"
           @update:modelValue="collectSearchValue"
-          :model-value="searchValue"
+          v-model="searchValue"
+          @clear="clearInput"
           placeholder="Placeholder"
           readonly
           description="This is the description area"
@@ -797,7 +802,8 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
         <TnInput
           label="label"
           @update:modelValue="collectSearchValue"
-          :model-value="searchValue"
+          v-model="searchValue"
+          @clear="clearInput"
           placeholder="Placeholder"
           description="This is the description area"
         >
@@ -809,7 +815,8 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
         <TnInput
           label="label"
           @update:modelValue="collectSearchValue"
-          :model-value="searchValue"
+          v-model="searchValue"
+          @clear="clearInput"
           placeholder="Placeholder"
           description="This is the description area"
           error
@@ -838,7 +845,7 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
         <TnTextarea
           floatingLabel="label"
           @update:modelValue="collectSearchValue"
-          :model-value="searchValue"
+          v-model="searchValue"
           :required="false"
           :max-height="100"
         >

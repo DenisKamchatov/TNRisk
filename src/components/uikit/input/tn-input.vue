@@ -13,14 +13,19 @@ const props = withDefaults(
     description?: string;
     error?: boolean;
     readonly?: boolean;
+    clearable?: boolean;
   }>(),
   {
     required: true,
     readonly: false,
+    clearable: true
   }
 );
 
 const slots = useSlots();
+const emits = defineEmits(["clear"]);
+const input = ref<HTMLInputElement | null>(null);
+
 const modelValue = defineModel<string>("modelValue", {
   type: String,
   default: "",
@@ -40,6 +45,11 @@ const hasRightIcon = computed<boolean>(
 const hasIcon = computed<boolean>(
   () => !!slots["icon"] || !!props.icon
 );
+
+function clearModelValue() {
+  emits("clear");
+  input.value?.focus();
+}
 </script>
 
 <template>
@@ -83,6 +93,7 @@ const hasIcon = computed<boolean>(
       <input
         :id="inputId"
         class="tn-input__input"
+        ref="input"
         type="text"
         :required="required"
         :placeholder="placeholder"
@@ -107,12 +118,26 @@ const hasIcon = computed<boolean>(
         </slot>
         <span v-if="required" class="tn-input__floating-label-star">*</span>
       </label>
+      <transition
+        name="tn-input__close-button"
+      >
+        <button
+          type="button"
+          @click="clearModelValue"
+          @keyup.enter="clearModelValue"
+          class="tn-input__close-button"
+          v-if="modelValue && !disabled"
+        >
+          <TNIcon name="x" />
+        </button>
 
-      <span v-if="hasRightIcon" class="tn-input__icon tn-input__icon_right">
-        <slot name="icon-right">
-          <TNIcon :name="iconRight" />
-        </slot>
-      </span>
+        <span v-else-if="hasRightIcon" class="tn-input__icon tn-input__icon_right">
+          <slot name="icon-right">
+            <TNIcon :name="iconRight" />
+          </slot>
+        </span>
+      </transition>
+
     </div>
 
     <span class="tn-input__description">
@@ -342,6 +367,48 @@ const hasIcon = computed<boolean>(
 
   color: #747c8c;
 }
+
+
+
+.tn-input__close-button {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 18px;
+  height: 18px;
+
+  font-size: 14px;
+
+  color: #fff;
+  background-color: #9ea5b5;
+  border: 1px solid transparent;
+
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 300ms;
+
+  &:focus {
+    border: 1px solid #2E384B;
+    transition: 300ms;
+  }
+}
+
+.tn-input__close-button-enter-active,
+.tn-input__close-button-leave-active {
+  transition: opacity 0.15s ease;
+}
+
+.tn-input__close-button-enter-from,
+.tn-input__close-button-leave-to {
+  opacity: 0;
+}
+
+
 
 @keyframes size-down {
   from {
