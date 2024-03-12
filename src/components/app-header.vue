@@ -47,8 +47,6 @@ const searchResult = ref<ISearchValue[]>([
   // },
 ]);
 
-// TODO: Подумать как передавать данные об меню в header (мб перенести header из App в layout)
-
 const language = useLocalStorage("risk.lang", "ru");
 
 let navFirstOptions = ref<IHomepageNavFirst[]>([

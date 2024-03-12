@@ -29,6 +29,8 @@ import TnSignificanceSelect from "@/components/uikit/significance/tn-significanc
 
 import HomepageButton from "@/layouts/homepage-layout/components/header-button/header-button.vue";
 import HomepageNavFirst from "@/layouts/homepage-layout/components/header-nav-first/header-nav-first.vue";
+import FunctionBar from "@/layouts/homepage-layout/components/function-bar/function-bar.vue";
+import DragItem from "@/layouts/homepage-layout/components/function-bar/drag-item.vue";
 
 import DropdownSection from "./sections/dropdown-section.vue";
 
@@ -1274,6 +1276,204 @@ function clearInput() {
           v-model="currentNavFirstOptionUrl"
           :options="navFirstOptions"
         />
+      </div>
+    </div>
+
+    <!-- FunctionBar -->
+    <div class="uikit-page__block">
+      <h2 class="uikit-page__block-title">FunctionBar</h2>
+
+      <div class="uikit-page__block-items uikit-page__block-items_column" style="background-color: #fafafb; padding: 10px;">
+
+        <FunctionBar>
+
+          <TnInput
+            floatingLabel="label"
+            @update:modelValue="collectSearchValue"
+            v-model="searchValue"
+            @clear="clearInput"
+            :required="false"
+            style="max-width: 240px"
+          />
+          <TnInput
+            floatingLabel="label"
+            @update:modelValue="collectSearchValue"
+            v-model="searchValue"
+            @clear="clearInput"
+            :required="false"
+            style="max-width: 240px;"
+          />
+
+          <template #right-bar>
+            <TnInput
+              floatingLabel="label"
+              @update:modelValue="collectSearchValue"
+              v-model="searchValue"
+              @clear="clearInput"
+              style="max-width: 200px;"
+            >
+              <template #icon>
+                <TnIcon name="search" />
+              </template>
+            </TnInput>
+
+            <TnButton secondary>
+              <template #icon>
+                <TnIcon name="download" />
+              </template>
+            </TnButton>
+
+            <TnButton secondary>
+              <template #icon>
+                <TnIcon name="adjustments" />
+              </template>
+            </TnButton>
+
+            <TnButton>
+              <template #icon>
+                <TnIcon name="plus" />
+              </template>
+              Button
+            </TnButton>
+
+          </template>
+
+        </FunctionBar>
+
+        <FunctionBar>
+
+          <p style="font-weight: 700; font-size: 16px">Text</p>
+
+          <TnButton style="color: #9EA5B5;" is-icon icon="edit">
+          </TnButton>
+
+          <template #right-bar>
+            <TnInput
+              floatingLabel="label"
+              @update:modelValue="collectSearchValue"
+              v-model="searchValue"
+              @clear="clearInput"
+              :required="false"
+              style="max-width: 240px"
+            />
+            <TnInput
+              floatingLabel="label"
+              @update:modelValue="collectSearchValue"
+              v-model="searchValue"
+              @clear="clearInput"
+              :required="false"
+              style="max-width: 240px;"
+            />
+            <TnInput
+              floatingLabel="label"
+              @update:modelValue="collectSearchValue"
+              v-model="searchValue"
+              @clear="clearInput"
+              style="max-width: 200px;"
+            >
+              <template #icon>
+                <TnIcon name="search" />
+              </template>
+            </TnInput>
+
+            <TnButton secondary>
+              <template #icon>
+                <TnIcon name="download" />
+              </template>
+            </TnButton>
+
+            <TnButton secondary>
+              <template #icon>
+                <TnIcon name="adjustments" />
+              </template>
+            </TnButton>
+
+            <TnButton>
+              <template #icon>
+                <TnIcon name="plus" />
+              </template>
+              Button
+            </TnButton>
+
+          </template>
+        </FunctionBar>
+
+        <FunctionBar>
+
+          <DragItem>
+            <TnInput
+              floatingLabel="label"
+              @update:modelValue="collectSearchValue"
+              v-model="searchValue"
+              @clear="clearInput"
+              :required="false"
+              style="width: 240px"
+            />
+          </DragItem>
+
+          <DragItem>
+            <TnInput
+              floatingLabel="label"
+              @update:modelValue="collectSearchValue"
+              v-model="searchValue"
+              @clear="clearInput"
+              :required="false"
+              style="width: 240px"
+            />
+          </DragItem>
+
+          <DragItem>
+            <TnInput
+              floatingLabel="label"
+              @update:modelValue="collectSearchValue"
+              v-model="searchValue"
+              @clear="clearInput"
+              :required="false"
+              style="width: 240px"
+            />
+          </DragItem>
+
+          <TnInput
+            floatingLabel="label"
+            @update:modelValue="collectSearchValue"
+            v-model="searchValue"
+            @clear="clearInput"
+            :required="false"
+            style="width: 240px"
+          />
+
+          <template #right-bar>
+            <TnInput
+              floatingLabel="label"
+              @update:modelValue="collectSearchValue"
+              v-model="searchValue"
+              @clear="clearInput"
+              style="max-width: 200px;"
+            >
+              <template #icon>
+                <TnIcon name="search" />
+              </template>
+            </TnInput>
+
+            <TnButton secondary>
+              <template #icon>
+                <TnIcon name="download" />
+              </template>
+            </TnButton>
+
+            <TnButton secondary>
+              <template #icon>
+                <TnIcon name="adjustments" />
+              </template>
+            </TnButton>
+
+            <TnButton>
+              Сравнить значимость
+            </TnButton>
+
+          </template>
+        </FunctionBar>
+
       </div>
     </div>
 
