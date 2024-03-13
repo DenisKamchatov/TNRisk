@@ -122,13 +122,13 @@ function setShown(v: boolean) {
 
 <template>
   <div class="tn-datepicker">
-    {{ textInputValue }}
     <Dropdown no-auto-focus :placement="`bottom-start`">
       <TnInput
         :label="label"
         :floatingLabel="floatingLabel"
         v-model="textInputValue"
         clearable @clear="clearValue"
+        readonly
         :required="required"
         :warn="warn"
         :success="success"

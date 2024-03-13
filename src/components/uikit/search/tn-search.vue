@@ -190,6 +190,7 @@ function onInput(value: string) {
       :shown="showInlineResult"
       :autoHide="false"
       placement="bottom-start"
+      strategy="fixed"
     >
       <div class="tn-search__container">
         <div

@@ -8,6 +8,8 @@ import TnAvatar from "@/components/uikit/avatar/tn-avatar.vue";
 import { useLocalStorage } from "@vueuse/core";
 import TnDatepicker from "@/components/uikit/datepicker/tn-datepicker.vue";
 import TNCalendar from "@/components/uikit/datepicker/tn-calendar.vue";
+import TnSelect from "@/components/uikit/select/tn-select.vue";
+import { ITnSelectItem } from "@/components/uikit/select/typings";
 
 onMounted(() => {});
 
@@ -15,6 +17,28 @@ const language = useLocalStorage("risk.lang", "ru");
 
 const date = ref(new Date(2025, 5, 15));
 const daterange = ref<Date[]>([]);
+
+const selectOptions: ITnSelectItem[] = [
+  {
+    id: Symbol(),
+    label: "Option 1",
+  },
+  {
+    id: Symbol(),
+    label: "Option 2",
+  },
+  {
+    id: Symbol(),
+    label: "Option 3",
+  },
+  {
+    id: Symbol(),
+    label: "Option 4",
+    disabled: true,
+  },
+];
+const selectModel = ref<ITnSelectItem | null>(null);
+const dragModel = ref<any[]>([]);
 </script>
 
 <template>
@@ -75,8 +99,8 @@ const daterange = ref<Date[]>([]);
   <div class="uikit-section">
     <h2 class="uikit-section__title">Datepicker</h2>
     <div class="uikit-section__items">
-      <TnDatepicker :label="`Дата`" :locale="language" v-model="date" />
-      <TnDatepicker :floating-label="`Период`" :locale="language" v-model="daterange" range selectionMode="range" />
+      <TnDatepicker style="flex: 1; align-self: flex-end;" :label="`Дата`" :locale="language" v-model="date" />
+      <TnDatepicker style="flex: 1; align-self: flex-end;" :floating-label="`Период`" :locale="language" v-model="daterange" range selectionMode="range" />
     </div>
   </div>
   <div class="uikit-section">
@@ -92,6 +116,43 @@ const daterange = ref<Date[]>([]);
       {{ daterange }}
     </div>
   </div>
+  <div class="uikit-section">
+    <h2 class="uikit-section__title">Select</h2>
+    <div class="uikit-section__items">
+      <TnSelect style="flex: 1; align-self: flex-end;"
+        :options="selectOptions"
+        v-model="selectModel"
+        :label="`Город`"
+        :placeholder="`Выберите значение`"
+        block
+      ></TnSelect>
+      <TnSelect style="flex: 1; align-self: flex-end;"
+        :options="selectOptions"
+        v-model="selectModel"
+        :floating-label="`Город`"
+        :placeholder="`Выберите значение`"
+        block
+      ></TnSelect>
+    </div>
+    <div class="uikit-section__items">
+      {{ selectModel }}
+    </div>
+  </div>
+  <!-- <div class="uikit-section">
+    <h2 class="uikit-section__title">Drag Filter</h2>
+    <div class="uikit-section__items">
+      <TnSelect
+        :options="selectOptions"
+        v-model="selectModel"
+        :floating-label="`Город`"
+        :placeholder="`Выберите значение`"
+        block
+      ></TnSelect>
+    </div>
+    <div class="uikit-section__items">
+      {{ dragModel }}
+    </div>
+  </div> -->
 </template>
 
 <style lang="scss">

@@ -33,7 +33,7 @@ const modelValue = defineModel<string>("modelValue", {
 
 const uniqueId = Math.floor(Math.random() * 99999) + 1;
 const inputId = computed<string>(() => `tn-input-${uniqueId}`);
-const onFocused = ref<boolean>(false);
+const isFocused = ref<boolean>(false);
 
 const hasFloatingLabel = computed<boolean>(
   () => !!slots["floatingLabel"] || !!props.floatingLabel
@@ -45,6 +45,10 @@ const hasRightIcon = computed<boolean>(
 const hasIcon = computed<boolean>(
   () => !!slots["icon"] || !!props.icon
 );
+
+const placeholderOutput = computed<string>(() => {
+  return (hasFloatingLabel.value && !isFocused.value) ? "" : props.placeholder ?? "";
+});
 
 function clearModelValue() {
   emits("clear");
@@ -81,7 +85,7 @@ function clearModelValue() {
     <div
       class="tn-input__wrapper"
       :class="{
-        'tn-input_on-focused': onFocused,
+        'tn-input_on-focused': isFocused,
       }"
     >
       <span v-if="hasIcon" class="tn-input__icon tn-input__icon_left">
@@ -96,10 +100,10 @@ function clearModelValue() {
         ref="input"
         type="text"
         :required="required"
-        :placeholder="placeholder"
+        :placeholder="placeholderOutput"
         v-model="modelValue"
-        @focus="onFocused = true"
-        @blur="onFocused = false"
+        @focus="isFocused = true"
+        @blur="isFocused = false"
         :readonly="readonly"
         v-bind="$attrs"
       />
@@ -153,8 +157,7 @@ function clearModelValue() {
 }
 
 .tn-input_has-floating-label .tn-input__wrapper .tn-input__input {
-  padding: 4px 0 0 0;
-
+  padding: 12px 0 0 0;
 }
 
 .tn-input__wrapper {
