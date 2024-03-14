@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { defineComponent, PropType, ref, Ref, watch } from "vue";
-import TNIcon from "@/components/uikit/icons/tn-icon.vue";
+import TNIcon from "@/components/uikit/elements/icons/tn-icon.vue";
 import { TNTabsOption } from "./typings";
 
 const props = withDefaults(

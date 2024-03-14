@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import TnDialog from "@/components/uikit/dialog/tn-dialog.vue";
-import TnDialogBody from "@/components/uikit/dialog/tn-dialog-body.vue";
-import TnDialogBodyDouble from "@/components/uikit/dialog/tn-dialog-body-double.vue";
-import TnDialogHeader from "@/components/uikit/dialog/tn-dialog-header.vue";
-import TnDialogHeaderDouble from "@/components/uikit/dialog/tn-dialog-header-double.vue";
+import TnDialog from "@/components/uikit/elements/dialog/tn-dialog.vue";
+import TnDialogBody from "@/components/uikit/elements/dialog/tn-dialog-body.vue";
+import TnDialogBodyDouble from "@/components/uikit/elements/dialog/tn-dialog-body-double.vue";
+import TnDialogHeader from "@/components/uikit/elements/dialog/tn-dialog-header.vue";
+import TnDialogHeaderDouble from "@/components/uikit/elements/dialog/tn-dialog-header-double.vue";
 import SomeList from "./some-list.vue";
-import TnButton from "@/components/uikit/button/tn-button.vue";
-import TnInput from "@/components/uikit/input/tn-input.vue";
+import TnButton from "@/components/uikit/elements/button/tn-button.vue";
+import TnInput from "@/components/uikit/elements/input/tn-input.vue";
 
 const props = withDefaults(
   defineProps<{

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from "vue";
 import { Dropdown } from "floating-vue";
-import TnDialogHeader from "@/components/uikit/dialog/tn-dialog-header.vue";
-import TnDialogBody from "@/components/uikit/dialog/tn-dialog-body.vue";
-import TnTabs from "@/components/uikit/tabs/tn-tabs.vue";
-import { TNTabsOption } from "@/components/uikit/tabs/typings";
+import TnDialogHeader from "@/components/uikit/elements/dialog/tn-dialog-header.vue";
+import TnDialogBody from "@/components/uikit/elements/dialog/tn-dialog-body.vue";
+import TnTabs from "@/components/uikit/elements/tabs/tn-tabs.vue";
+import { TNTabsOption } from "@/components/uikit/elements/tabs/typings";
 import NotificationsItem from "./notifications-item.vue";
 
 const currentTab = ref(1);

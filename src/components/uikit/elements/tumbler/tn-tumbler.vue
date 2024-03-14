@@ -4,7 +4,7 @@ import {
   ComputedRef,
   useSlots,
 } from "vue";
-import TNIcon from "@/components/uikit/icons/tn-icon.vue";
+import TNIcon from "@/components/uikit/elements/icons/tn-icon.vue";
 
 const props = withDefaults(
   defineProps<{

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import TnDialog from "@/components/uikit/dialog/tn-dialog.vue";
-import TnButton from "@/components/uikit/button/tn-button.vue";
-import TnConfirm from "@/components/uikit/confirm/tn-confirm.vue";
-import TnDialogHeader from "@/components/uikit/dialog/tn-dialog-header.vue";
-import TnDialogBody from "@/components/uikit/dialog/tn-dialog-body.vue";
+import TnDialog from "@/components/uikit/elements/dialog/tn-dialog.vue";
+import TnButton from "@/components/uikit/elements/button/tn-button.vue";
+import TnConfirm from "@/components/uikit/elements/confirm/tn-confirm.vue";
+import TnDialogHeader from "@/components/uikit/elements/dialog/tn-dialog-header.vue";
+import TnDialogBody from "@/components/uikit/elements/dialog/tn-dialog-body.vue";
 
 const props = withDefaults(
   defineProps<{

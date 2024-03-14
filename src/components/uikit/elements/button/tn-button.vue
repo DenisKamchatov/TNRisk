@@ -10,10 +10,10 @@ import {
 
 import { useRouter } from "vue-router";
 
-import TNIcon from "@/components/uikit/icons/tn-icon.vue";
-import TnLoader from "@/components/uikit/loader/tn-loader.vue";
+import TNIcon from "@/components/uikit/elements/icons/tn-icon.vue";
+import TnLoader from "@/components/uikit/elements/loader/tn-loader.vue";
 // TODO: добавить лоадер из кита и вернуть состояние загрузки в кнопку
-// import TnLoader from "@/components/uikit/elements/loader/tn-loader.vue";
+// import TnLoader from "@/components/uikit/elements/elements/loader/tn-loader.vue";
 
 const props = withDefaults(
   defineProps<{

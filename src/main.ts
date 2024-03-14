@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 import "./style.scss";
 import App from "./App.vue";
-import tnIconPack from "./components/uikit/icons";
+import tnIconPack from "./components/uikit/elements/icons";
 
 import Main from "./views/main/Main.vue";
 import UikitPage from "./views/uikit/uikit-page.vue";

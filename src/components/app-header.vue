@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { useRouter } from 'vue-router'
-import TNIcon from "./uikit/icons/tn-icon.vue";
+import TNIcon from "./uikit/elements/icons/tn-icon.vue";
 import HomepageButton from "@/layouts/homepage-layout/components/header-button/header-button.vue";
 import HomepageNavFirst from "@/layouts/homepage-layout/components/header-nav-first/header-nav-first.vue";
-import TnAvatar from "@/components/uikit/avatar/tn-avatar.vue";
+import TnAvatar from "@/components/uikit/elements/avatar/tn-avatar.vue";
 import NotificationsWidget from "@/components/widgets/notifications/notifications-widget.vue";
 
 import { IHomepageNavFirst } from "@/layouts/homepage-layout/components/header-nav-first/typings";
 import LangSelect from "./widgets/lang-select/lang-select.vue";
-import TnSearch from "@/components/uikit/search/tn-search.vue";
+import TnSearch from "@/components/uikit/elements/search/tn-search.vue";
 
 import { useLocalStorage } from "@vueuse/core";
 

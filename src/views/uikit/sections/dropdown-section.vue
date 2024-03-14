@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import TnButton from "@/components/uikit/button/tn-button.vue";
+import TnButton from "@/components/uikit/elements/button/tn-button.vue";
 import LangSelect from "@/components/widgets/lang-select/lang-select.vue";
-import TnDropdownMenu from "@/components/uikit/dropdown/tn-dropdown-menu.vue";
-import TnDropdownMenuItem from "@/components/uikit/dropdown/tn-dropdown-menu-item.vue";
-import TnAvatar from "@/components/uikit/avatar/tn-avatar.vue";
+import TnDropdownMenu from "@/components/uikit/elements/dropdown/tn-dropdown-menu.vue";
+import TnDropdownMenuItem from "@/components/uikit/elements/dropdown/tn-dropdown-menu-item.vue";
+import TnAvatar from "@/components/uikit/elements/avatar/tn-avatar.vue";
 import { useLocalStorage } from "@vueuse/core";
-import TnDatepicker from "@/components/uikit/datepicker/tn-datepicker.vue";
-import TNCalendar from "@/components/uikit/datepicker/tn-calendar.vue";
-import TnSelect from "@/components/uikit/select/tn-select.vue";
-import { ITnSelectItem } from "@/components/uikit/select/typings";
+import TnDatepicker from "@/components/uikit/elements/datepicker/tn-datepicker.vue";
+import TNCalendar from "@/components/uikit/elements/datepicker/tn-calendar.vue";
+import TnSelect from "@/components/uikit/elements/select/tn-select.vue";
+import { ITnSelectItem } from "@/components/uikit/elements/select/typings";
 
 onMounted(() => {});
 

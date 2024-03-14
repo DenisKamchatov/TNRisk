@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useSlots } from "vue";
-import TnAvatar from "@/components/uikit/avatar/tn-avatar.vue";
+import TnAvatar from "@/components/uikit/elements/avatar/tn-avatar.vue";
 import { IAvatarGroupItem } from "./typings";
 
 const props = withDefaults(

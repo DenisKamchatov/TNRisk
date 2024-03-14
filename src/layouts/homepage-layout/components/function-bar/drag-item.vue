@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TNIcon from "@/components/uikit/icons/tn-icon.vue";
+import TNIcon from "@/components/uikit/elements/icons/tn-icon.vue";
 
 </script>
 

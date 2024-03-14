@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed } from "vue";
-import TnIcon from "@/components/uikit/icons/tn-icon.vue";
+import TnIcon from "@/components/uikit/elements/icons/tn-icon.vue";
 // import { Avatar } from "@/typings/Avatar.ts";
 
 const props = withDefaults(

@@ -2,7 +2,7 @@
 import { computed, useSlots } from "vue";
 import { useRouter } from "vue-router";
 
-import TNIcon from "@/components/uikit/icons/tn-icon.vue";
+import TNIcon from "@/components/uikit/elements/icons/tn-icon.vue";
 
 const props = withDefaults(
   defineProps<{

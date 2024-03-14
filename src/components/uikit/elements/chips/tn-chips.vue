@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { defineComponent, PropType, ref, Ref, watch } from "vue";
-import TnIcon from "@/components/uikit/icons/tn-icon.vue";
-import TnAvatar from "@/components/uikit/avatar/tn-avatar.vue";
+import TnIcon from "@/components/uikit/elements/icons/tn-icon.vue";
+import TnAvatar from "@/components/uikit/elements/avatar/tn-avatar.vue";
 import { TNChipsOption } from "./typings";
 
 const props = withDefaults(

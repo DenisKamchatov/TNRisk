@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { IMenuItemData } from "@/typings/menuData";
 
-import tnBadge from "@/components/uikit/badge/tn-badge.vue";
+import tnBadge from "@/components/uikit/elements/badge/tn-badge.vue";
 
 const { item, isBig } = withDefaults(
   defineProps<{

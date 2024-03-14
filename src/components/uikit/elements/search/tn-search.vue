@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { computed, ref, unref } from "vue";
-import TNIcon from "@/components/uikit/icons/tn-icon.vue";
+import TNIcon from "@/components/uikit/elements/icons/tn-icon.vue";
 import { Dropdown } from "floating-vue";
-import TnLoader from "@/components/uikit/loader/tn-loader.vue";
+import TnLoader from "@/components/uikit/elements/loader/tn-loader.vue";
 
 const props = withDefaults(
   defineProps<{

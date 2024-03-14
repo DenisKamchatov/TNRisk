@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TnButton from "@/components/uikit/button/tn-button.vue";
+import TnButton from "@/components/uikit/elements/button/tn-button.vue";
 import { onMounted } from "vue";
 
 const props = withDefaults(

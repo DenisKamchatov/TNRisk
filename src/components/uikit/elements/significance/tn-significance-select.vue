@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TnSignificance from "@/components/uikit/significance/tn-significance.vue";
+import TnSignificance from "@/components/uikit/elements/significance/tn-significance.vue";
 import { ISignificanceStatuses } from './typings'
 import { Dropdown } from "floating-vue";
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TnIcon from "@/components/uikit/icons/tn-icon.vue";
+import TnIcon from "@/components/uikit/elements/icons/tn-icon.vue";
 
 const { isBig } = withDefaults(
   defineProps<{
@@ -101,7 +101,7 @@ const items: IFooterItems[] = [
 
     cursor: pointer;
   }
-  
+
   .main-footer__item-text {
     margin: 0 0 0 8px;
 
