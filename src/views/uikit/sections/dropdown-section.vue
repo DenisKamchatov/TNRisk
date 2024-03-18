@@ -39,6 +39,7 @@ const selectOptions: ITnSelectItem[] = [
 ];
 const selectModel = ref<ITnSelectItem | null>(null);
 const dragModel = ref<any[]>([]);
+
 </script>
 
 <template>
@@ -133,6 +134,17 @@ const dragModel = ref<any[]>([]);
         :placeholder="`Выберите значение`"
         block
       ></TnSelect>
+    </div>
+
+    <div class="uikit-section__items">
+      <TnSelect style="flex: 1; align-self: flex-end;"
+        :options="selectOptions"
+        v-model="selectModel"
+        :label="`Город`"
+        :placeholder="`Выберите значение`"
+        block
+      >
+      </TnSelect>
     </div>
     <div class="uikit-section__items">
       {{ selectModel }}

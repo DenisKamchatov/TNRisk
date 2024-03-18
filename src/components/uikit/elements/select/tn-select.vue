@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
 import { Dropdown } from 'floating-vue';
-import TnInput from '../input/tn-input.vue';
 import { ITnSelectItem } from './typings';
+import TnInput from "@/components/uikit/elements/input/tn-input.vue";
 
 type SearchFunctionType = (value: string) => Promise<ITnSelectItem[]>;
 
@@ -47,17 +47,28 @@ const modelValue = defineModel<ITnSelectItem | null>("modelValue");
 const textInputValue = computed<string>(() => {
   return modelValue.value?.label ?? "";
 });
+const searchInputValue = ref<string>("");
 
 const isOpen = ref(false);
 
 const searchHintShown = ref(false);
 const searchOutput = ref<ITnSelectItem[]>([]);
-const isTyping = ref(false);
+// TODO: Для чего это нужно и когда обновлять значение
+// Было false, поменял на true
+const isTyping = ref(true);
 
 const outputArray = computed(() => {
-  if (isTyping.value) {
-    return searchOutput.value.length > 0 ? searchOutput.value : props.options;
+  if (!isTyping.value) {
+    return props.options;
   }
+
+  // if (searchOutput.value.length > 0) {
+  //   return searchOutput.value.filter(
+  //     (item) =>
+  //       !props.excludedSearchOptions.find((excluded) => excluded.id === item.id)
+  //   );
+  // }
+
   return props.options;
 });
 
@@ -67,6 +78,12 @@ function checkSelectedOption(v: ITnSelectItem) {
 
 function clearValue() {
   modelValue.value = null;
+}
+
+function onSearchInput(value: string) {
+  searchOutput.value = props.options.filter((item) => {
+    return item.label.toLowerCase().includes(value.toLowerCase());
+  });
 }
 
 onMounted(() => {
@@ -114,6 +131,12 @@ onMounted(() => {
           <div class="tn-select__dropdown-inner" :data-shown="isOpen = shown">
             <div :class="{ 'tn-select__dropdown-inner_scrollable': scrollable }">
               <slot name="dropdown">
+                <TnInput
+                  floating-label="label"
+                  v-model="searchInputValue"
+                  @input="onSearchInput(searchInputValue)"
+                  @clear="searchInputValue = ''"
+                />
                 <p v-if="searchHintShown" class="tn-select__search-hint">
                   Начните вводить для поиска
                 </p>
@@ -132,6 +155,7 @@ onMounted(() => {
                   >
                     <slot name="option-item" :item="item">
                       <div class="tn-select__item-name">{{ item.label }}</div>
+                      <TNIcon v-if="JSON.stringify(modelValue) == JSON.stringify(item)" name="check" />
                     </slot>
                   </button>
                 </div>
@@ -169,8 +193,9 @@ onMounted(() => {
 
 .tn-select__dropdown-item {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 14px 12px;
-  align-items: flex-start;
   gap: 8px;
   flex: 1 0 0;
   align-self: stretch;

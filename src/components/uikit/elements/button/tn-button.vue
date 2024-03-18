@@ -210,21 +210,21 @@ function onClickButton(e: Event) {
 }
 
 .tn-button_primary {
-  color: #ffffff;
-  background-color: #eb3b41;
+  color: var(--button-primary-color);
+  background-color: var(--button-primary-bg);
 
   .tn-button__icon {
-    color: #ffffff;
+    color: var(--button-primary-color);
   }
 
   &:hover:enabled {
-    background: #d91921;
+    background: var(--button-primary-bg-hover);
 
     transition: 300ms;
   }
 
   &:active:enabled {
-    background: #c02b31;
+    background: var(--button-primary-bg-active);
 
     transition: 300ms;
   }
@@ -235,27 +235,27 @@ function onClickButton(e: Event) {
   }
 
   .tn-badge {
-    background-color: #fcddde;
-    color: #eb3b41;
+    background-color: var(--button-primary-badge-bg);
+    color: var(--button-primary-bg);
   }
 }
 
 .tn-button_secondary {
-  color: #2e384b;
-  background-color: #e7e9ef;
+  color: var(--button-secondary-color);
+  background-color: var(--button-secondary-bg);
 
   .tn-button__icon {
-    color: #2e384b;
+    color: var(--button-secondary-color);
   }
 
   &:hover:enabled {
-    background: #dfe2e7;
+    background: var(--button-secondary-bg-hover);
 
     transition: 300ms;
   }
 
   &:active:enabled {
-    background: #d0d4db;
+    background: var(--button-secondary-bg-active);
 
     transition: 300ms;
   }
@@ -266,13 +266,13 @@ function onClickButton(e: Event) {
   }
 
   .tn-badge {
-    background-color: #9ea5b5;
-    color: #fff;
+    background-color: var(--button-secondary-badge-bg);
+    color: var(--button-secondary-badge-color);
   }
 
   .tn-button__loader {
     .tn-loader__spinner {
-      border-color: #2E384B;
+      border-color: var(--button-secondary-color);
       border-top-color: transparent;
     }
   }
@@ -311,11 +311,11 @@ function onClickButton(e: Event) {
   }
 
   &:hover:enabled {
-    background: #E7E9EF;
+    background: var(--button-secondary-bg);
   }
 
   &:focus {
-    background: #E7E9EF;
+    background: var(--button-secondary-bg);
     animation: none;
   }
 }
@@ -334,15 +334,6 @@ function onClickButton(e: Event) {
   .tn-button__text {
     opacity: 0;
   }
-}
-.tn-button_medium {
-
-}
-
-
-
-.tn-button_is-icon {
-
 }
 
 .tn-button__loader {

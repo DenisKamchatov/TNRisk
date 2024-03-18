@@ -76,4 +76,23 @@
 
   --shadow-small: -4px 6px 7px 0px rgba(30, 34, 40, 0.17), 0px 0px 2px 0px rgba(30, 34, 40, 0.19);
   --shadow-large: 0px 12px 46px 0px rgba(0, 0, 0, 0.10);
+
+  /* Buttons */
+  --button-primary-bg: #eb3b41;
+  --button-primary-bg-hover: #d91921;
+  --button-primary-bg-active: #c02b31;
+  --button-primary-color: #ffffff;
+  --button-primary-badge-bg: #fcddde;
+  --button-primary-badge-color: #eb3b41;
+  --button-primary-outline: #d91921;
+
+  --button-secondary-bg: #e7e9ef;
+  --button-secondary-bg-hover: #dfe2e7;
+  --button-secondary-bg-active: #d0d4db;
+  --button-secondary-color: #2e384b;
+  --button-secondary-badge-bg: #9ea5b5;
+  --button-secondary-badge-color: #fff;
+  --button-secondary-outline: #9ea5b5;
+  /*  */
+
 }
