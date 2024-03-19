@@ -1,52 +1,40 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref, watch } from "vue";
-import { Dropdown } from 'floating-vue';
-import { ITnSelectItem } from './typings';
+import { useElementSize } from '@vueuse/core'
+import { Dropdown } from "floating-vue";
+import { ITnSelectItem, TNSelectProps } from "./typings";
 import TnInput from "@/components/uikit/elements/input/tn-input.vue";
+import TnChosenOptions from "@/components/uikit/elements/select/tn-chosen-options.vue";
 
-type SearchFunctionType = (value: string) => Promise<ITnSelectItem[]>;
+const props = withDefaults(defineProps<TNSelectProps>(), {
+  isMultiple: false,
+  clearable: true,
+  disabled: false,
+  readonly: false,
+  required: false,
+  search: false,
+  openable: true,
+  scrollable: false,
+  allowEmptySearch: false,
+  excludedSearchOptions: () => [],
+});
 
-const props = withDefaults(
-  defineProps<{
-    options: ITnSelectItem[];
-    excludedSearchOptions?: ITnSelectItem[],
-    label?: string;
-    floatingLabel?: string;
-    placeholder?: string;
+const emits = defineEmits(["open", "select", "delete"]);
 
-    icon?: string;
-    clearable?: boolean;
-    block?: boolean;
-
-    error?: boolean;
-    description?: string;
-    hideDetails?: boolean;
-    allowEmptySearch?: boolean;
-
-    disabled?: boolean;
-    readonly?: boolean;
-    required?: boolean;
-
-    search?: boolean | SearchFunctionType;
-
-    scrollable?: boolean;
-  }>(),
-  {
-    clearable: true,
-    disabled: false,
-    readonly: false,
-    required: false,
-    search: false,
-    openable: true,
-    scrollable: false,
-    allowEmptySearch: false,
-    excludedSearchOptions: () => [],
-  }
+const modelValue = defineModel<ITnSelectItem | ITnSelectItem[] | null>(
+  "modelValue"
 );
 
-defineEmits(["open"]);
+const selectInput = ref<HTMLInputElement | null>(null);
+const { width } = useElementSize(selectInput)
+const selectInputWidth = ref<number>(width.value);
+const selectInputWidthComp = computed(() => {
+  return selectInputWidth.value
+})
 
-const modelValue = defineModel<ITnSelectItem | null>("modelValue");
+watch(width, () => {
+  selectInputWidth.value = width.value
+})
 
 const textInputValue = computed<string>(() => {
   return modelValue.value?.label ?? "";
@@ -71,7 +59,10 @@ const outputArray = computed(() => {
   }
 
   if (searchOutput.value.length > 0) {
-    return searchOutput.value.filter((item) => !props.excludedSearchOptions.find((excluded) => excluded.id === item.id));
+    return searchOutput.value.filter(
+      (item) =>
+        !props.excludedSearchOptions.find((excluded) => excluded.id === item.id)
+    );
   }
 
   if (props.allowEmptySearch && searchInputValue.value) {
@@ -81,8 +72,22 @@ const outputArray = computed(() => {
   return props.options;
 });
 
+const isModelValueArray = computed(() => {
+  return Array.isArray(modelValue.value) && modelValue.value.length > 0;
+});
+
 function checkSelectedOption(v: ITnSelectItem) {
   return modelValue.value && v === modelValue.value;
+}
+
+function selectOption(item: ITnSelectItem) {
+  modelValue.value = item;
+  if (props.isMultiple) {
+    isOpen.value = true;
+    emits("select", item);
+  }
+
+  isOpen.value = false;
 }
 
 function clearValue() {
@@ -91,6 +96,10 @@ function clearValue() {
 
 function onSearchInput(value: string) {
   isTyping.value = true;
+}
+
+function onDeleteOption(item: ITnSelectItem) {
+  emits("delete", item);
 }
 
 watch(searchInputValue, async (value) => {
@@ -113,16 +122,18 @@ watch(searchInputValue, async (value) => {
     }
   }
 });
-
 </script>
 
 <template>
-  <div class="tn-select" :class="{
-    'tn-select_disabled': disabled,
-    'tn-select_error': error,
-    'tn-select_block': block,
-    'tn-select_open': isOpen,
-  }">
+  <div
+    class="tn-select"
+    :class="{
+      'tn-select_disabled': disabled,
+      'tn-select_error': error,
+      'tn-select_block': block,
+      'tn-select_open': isOpen,
+    }"
+  >
     <Dropdown
       no-auto-focus
       :placement="`bottom-start`"
@@ -130,10 +141,12 @@ watch(searchInputValue, async (value) => {
       auto-size
     >
       <TnInput
+        ref="selectInput"
         :label="label"
         :floatingLabel="floatingLabel"
         v-model="textInputValue"
-        clearable @clear="clearValue"
+        clearable
+        @clear="clearValue"
         readonly
         block
         :required="required"
@@ -141,20 +154,32 @@ watch(searchInputValue, async (value) => {
         :error="error"
         :description="description"
         v-bind="$attrs"
+        :isModelValueArray="isModelValueArray"
       >
+        <template #icon>
+          <slot name="icon">
+            <TNIcon class="tn-select__search-icon" name="search" />
+          </slot>
+        </template>
+        <template #chosen-items v-if="isModelValueArray">
+          <TnChosenOptions
+            :selectInputWidth="selectInputWidth"
+            :items="modelValue as ITnSelectItem[]"
+            @delete="onDeleteOption"
+          />
+        </template>
         <template #icon-right>
           <slot name="icon-right">
-            <TNIcon
-              class="tn-select__arrow"
-              name="chevron-down"
-            />
+            <TNIcon class="tn-select__arrow" name="chevron-down" />
           </slot>
         </template>
       </TnInput>
       <template #popper="{ shown }">
         <div class="tn-select__dropdown" @mousedown.prevent>
-          <div class="tn-select__dropdown-inner" :data-shown="isOpen = shown">
-            <div :class="{ 'tn-select__dropdown-inner_scrollable': scrollable }">
+          <div class="tn-select__dropdown-inner" :data-shown="(isOpen = shown)">
+            <div
+              :class="{ 'tn-select__dropdown-inner_scrollable': scrollable }"
+            >
               <slot name="dropdown">
                 <div class="tn-select__search-input" v-if="search">
                   <TnInput
@@ -177,16 +202,22 @@ watch(searchInputValue, async (value) => {
                     :key="`tnso-${String(item.id)}`"
                     class="tn-select__dropdown-item"
                     :class="{
-                      'tn-select__dropdown-item_selected': checkSelectedOption(item),
+                      'tn-select__dropdown-item_selected':
+                        checkSelectedOption(item),
                       'tn-select__dropdown-item_disabled': item.disabled,
                     }"
                     :disabled="item.disabled"
-                    @click="modelValue = item"
-                    v-close-popper
+                    @click="selectOption(item)"
+                    v-close-popper="!isMultiple"
                   >
                     <slot name="option-item" :item="item">
                       <div class="tn-select__item-name">{{ item.label }}</div>
-                      <TNIcon v-if="JSON.stringify(modelValue) == JSON.stringify(item)" name="check" />
+                      <TNIcon
+                        v-if="
+                          JSON.stringify(modelValue) == JSON.stringify(item)
+                        "
+                        name="check"
+                      />
                     </slot>
                   </button>
                 </div>
@@ -235,17 +266,16 @@ watch(searchInputValue, async (value) => {
 
   border-radius: 12px;
   background-color: #fff;
-  transition: all .15s 0s ease;
+  transition: all 0.15s 0s ease;
 
   &:hover:not(.tn-select__dropdown-item_disabled) {
-    background-color: var(--Light-Gray-2, #F5F6FA);
+    background-color: var(--Light-Gray-2, #f5f6fa);
   }
 
   &.tn-select__dropdown-item_disabled {
-    opacity: .5;
+    opacity: 0.5;
   }
 }
-
 
 .tn-select_open {
   .tn-select__arrow {

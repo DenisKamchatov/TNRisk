@@ -1,15 +1,17 @@
 <script setup lang="ts">
+import { useLocalStorage } from "@vueuse/core";
 import { onMounted, ref } from "vue";
+import { ITnSelectItem } from "@/components/uikit/elements/select/typings";
+
 import TnButton from "@/components/uikit/elements/button/tn-button.vue";
 import LangSelect from "@/components/widgets/lang-select/lang-select.vue";
 import TnDropdownMenu from "@/components/uikit/elements/dropdown/tn-dropdown-menu.vue";
 import TnDropdownMenuItem from "@/components/uikit/elements/dropdown/tn-dropdown-menu-item.vue";
 import TnAvatar from "@/components/uikit/elements/avatar/tn-avatar.vue";
-import { useLocalStorage } from "@vueuse/core";
 import TnDatepicker from "@/components/uikit/elements/datepicker/tn-datepicker.vue";
 import TNCalendar from "@/components/uikit/elements/datepicker/tn-calendar.vue";
 import TnSelect from "@/components/uikit/elements/select/tn-select.vue";
-import { ITnSelectItem } from "@/components/uikit/elements/select/typings";
+import TnMultiSelect from "@/components/uikit/elements/multi-select/tn-multi-select.vue";
 
 onMounted(() => {});
 
@@ -38,6 +40,7 @@ const selectOptions: ITnSelectItem[] = [
   },
 ];
 const selectModel = ref<ITnSelectItem | null>(null);
+const multiSelectModel = ref<ITnSelectItem[]>([]);
 const dragModel = ref<any[]>([]);
 
 async function onSearch(value: string) {
@@ -156,6 +159,21 @@ async function onSearch(value: string) {
     </div>
     <div class="uikit-section__items">
       {{ selectModel }}
+    </div>
+  </div>
+
+  <div class="uikit-section">
+    <h2 class="uikit-section__title">Multi Select</h2>
+    <div class="uikit-section__items">
+      <TnMultiSelect
+        :options="selectOptions"
+        v-model="multiSelectModel"
+        :label="`Город`"
+        :placeholder="`Выберите значение`"
+        block
+      >
+
+      </TnMultiSelect>
     </div>
   </div>
   <!-- <div class="uikit-section">

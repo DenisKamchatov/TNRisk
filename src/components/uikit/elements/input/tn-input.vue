@@ -14,11 +14,13 @@ const props = withDefaults(
     error?: boolean;
     readonly?: boolean;
     clearable?: boolean;
+    isModelValueArray?: boolean
   }>(),
   {
     required: true,
     readonly: false,
-    clearable: true
+    clearable: true,
+    isModelValueArray: false,
   }
 );
 
@@ -49,6 +51,7 @@ const hasRightIcon = computed<boolean>(
 const hasIcon = computed<boolean>(
   () => !!slots["icon"] || !!props.icon
 );
+const hasChosenItems = computed<boolean>(() => props.isModelValueArray);
 
 const placeholderOutput = computed<string>(() => {
   return (hasFloatingLabel.value && !isFocused.value) ? "" : props.placeholder ?? "";
@@ -98,34 +101,44 @@ function clearModelValue() {
         </slot>
       </span>
 
-      <input
-        :id="inputId"
-        class="tn-input__input"
-        ref="input"
-        type="text"
-        :required="required"
-        :placeholder="placeholderOutput"
-        v-model="modelValue"
-        @focus="isFocused = true"
-        @blur="isFocused = false"
-        :readonly="readonly"
-        v-bind="$attrs"
-      />
+      <div class="tn-input__input-wrapper">
+        <input
+          :id="inputId"
+          class="tn-input__input"
+          ref="input"
+          type="text"
+          :required="required"
+          :placeholder="!hasChosenItems ? placeholderOutput : ''"
+          v-model="modelValue"
+          @focus="isFocused = true"
+          @blur="isFocused = false"
+          :readonly="readonly"
+          v-bind="$attrs"
+        />
 
-      <label
-        v-if="hasFloatingLabel && !hasLabel"
-        class="tn-input__floating-label"
-        :class="{
-          'tn-input__floating-label_on-focus': modelValue?.length,
-          'tn-input__floating-label_has-left-icon': hasIcon,
-        }"
-        :for="inputId"
-      >
-        <slot name="floatingLabel">
-          {{ floatingLabel }}
-        </slot>
-        <span v-if="required" class="tn-input__floating-label-star">*</span>
-      </label>
+        <label
+          v-if="hasFloatingLabel && !hasLabel && !hasChosenItems"
+          class="tn-input__floating-label"
+          :class="{
+            'tn-input__floating-label_on-focus': modelValue?.length,
+            'tn-input__floating-label_has-left-icon': hasIcon,
+          }"
+          :for="inputId"
+        >
+          <slot name="floatingLabel">
+            {{ floatingLabel }}
+          </slot>
+          <span v-if="required" class="tn-input__floating-label-star">*</span>
+        </label>
+
+        <transition
+          name="tn-input__close-button"
+        >
+          <slot name="chosen-items"></slot>
+        </transition>
+      </div>
+
+
       <transition
         name="tn-input__close-button"
       >
@@ -190,59 +203,20 @@ function clearModelValue() {
     transition: 300ms;
   }
 
-  .tn-input__input {
-    height: 100%;
-    width: 100%;
 
-    font-size: 14px;
-    font-weight: 400;
+}
 
-    background: none;
-    border: none;
-    outline: none;
+.tn-input__input {
+  height: 100%;
+  width: 100%;
 
-    color: #171c25;
+  background: none;
+  border: none;
+  outline: none;
 
-    &:focus + .tn-input__floating-label {
-      top: 5px;
+  transition: 300ms;
 
-      margin-top: 0px;
-
-      animation-name: size-down;
-      animation-duration: 300ms;
-      animation-timing-function: linear;
-      animation-iteration-count: 1;
-      animation-fill-mode: forwards;
-    }
-  }
-
-  .tn-input__floating-label {
-    position: absolute;
-    top: 50%;
-    transform: scale(1);
-    max-width: 80%;
-
-    margin-top: -9px;
-
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
-    color: #9ea5b5;
-
-    transition: 300ms;
-    overflow: hidden;
-    pointer-events: none;
-
-    .tn-input__floating-label-star {
-      color: #d91921;
-    }
-  }
-
-  .tn-input__floating-label_has-left-icon {
-    left: 50px;
-  }
-
-  .tn-input__floating-label_on-focus {
+  &:focus + .tn-input__floating-label {
     top: 5px;
 
     margin-top: 0px;
@@ -253,15 +227,65 @@ function clearModelValue() {
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
   }
+}
 
-  .tn-input__icon {
-    display: flex;
-    align-items: center;
+.tn-input__input-wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
 
-    font-size: 24px;
+  font-size: 14px;
+  font-weight: 400;
 
-    color: #747c8c;
+  background: none;
+  border: none;
+  outline: none;
+
+  color: #171c25;
+}
+
+.tn-input__floating-label {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: scale(1);
+  max-width: 80%;
+
+  margin-top: -9px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  color: #9ea5b5;
+
+  transition: 300ms;
+  overflow: hidden;
+  pointer-events: none;
+
+  .tn-input__floating-label-star {
+    color: #d91921;
   }
+}
+
+.tn-input__floating-label_on-focus {
+  top: 5px;
+
+  margin-top: 0px;
+
+  animation-name: size-down;
+  animation-duration: 300ms;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.tn-input__icon {
+  display: flex;
+  align-items: center;
+
+  font-size: 24px;
+
+  color: #747c8c;
 }
 
 .tn-input_on-focused {
