@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { computed, nextTick, onMounted, ref, watch } from "vue";
 import { Dropdown } from 'floating-vue';
 import { ITnSelectItem } from './typings';
 import TnInput from "@/components/uikit/elements/input/tn-input.vue";
@@ -9,6 +9,7 @@ type SearchFunctionType = (value: string) => Promise<ITnSelectItem[]>;
 const props = withDefaults(
   defineProps<{
     options: ITnSelectItem[];
+    excludedSearchOptions?: ITnSelectItem[],
     label?: string;
     floatingLabel?: string;
     placeholder?: string;
@@ -20,6 +21,7 @@ const props = withDefaults(
     error?: boolean;
     description?: string;
     hideDetails?: boolean;
+    allowEmptySearch?: boolean;
 
     disabled?: boolean;
     readonly?: boolean;
@@ -37,6 +39,8 @@ const props = withDefaults(
     search: false,
     openable: true,
     scrollable: false,
+    allowEmptySearch: false,
+    excludedSearchOptions: () => [],
   }
 );
 
@@ -47,27 +51,32 @@ const modelValue = defineModel<ITnSelectItem | null>("modelValue");
 const textInputValue = computed<string>(() => {
   return modelValue.value?.label ?? "";
 });
-const searchInputValue = ref<string>("");
 
 const isOpen = ref(false);
 
-const searchHintShown = ref(false);
+// SEARCH FUNCTIONALITY
+
+const searchInput = ref<HTMLInputElement | null>(null);
+const searchInputValue = ref<string>("");
+
+const searchHintShown = computed(() => {
+  return !(searchInputValue.value.length > 0) && props.search;
+});
 const searchOutput = ref<ITnSelectItem[]>([]);
-// TODO: Для чего это нужно и когда обновлять значение
-// Было false, поменял на true
-const isTyping = ref(true);
+const isTyping = ref(false);
 
 const outputArray = computed(() => {
   if (!isTyping.value) {
     return props.options;
   }
 
-  // if (searchOutput.value.length > 0) {
-  //   return searchOutput.value.filter(
-  //     (item) =>
-  //       !props.excludedSearchOptions.find((excluded) => excluded.id === item.id)
-  //   );
-  // }
+  if (searchOutput.value.length > 0) {
+    return searchOutput.value.filter((item) => !props.excludedSearchOptions.find((excluded) => excluded.id === item.id));
+  }
+
+  if (props.allowEmptySearch && searchInputValue.value) {
+    return [];
+  }
 
   return props.options;
 });
@@ -81,14 +90,30 @@ function clearValue() {
 }
 
 function onSearchInput(value: string) {
-  searchOutput.value = props.options.filter((item) => {
-    return item.label.toLowerCase().includes(value.toLowerCase());
-  });
+  isTyping.value = true;
 }
 
-onMounted(() => {
-  console.log("tn-select: mounted", props.options);
+watch(searchInputValue, async (value) => {
+  if (typeof props.search === "boolean") {
+    if (!value) {
+      searchOutput.value = [];
+      return;
+    }
+
+    if (props.options) {
+      searchOutput.value = props.options.filter(
+        (item) => item.label.toLowerCase().indexOf(value.toLowerCase()) !== -1
+      );
+    }
+  } else {
+    const result = await props.search(value);
+
+    if (result) {
+      searchOutput.value = result;
+    }
+  }
 });
+
 </script>
 
 <template>
@@ -131,15 +156,21 @@ onMounted(() => {
           <div class="tn-select__dropdown-inner" :data-shown="isOpen = shown">
             <div :class="{ 'tn-select__dropdown-inner_scrollable': scrollable }">
               <slot name="dropdown">
-                <TnInput
-                  floating-label="label"
-                  v-model="searchInputValue"
-                  @input="onSearchInput(searchInputValue)"
-                  @clear="searchInputValue = ''"
-                />
-                <p v-if="searchHintShown" class="tn-select__search-hint">
+                <div class="tn-select__search-input" v-if="search">
+                  <TnInput
+                    ref="searchInput"
+                    icon="search"
+                    floating-label="label"
+                    v-model="searchInputValue"
+                    @input="onSearchInput(searchInputValue)"
+                    @click="$refs.searchInput?.input?.focus()"
+                    @clear="searchInputValue = ''"
+                  />
+                </div>
+                <!-- TODO: Его в дизайне нет, если нужен, то раскомментировать и добавить стили -->
+                <!-- <p v-if="searchHintShown" class="tn-select__search-hint">
                   Начните вводить для поиска
-                </p>
+                </p> -->
                 <div class="tn-select__options">
                   <button
                     v-for="item in outputArray"
@@ -220,5 +251,15 @@ onMounted(() => {
   .tn-select__arrow {
     transform: rotate(-180deg);
   }
+}
+
+.tn-select__search-input {
+  padding: 12px 12px 0 12px;
+}
+
+.tn-select__search-hint {
+  font-size: 12px;
+  color: var(--text-gray);
+  padding: 5px 12px 0 12px;
 }
 </style>

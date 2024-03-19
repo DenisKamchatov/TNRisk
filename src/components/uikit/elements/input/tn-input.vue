@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, computed, useSlots, defineEmits, ref } from "vue";
+import { computed, useSlots, ref } from "vue";
 
 const props = withDefaults(
   defineProps<{
@@ -25,6 +25,10 @@ const props = withDefaults(
 const slots = useSlots();
 const emits = defineEmits(["clear"]);
 const input = ref<HTMLInputElement | null>(null);
+
+defineExpose({
+  input: input
+})
 
 const modelValue = defineModel<string>("modelValue", {
   type: String,

@@ -40,6 +40,12 @@ const selectOptions: ITnSelectItem[] = [
 const selectModel = ref<ITnSelectItem | null>(null);
 const dragModel = ref<any[]>([]);
 
+async function onSearch(value: string) {
+  return selectOptions.filter(
+    (item) => item.label.toLowerCase().indexOf(value.toLowerCase()) !== -1
+  );
+}
+
 </script>
 
 <template>
@@ -142,6 +148,8 @@ const dragModel = ref<any[]>([]);
         v-model="selectModel"
         :label="`Город`"
         :placeholder="`Выберите значение`"
+        allow-empty-search
+        :search="onSearch"
         block
       >
       </TnSelect>
