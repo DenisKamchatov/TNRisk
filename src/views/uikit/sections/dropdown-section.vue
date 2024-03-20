@@ -54,11 +54,23 @@ const selectOptions: ITnSelectItem[] = [
 const selectModel = ref<ITnSelectItem | null>(null);
 const multiSelectModel = ref<ITnSelectItem[]>([]);
 const dragModel = ref<any[]>([]);
+const loading = ref<boolean>(false)
+
+const performSearch = async (value: string): Promise<ITnSelectItem[]> => {
+  loading.value = true
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(selectOptions.filter(
+    (item) => item.label.toLowerCase().indexOf(value.toLowerCase()) !== -1
+  ))
+    }, 400);
+  });
+};
 
 async function onSearch(value: string) {
-  return selectOptions.filter(
-    (item) => item.label.toLowerCase().indexOf(value.toLowerCase()) !== -1
-  );
+  const result = await performSearch(value);
+  loading.value = false
+  return result
 }
 
 </script>
@@ -165,6 +177,8 @@ async function onSearch(value: string) {
         :placeholder="`Выберите значение`"
         allow-empty-search
         :search="onSearch"
+        search-placeholder="Some search placeholder"
+        empty-search-result-text="Ничего не найдено"
         block
       >
       </TnSelect>
@@ -182,6 +196,10 @@ async function onSearch(value: string) {
         v-model="multiSelectModel"
         :label="`Город`"
         :placeholder="`Выберите значение`"
+        :loading="loading"
+        search-placeholder="Some search placeholder"
+        empty-search-result-text="Ничего не найдено"
+        :search="onSearch"
         block
       >
 
