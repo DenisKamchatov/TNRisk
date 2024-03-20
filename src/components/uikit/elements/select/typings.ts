@@ -20,8 +20,11 @@ export interface TNSelectProps<T extends ITnSelectItem = ITnSelectItem> {
   disabled?: boolean;
   readonly?: boolean;
   required?: boolean;
+  loading?: boolean;
 
   search?: boolean | SearchFunctionType;
+  searchPlaceholder?: string;
+  emptySearchResultText?: string;
 
   scrollable?: boolean;
 }

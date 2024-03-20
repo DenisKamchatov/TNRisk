@@ -49,7 +49,7 @@ function updateSelectedItems() {
       <TNIcon
         name="x"
         class="tn-select__delete-icon"
-        @click="emits('delete', item)"
+        @click.stop="emits('delete', item)"
       />
     </div>
 

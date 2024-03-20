@@ -16,6 +16,7 @@ const props = withDefaults(defineProps<TNSelectProps>(), {
   openable: true,
   scrollable: false,
   allowEmptySearch: false,
+  loading: false,
   excludedSearchOptions: () => [],
 });
 
@@ -167,8 +168,10 @@ watch(searchInputValue, async (value) => {
           </slot>
         </template>
       </TnInput>
+      <!-- TODO: Стилизовать скроллбар и узнать какую максимальную высоту ставить у бокса (добавить prop maxHeight) -->
       <template #popper="{ shown }">
-        <div class="tn-select__dropdown" @mousedown.prevent>
+        <div class="tn-select__dropdown" :class="{ 'tn-select__dropdown_scrollable scrollbox': scrollable }" @mousedown.prevent>
+        <!-- <div class="tn-select__dropdown" :style="{ maxHeight: maxHeight || scrollable ? '220px' : 'none' }" @mousedown.prevent> -->
           <div class="tn-select__dropdown-inner" :data-shown="(isOpen = shown)">
             <div
               :class="{ 'tn-select__dropdown-inner_scrollable': scrollable }"
@@ -178,11 +181,12 @@ watch(searchInputValue, async (value) => {
                   <TnInput
                     ref="searchInput"
                     icon="search"
-                    floating-label="label"
+                    :placeholder="searchPlaceholder"
                     v-model="searchInputValue"
                     @input="onSearchInput(searchInputValue)"
-                    @click="$refs.searchInput?.input?.focus()"
+                    @click.self="$refs.searchInput?.input?.focus()"
                     @clear="searchInputValue = ''"
+                    :loading="loading"
                   />
                 </div>
                 <!-- TODO: Его в дизайне нет, если нужен, то раскомментировать и добавить стили -->
@@ -213,6 +217,8 @@ watch(searchInputValue, async (value) => {
                       />
                     </slot>
                   </button>
+
+                  <p v-if="outputArray.length === 0 && emptySearchResultText">{{ emptySearchResultText }}</p>
                 </div>
               </slot>
             </div>
@@ -244,6 +250,10 @@ watch(searchInputValue, async (value) => {
   position: relative;
   transform: translate3d(0, 0, 0);
   transition: transform 0.15s 0s ease;
+}
+
+.tn-select__dropdown_scrollable {
+  max-height: 220px;
 }
 
 .tn-select__dropdown-item {

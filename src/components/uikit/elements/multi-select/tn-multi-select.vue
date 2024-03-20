@@ -13,9 +13,6 @@ const modelValue = defineModel<ITnSelectItem[]>("modelValue", {
 });
 
 const outputOptions = computed(() => {
-  // return props.options?.filter(
-  //   (item) => !modelValue.value.find((el) => el.id === item.id)
-  // );
   return props.options;
 });
 
@@ -47,12 +44,29 @@ function onDelete(item: ITnSelectItem) {
     <TnSelect
       :options="outputOptions"
       v-model="modelValue"
-      :floating-label="`Город`"
-      :placeholder="`Выберите значение`"
+      :floating-label="floatingLabel"
+      :placeholder="placeholder"
+      :loading="loading"
       is-multiple
       block
       @select="onSelect"
       @delete="onDelete"
+
+      :excludedSearchOptions="excludedSearchOptions"
+      :label="label"
+      :icon="icon"
+      :error="error"
+      :description="description"
+      :hideDetails="hideDetails"
+      :allowEmptySearch="allowEmptySearch"
+      :disabled="disabled"
+      :readonly="readonly"
+      :required="required"
+      :search="search"
+      :search-placeholder="searchPlaceholder"
+      :empty-search-result-text="emptySearchResultText"
+      :scrollable="scrollable"
+
     >
       <template v-slot:option-item="slotOption">
         <div class="tn-multi-select__item">
@@ -61,6 +75,7 @@ function onDelete(item: ITnSelectItem) {
             v-model="modelValue"
             :value="slotOption.item"
             :disabled="slotOption.item.disabled"
+            style="pointer-events: none;"
           />
 
           <slot name="multi-select-item">
