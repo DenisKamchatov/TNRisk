@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, useSlots, ref } from "vue";
+import TnLoader from "@/components/uikit/elements/loader/tn-loader.vue";
 
 const props = withDefaults(
   defineProps<{
@@ -14,13 +15,15 @@ const props = withDefaults(
     error?: boolean;
     readonly?: boolean;
     clearable?: boolean;
-    isModelValueArray?: boolean
+    isModelValueArray?: boolean;
+    loading?: boolean;
   }>(),
   {
     required: true,
     readonly: false,
     clearable: true,
     isModelValueArray: false,
+    loading: false,
   }
 );
 
@@ -133,22 +136,26 @@ function clearModelValue() {
 
         <transition
           name="tn-input__close-button"
+          v-if="hasChosenItems"
         >
           <slot name="chosen-items"></slot>
         </transition>
       </div>
 
-
+      <!-- TODO: Сделать анимацию плавной -->
       <transition
         name="tn-input__close-button"
         :style="{ opacity: hasChosenItems ? 0 : 1 }"
       >
+      <span v-if="loading" class="tn-input__loader">
+        <TnLoader class="tn-input__loader-icon" />
+      </span>
         <button
           type="button"
-          @click="clearModelValue"
-          @keyup.enter="clearModelValue"
+          @click.stop="clearModelValue"
+          @keyup.stop="clearModelValue"
           class="tn-input__close-button"
-          v-if="modelValue && !disabled"
+          v-else-if="modelValue && !disabled"
         >
           <TNIcon name="x" />
         </button>
@@ -430,9 +437,25 @@ function clearModelValue() {
   }
 }
 
+.tn-input__loader {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+
+  .tn-input__loader-icon {
+    font-size: 24px;
+  }
+  .tn-loader__spinner {
+      border-color: var(--input-loading);
+      border-top-color: transparent;
+    }
+}
+
+
 .tn-input__close-button-enter-active,
 .tn-input__close-button-leave-active {
-  transition: opacity 0.15s ease;
+  transition: opacity 0s ease;
 }
 
 .tn-input__close-button-enter-from,
