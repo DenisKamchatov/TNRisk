@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch, watchEffect, nextTick } from "vue";
+import { computed, ref, watch } from "vue";
 import { useElementSize } from '@vueuse/core'
 import { ITnSelectItem } from "./typings";
 

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {
-  defineProps,
   computed,
   useSlots,
   ref,
@@ -206,8 +205,8 @@ onMounted(() => {
   width: 100%;
   min-height: 88px;
 
-  background-color: #f5f6fa;
-  color: #171c25;
+  background-color: var(--textarea-wrapper-bg);
+  color: var(--textarea-wrapper-color);
   border-radius: 12px;
   border: 1px solid transparent;
   outline: 2px solid transparent;
@@ -215,7 +214,7 @@ onMounted(() => {
   transition: 300ms;
 
   &:hover {
-    background-color: #e9ebf1;
+    background-color: var(--textarea-wrapper-bg-hover);
     transition: 300ms;
   }
 
@@ -232,7 +231,7 @@ onMounted(() => {
     border: 1px solid transparent;
     outline: 2px solid transparent;
 
-    color: #171c25;
+    color: var(--textarea-color);
 
     &:focus + .tn-textarea__floating-label {
       top: 5px;
@@ -254,14 +253,14 @@ onMounted(() => {
     text-overflow: ellipsis;
     white-space: nowrap;
 
-    color: #9ea5b5;
+    color: var(--textarea-floating-label-color);
 
     transition: 300ms;
     overflow: hidden;
     pointer-events: none;
 
     .tn-textarea__floating-label-star {
-      color: #d91921;
+      color: var(--textarea-floating-label-star);
     }
   }
 
@@ -286,40 +285,40 @@ onMounted(() => {
 
     font-size: 24px;
 
-    color: #747c8c;
+    color: var(--textarea-icon);
   }
 }
 
 .tn-textarea_on-focused {
-  background-color: #fff;
-  outline: 2px solid #fcddde;
-  border: 1px solid #eb3b41;
+  background-color: var(--textarea-focused-bg);
+  outline: 2px solid var(--textarea-focused-outline);
+  border: 1px solid var(--textarea-focused-border);
 
   transition: 200ms !important;
 
   &:hover {
-    background-color: #fff;
+    background-color: var(--textarea-focused-bg-hover);
   }
 }
 
 .tn-textarea_disabled {
-  color: #747c8c;
-  background-color: #fafafb;
+  color: var(--textarea-disabled-color);
+  background-color: var(--textarea-disabled-bg);
 
   pointer-events: none;
 
   .tn-textarea__floating-label {
-    color: #9ea5b5;
+    color: var(--textarea-disabled-floating-label);
   }
   .tn-textarea__icon {
-    color: #d0d4db;
+    color: var(--textarea-disabled-icon);
   }
   .tn-textarea__input {
-    color: #747c8c;
+    color: var(--textarea-disabled-color);
   }
 
   .tn-textarea__description {
-    color: #9b9fa9;
+    color: var(--textarea-disabled-description);
   }
 }
 
@@ -331,7 +330,7 @@ onMounted(() => {
       font-size: 14px;
       font-weight: 400;
 
-      color: #747c8c;
+      color: var(--textarea-placeholder);
     }
   }
 }
@@ -340,7 +339,7 @@ onMounted(() => {
   .tn-textarea__wrapper {
     .tn-textarea__input {
       &::placeholder {
-        color: #d91921;
+        color: var(--textarea-error-placeholder);
       }
     }
   }
@@ -355,34 +354,34 @@ onMounted(() => {
   font-size: 14px;
   font-weight: 600;
 
-  color: #747c8c;
+  color: var(--textarea-label);
 
   .tn-textarea__label-star {
     font-size: 14px;
     font-weight: 400;
 
-    color: #d91921;
+    color: var(--textarea-label-star);
   }
 }
 
 .tn-textarea_error {
   .tn-textarea__wrapper {
-    background-color: #fff;
+    background-color: var(--textarea-error-bg);
 
     outline: 2px solid transparent;
-    border: 1px solid #c02b31;
+    border: 1px solid var(--textarea-error-border);
 
     .tn-textarea__input {
-      color: #d91921;
+      color: var(--textarea-error-color);
     }
 
     .tn-textarea__icon {
-      color: #d91921;
+      color: var(--textarea-error-icon);
     }
   }
 
   .tn-textarea__description {
-    color: #d91921;
+    color: var(--textarea-error-description);
   }
 }
 
@@ -392,7 +391,7 @@ onMounted(() => {
   font-size: 12px;
   font-weight: 400;
 
-  color: #747c8c;
+  color: var(--textarea-description);
 }
 
 @keyframes size-down {

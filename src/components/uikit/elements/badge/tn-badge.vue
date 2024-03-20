@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useSlots, ref, computed } from "vue";
+import { useSlots, computed } from "vue";
 
 const props = withDefaults(
   defineProps<{
@@ -73,8 +73,8 @@ const isOval = computed(() => {
   font-size: 12px;
   font-weight: 500;
 
-  color: #747c8c;
-  background-color: #e7e9ef;
+  color: var(--badge-default-color);
+  background-color: var(--badge-default-bg);
 
   border-radius: 4px;
 }
@@ -83,8 +83,8 @@ const isOval = computed(() => {
   font-size: 12px;
   font-weight: 600;
 
-  color: #fff;
-  background-color: #eb3b41;
+  color: var(--badge-classic-color);
+  background-color: var(--badge-classic-bg);
 }
 
 .tn-badge_oval {

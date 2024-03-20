@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { defineComponent, PropType, ref, Ref, watch } from "vue";
+import { ref, Ref, watch } from "vue";
 import TNIcon from "@/components/uikit/elements/icons/tn-icon.vue";
 import { TNTabsOption } from "./typings";
 
@@ -117,10 +117,10 @@ watch(
     display: inline-flex;
     border-radius: 12px;
     overflow-x: auto;
-    background-color: #ffffff;
+    background-color: var(--tabs-bg);
     align-items: center;
     height: 42px;
-    border: 1px solid #d7dae1;
+    border: 1px solid var(--tabs-border);
   }
 
   .tn-tabs::-webkit-scrollbar {
@@ -152,7 +152,7 @@ watch(
     background-color: transparent;
     padding: 6px 16px;
     font-weight: 600;
-    color: #667387;
+    color: var(--tabs-button-color);
     border: none;
     font-size: 14px;
     line-height: 20px;
@@ -161,24 +161,24 @@ watch(
   }
 
   .tn-tabs__item-btn:hover {
-    background-color: #fcfcfd;
+    background-color: var(--tabs-button-bg-hover);
   }
 
   .tn-tabs__item-btn:active {
-    background-color: #f9f9fa;
+    background-color: var(--tabs-button-bg-active);
   }
 
   .tn-tabs__item-btn_active {
-    background-color: #f3f5f7;
-    color: #1e2228;
+    background-color: var(--tabs-active-button-bg);
+    color: var(--tabs-active-button-color);
   }
 
   .tn-tabs__item-btn_active:hover {
-    background-color: #e6e8ed;
+    background-color: var(--tabs-active-button-bg-hover);
   }
 
   .tn-tabs__item-btn_active:active {
-    background-color: #d7dae1;
+    background-color: var(--tabs-active-button-bg-active);
   }
 
   .tn-tabs_disabled {
@@ -186,7 +186,7 @@ watch(
   }
 
   .tn-tabs_disabled .tn-tabs__item-btn {
-    color: #bcc1ce;
+    color: var(--tabs-disabled-button-color);
   }
 
   .tn-tabs__item-icon {
@@ -209,14 +209,14 @@ watch(
   }
 
   .tn-tabs__item-btn-secondary-text {
-    color: #9ca3b6;
+    color: var(--tabs-secondary-text);
     font-weight: 700;
     margin-left: 4px;
     transition: color 0.1s linear;
   }
 
   .tn-tabs_disabled .tn-tabs__item-btn-secondary-text {
-    color: #9ca3b6;
+    color: var(--tabs-disabled-secondary-text);
   }
 
   .tn-tabs__item-icon {
@@ -250,19 +250,12 @@ watch(
     border-radius: 0;
     border: none;
     height: 80px;
-    background-image: linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 3px,
-      #d7dae1 3px,
-      #d7dae1 4px,
-      transparent 4px
-    );
+    background-image: var(--tabs-soft-bg-image);
     background-position: bottom;
   }
 
   .tn-tabs_soft .tn-tabs__item-btn {
-    color: #9B9FA9;
+    color: var(--tabs-soft-button-color);
     border-radius: 0;
     font-weight: 700;
     position: relative;
@@ -294,55 +287,41 @@ watch(
   }
 
   .tn-tabs_soft .tn-tabs__item-btn:hover {
-    color: #444c59;
+    color: var(--tabs-soft-button-color-hover);
     background-color: transparent;
   }
 
   .tn-tabs_soft .tn-tabs__item-btn:active {
-    color: #1e2228;
+    color: var(--tabs-soft-button-color-active);
     background-color: transparent;
   }
 
   .tn-tabs_soft .tn-tabs__item-btn_active {
     box-shadow: none;
     background-color: transparent;
-    color: #2E384B;
+    color: var(--tabs-soft-active-button-color);
   }
   .tn-tabs_soft .tn-tabs__item-btn_active.tn-tabs__item-btn_active::after {
-    background-color: #EB3B41;
+    background-color: var(--tabs-soft-active-button-after-bg);
   }
-
-  /* .tn-tabs_soft .tn-tabs__item-btn_active:hover {
-    color: #ae1603;
-    background-color: transparent;
-  } */
 
   .tn-tabs_soft .tn-tabs__item-btn_active:hover::after {
-    background-color: #ce2b30;
+    background-color: var(--tabs-soft-active-button-after-bg-hover);
   }
-
-  /* .tn-tabs_soft .tn-tabs__item-btn_active:active {
-    color: #961500;
-    background-color: transparent;
-  } */
-/*
-  .tn-tabs_soft .tn-tabs__item-btn_active:active::after {
-    background-color: #961500;
-  } */
 
   .tn-tabs__item-btn_active .tn-tabs__item-icon {
     opacity: 1;
   }
 
   .tn-tabs_soft.tn-tabs_disabled .tn-tabs__item-btn {
-    color: #bcc1ce;
+    color: var(--tabs-soft-disabled-button-color);
   }
 
   .tn-tabs_soft.tn-tabs_disabled .tn-tabs__item-btn_active {
-    border-bottom-color: #bcc1ce;
+    border-bottom-color: var(--tabs-soft-disabled-button-active-border);
   }
 
   .tn-tabs_soft.tn-tabs_disabled .tn-tabs__item-btn_active::after {
-    background-color: #bcc1ce;
+    background-color: var(--tabs-soft-disabled-button-active-border);
   }
   </style>

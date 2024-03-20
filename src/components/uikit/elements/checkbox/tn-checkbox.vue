@@ -137,7 +137,7 @@ function onInput() {
 }
 
 .tn-checkbox__description {
-  color: #171c25;
+  color: var(--checkbox-description);
   font-size: 16px;
   margin-top: 6px;
   display: block;
@@ -154,7 +154,7 @@ function onInput() {
   font-size: 14px;
   line-height: 16px;
   display: block;
-  color: "#D91921";
+  color: var(--checkbox-warn-color);
 }
 
 .tn-checkbox__text-warn {
@@ -162,7 +162,7 @@ function onInput() {
   font-size: 14px;
   line-height: 16px;
   display: block;
-  color: "#D91921";
+  color: var(--checkbox-warn-color);
 }
 
 .tn-checkbox__btn {
@@ -172,8 +172,8 @@ function onInput() {
   width: 22px;
   height: 22px;
   flex: 0 0 22px;
-  border: 2px solid #d0d4db;
-  background-color: #ffffff;
+  border: 2px solid var(--checkbox-border);
+  background-color: var(--checkbox-bg);
   border-radius: 6px;
   cursor: pointer;
   outline: none;
@@ -214,13 +214,13 @@ function onInput() {
 }
 
 .tn-checkbox__btn:hover {
-  border-color: #9ea5b5;
-  background-color: #f5f6fa;
+  border-color: var(--checkbox-border-hover);
+  background-color: var(--checkbox-bg-hover);
 }
 
 .tn-checkbox__btn:active {
-  border-color: #9ea5b5;
-  background-color: #e9ebf1;
+  border-color: var(--checkbox-border-active);
+  background-color: var(--checkbox-bg-active);
 }
 
 .tn-checkbox_readonly {
@@ -233,11 +233,11 @@ function onInput() {
 }
 
 .tn-checkbox__btn_checked {
-  background-color: #eb3b41;
-  border-color: #eb3b41;
+  background-color: var(--checkbox-checked-bg);
+  border-color: var(--checkbox-checked-border);
 
   &:focus {
-    outline: 1px solid #d91921;
+    outline: 1px solid var(--checkbox-checked-outline);
     outline-offset: 1px;
   }
 }
@@ -248,8 +248,8 @@ function onInput() {
 }
 
 .tn-checkbox__btn_checked:hover {
-  background-color: #d91921;
-  border-color: #d91921;
+  background-color: var(--checkbox-checked-bg-hover);
+  border-color: var(--checkbox-checked-border-hover);
 }
 
 .tn-checkbox__btn_checked.tn-checkbox__btn_disabled {
@@ -257,8 +257,8 @@ function onInput() {
 }
 
 .tn-checkbox__btn_checked:active {
-  background-color: #c02b31;
-  border-color: #c02b31;
+  background-color: var(--checkbox-checked-bg-active);
+  border-color: var(--checkbox-checked-border-active);
 }
 
 .tn-checkbox_disabled {

@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import TnIcon from "@/components/uikit/elements/icons/tn-icon.vue";
-// import { Avatar } from "@/typings/Avatar.ts";
 
 const props = withDefaults(
   defineProps<{
@@ -100,8 +99,8 @@ const hasImageOrIcon = computed(() => !!props.image || !!props.icon);
 
 <style lang="scss">
 .tn-user-picture {
-  background-color: #e9ebf1;
-  border: 1px solid #fff;
+  background-color: var(--avatar-bg);
+  border: 1px solid var(--avatar-border);
   width: 32px;
   height: 32px;
   box-sizing: border-box;
@@ -207,8 +206,8 @@ const hasImageOrIcon = computed(() => !!props.image || !!props.icon);
 .tn-user-picture__status {
   width: 6px;
   height: 6px;
-  background-color: #667387;
-  outline: 2px solid #66738733;
+  background-color: var(--avatar-status-bg);
+  outline: 2px solid var(--avatar-status-outline);
   border-radius: 50%;
   z-index: 1;
   position: absolute;
@@ -233,7 +232,7 @@ const hasImageOrIcon = computed(() => !!props.image || !!props.icon);
 }
 
 .tn-user-picture__status_enabled {
-  background-color: #009c37;
-  outline: 2px solid #00842f33;
+  background-color: var(--avatar-status-enabled-bg);
+  outline: 2px solid var(--avatar-status-enabled-outline);
 }
 </style>

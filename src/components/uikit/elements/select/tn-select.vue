@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { useElementSize } from '@vueuse/core'
 import { Dropdown } from "floating-vue";
 import { ITnSelectItem, TNSelectProps } from "./typings";

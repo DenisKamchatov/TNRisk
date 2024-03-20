@@ -134,21 +134,21 @@ function onTumblerClick() {
   line-height: 20px;
   font-weight: 400;
   font-size: 14px;
-  color: rgba(46, 56, 75, 1);
+  color: var(--tumbler-description-color);
 }
 
 .tn-tumbler__text-error {
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
-  color: rgba(235, 59, 65, 1);
+  color: var(--tumbler-warn-color);
 }
 
 .tn-tumbler__text-warn {
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
-  color: rgba(235, 59, 65, 1);
+  color: var(--tumbler-warn-color);
 }
 
 .tn-tumbler__btn {
@@ -156,7 +156,8 @@ function onTumblerClick() {
   vertical-align: middle;
   padding: 0;
   border: none;
-  outline: none;
+  outline: 1px solid #ffffff00;
+  outline-offset: 1px;
   cursor: pointer;
   transition: 0.25s;
   position: relative;
@@ -164,8 +165,8 @@ function onTumblerClick() {
   line-height: 1;
   flex: 0 0 auto;
   --secondary-color: currentColor;
-  background-color: rgba(208, 212, 219, 1);
-  color: rgba(255, 255, 255, 1);
+  background-color: var(--tumbler-button-bg);
+  color: var(--tumbler-button-color);
   overflow: hidden;
 }
 
@@ -174,18 +175,18 @@ function onTumblerClick() {
   position: absolute;
   left: 2px;
   top: 50%;
-  background-color: #ffffff;
+  background-color: var(--tumbler-circle-bg);
   border-radius: 50%;
   pointer-events: none;
   transition: 0.3s;
 }
 
 .tn-tumbler__btn:hover {
-  background-color: #b6bcc8;
+  background-color: var(--tumbler-button-bg-hover);
 }
 
 .tn-tumbler__btn:active {
-  background-color: #9ea5b5;
+  background-color: var(--tumbler-button-bg-active);
 }
 
 .tn-tumbler__btn:focus {
@@ -223,11 +224,11 @@ function onTumblerClick() {
 }
 
 .tn-tumbler__btn_active {
-  background-color: #eb3b41;
+  background-color: var(--tumbler-button-bg-active-state);
 }
 
 .tn-tumbler__btn_active:hover {
-  background-color: #d91921;
+  background-color: var(--tumbler-button-bg-active-state-hover);
 }
 
 .tn-tumbler__btn_active:focus {
@@ -248,12 +249,8 @@ function onTumblerClick() {
 }
 
 .tn-tumbler__btn_active:active {
-  background-color: #c02b31;
+  background-color: var(--tumbler-button-bg-active-state-active);
 }
-
-// .tn-tumbler__btn_active.tn-tumbler__btn_disabled {
-//   background-color: #eb3b41;
-// }
 
 .tn-tumbler__btn-icon {
   position: absolute;
@@ -292,7 +289,7 @@ function onTumblerClick() {
     outline-offset: 1px;
   }
   to {
-    outline: 1px solid #9ea5b5;
+    outline: 1px solid var(--tumbler-outline);
     outline-offset: 1px;
   }
 }
@@ -303,7 +300,7 @@ function onTumblerClick() {
     outline-offset: 1px;
   }
   to {
-    outline: 1px solid #d91921;
+    outline: 1px solid var(--tumbler-outline-active);
     outline-offset: 1px;
   }
 }

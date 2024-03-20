@@ -191,8 +191,8 @@ function clearModelValue() {
   height: 48px;
   width: 100%;
 
-  background-color: #f5f6fa;
-  color: #171c25;
+  background-color: var(--input-wrapper-bg);
+  color: var(--input-wrapper-color);
   border-radius: 12px;
   border: 1px solid transparent;
   outline: 2px solid transparent;
@@ -200,7 +200,7 @@ function clearModelValue() {
   transition: 300ms;
 
   &:hover {
-    background-color: #e9ebf1;
+    background-color: var(--input-wrapper-bg-hover);
     transition: 300ms;
   }
 
@@ -242,7 +242,7 @@ function clearModelValue() {
   border: none;
   outline: none;
 
-  color: #171c25;
+  color: var(--input-color);
 }
 
 .tn-input__floating-label {
@@ -257,14 +257,14 @@ function clearModelValue() {
   text-overflow: ellipsis;
   white-space: nowrap;
 
-  color: #9ea5b5;
+  color: var(--input-floating-label-color);
 
   transition: 300ms;
   overflow: hidden;
   pointer-events: none;
 
   .tn-input__floating-label-star {
-    color: #d91921;
+    color: var(--input-floating-label-star);
   }
 }
 
@@ -286,44 +286,44 @@ function clearModelValue() {
 
   font-size: 24px;
 
-  color: #747c8c;
+  color: var(--input-icon);
 }
 
 .tn-input_on-focused {
-  background-color: #fff;
-  outline: 2px solid #fcddde;
-  border: 1px solid #eb3b41;
+  background-color: var(--input-focused-bg);
+  outline: 2px solid var(--input-focused-outline);
+  border: 1px solid var(--input-focused-border);
 
   transition: 200ms !important;
 
   &:hover {
-    background-color: #fff;
+    background-color: var(--input-focused-bg-hover);
   }
 }
 
 .tn-input_disabled {
   .tn-input__wrapper {
-    color: #9B9FA9;
-    background-color: #fafafb;
+    color: var(--input-disabled-color);
+    background-color: var(--input-disabled-bg);
 
     pointer-events: none;
 
     .tn-input__floating-label {
-      color: #9EA5B5;
+      color: var(--input-disabled-floating-label);
     }
     .tn-input__icon {
-      color: #d0d4db;
+      color: var(--input-disabled-icon);
     }
     .tn-input__input {
-      color: #747c8c;
+      color: var(--input-disabled-color);
     }
 
     .tn-input__description {
-      color: #9b9fa9;
+      color: var(--input-disabled-description);
     }
   }
   .tn-input__description {
-    color: #9B9FA9;
+    color: var(--input-disabled-description);
   }
 }
 
@@ -335,7 +335,7 @@ function clearModelValue() {
       font-size: 14px;
       font-weight: 400;
 
-      color: #747c8c;
+      color: var(--input-placeholder);
     }
   }
 }
@@ -345,7 +345,7 @@ function clearModelValue() {
     .tn-input__input {
 
       &::placeholder {
-        color: #d91921;
+        color: var(--input-error-placeholder);
       }
     }
   }
@@ -360,34 +360,34 @@ function clearModelValue() {
   font-size: 14px;
   font-weight: 600;
 
-  color: #747c8c;
+  color: var(--input-label);
 
   .tn-input__label-star {
     font-size: 14px;
     font-weight: 400;
 
-    color: #d91921;
+    color: var(--input-label-star);
   }
 }
 
 .tn-input_error {
   .tn-input__wrapper {
-    background-color: #fff;
+    background-color: var(--input-error-bg);
 
     outline: 2px solid transparent;
-    border: 1px solid #c02b31;
+    border: 1px solid var(--input-error-border);
 
     .tn-input__input {
-      color: #d91921;
+      color: var(--input-error-color);
     }
 
     .tn-input__icon {
-      color: #d91921;
+      color: var(--input-error-icon);
     }
   }
 
   .tn-input__description {
-    color: #d91921;
+    color: var(--input-error-description);
   }
 }
 
@@ -397,7 +397,7 @@ function clearModelValue() {
   font-size: 12px;
   font-weight: 400;
 
-  color: #747c8c;
+  color: var(--input-description);
 }
 
 
@@ -416,8 +416,8 @@ function clearModelValue() {
 
   font-size: 14px;
 
-  color: #fff;
-  background-color: #9ea5b5;
+  color: var(--input-close-color);
+  background-color: var(--input-close-bg);
   border: 1px solid transparent;
 
   border-radius: 50%;
@@ -425,7 +425,7 @@ function clearModelValue() {
   transition: 300ms;
 
   &:focus {
-    border: 1px solid #2E384B;
+    border: 1px solid var(--input-close-border-focus);
     transition: 300ms;
   }
 }
