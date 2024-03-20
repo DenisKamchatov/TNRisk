@@ -141,6 +141,7 @@ function clearModelValue() {
 
       <transition
         name="tn-input__close-button"
+        :style="{ opacity: hasChosenItems ? 0 : 1 }"
       >
         <button
           type="button"

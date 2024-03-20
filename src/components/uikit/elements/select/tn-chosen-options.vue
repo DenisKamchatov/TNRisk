@@ -12,30 +12,37 @@ const props = withDefaults(
 );
 
 const emits = defineEmits(["delete"]);
-const chosenItems = ref<HTMLElement | null>(null);
-// const shownItems = ref<ITnSelectItem[]>(props.items)
+const chosenItemsEl = ref<HTMLElement | null>(null);
 
-// const countHiddenItems = computed(() => {
-//   return props.items.length - shownItems.value.length
-// })
+const selectedItems = ref<ITnSelectItem[]>(props.items);
+const { width } = useElementSize(chosenItemsEl)
+const showedItemsCount = ref<number>(0)
 
-// const { width } = useElementSize(chosenItems)
+const allItems = computed(() => {
+  return props.items
+})
 
-// watch(width, async () => {
-//   if (width.value > props.selectInputWidth - 95) {
-//     console.log('DONE!!', width.value)
-//     await nextTick()
-//     const item = shownItems.value.pop()
-//     console.log('items', item)
+const inputWidth = computed(() => {
+  return props.selectInputWidth
+})
 
-//   }
-// })
+watch([allItems, inputWidth], () => updateSelectedItems())
+
+function updateSelectedItems() {
+  showedItemsCount.value = Math.floor((inputWidth.value - 70) / 100)
+
+  if (allItems.value.length <= showedItemsCount.value - 1) {
+    selectedItems.value = allItems.value
+  } else {
+    selectedItems.value = allItems.value.toSpliced(showedItemsCount.value, allItems.value.length - showedItemsCount.value)
+  }
+}
 
 </script>
 
 <template>
-  <div class="tn-input__chosen-items" ref="chosenItems">
-    <div class="tn-select__chosen-item" v-for="item in items" :key="item.id">
+  <div class="tn-input__chosen-items" ref="chosenItemsEl">
+    <div class="tn-select__chosen-item" v-for="item in selectedItems" :key="item.id">
       <p>
         {{ item.label }}
       </p>
@@ -45,6 +52,8 @@ const chosenItems = ref<HTMLElement | null>(null);
         @click="emits('delete', item)"
       />
     </div>
+
+    <span class="tn-input__items-count" :style="{ left: width + 15 + 'px'}" v-if="allItems.length - selectedItems.length > 0">{{ '+' + (allItems.length - selectedItems.length) }}</span>
   </div>
 </template>
 
@@ -57,7 +66,7 @@ const chosenItems = ref<HTMLElement | null>(null);
   display: flex;
   align-items: center;
   gap: 12px;
-  width: fit-content;
+  width: 100%;
   height: 100%;
 
   transform: translateY(-50%);
@@ -75,8 +84,11 @@ const chosenItems = ref<HTMLElement | null>(null);
   line-height: 20px;
 
   p {
+    max-width: 80px;
     pointer-events: none;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .tn-select__delete-icon {
@@ -86,6 +98,12 @@ const chosenItems = ref<HTMLElement | null>(null);
 
     cursor: pointer;
   }
+}
+
+.tn-input__items-count {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 

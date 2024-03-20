@@ -36,6 +36,18 @@ const selectOptions: ITnSelectItem[] = [
   {
     id: Symbol(),
     label: "Option 4",
+  },
+  {
+    id: Symbol(),
+    label: "Option 5",
+  },
+  {
+    id: Symbol(),
+    label: "Option Option Option 5",
+  },
+  {
+    id: Symbol(),
+    label: "Option 6",
     disabled: true,
   },
 ];

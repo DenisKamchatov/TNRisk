@@ -25,22 +25,19 @@ const modelValue = defineModel<ITnSelectItem | ITnSelectItem[] | null>(
   "modelValue"
 );
 
-const selectInput = ref<HTMLInputElement | null>(null);
-const { width } = useElementSize(selectInput)
-const selectInputWidth = ref<number>(width.value);
-const selectInputWidthComp = computed(() => {
-  return selectInputWidth.value
-})
+const isModelValueArray = computed(() => {
+  return Array.isArray(modelValue.value) && modelValue.value.length > 0;
+});
 
-watch(width, () => {
-  selectInputWidth.value = width.value
-})
+const selectInput = ref<HTMLInputElement | null>(null);
+const selectInputWidth = useElementSize(selectInput).width
 
 const textInputValue = computed<string>(() => {
   return modelValue.value?.label ?? "";
 });
 
 const isOpen = ref(false);
+
 
 // SEARCH FUNCTIONALITY
 
@@ -70,10 +67,6 @@ const outputArray = computed(() => {
   }
 
   return props.options;
-});
-
-const isModelValueArray = computed(() => {
-  return Array.isArray(modelValue.value) && modelValue.value.length > 0;
 });
 
 function checkSelectedOption(v: ITnSelectItem) {
@@ -164,7 +157,7 @@ watch(searchInputValue, async (value) => {
         <template #chosen-items v-if="isModelValueArray">
           <TnChosenOptions
             :selectInputWidth="selectInputWidth"
-            :items="modelValue as ITnSelectItem[]"
+            :items="(modelValue as ITnSelectItem[])"
             @delete="onDeleteOption"
           />
         </template>
