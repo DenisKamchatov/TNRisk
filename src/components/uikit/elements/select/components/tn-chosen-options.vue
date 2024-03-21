@@ -29,7 +29,7 @@ const inputWidth = computed(() => {
 watch([allItems, inputWidth], () => updateSelectedItems())
 
 function updateSelectedItems() {
-  showedItemsCount.value = Math.floor((inputWidth.value - 70) / 100)
+  showedItemsCount.value = Math.floor((inputWidth.value - 125) / 100)
 
   if (allItems.value.length <= showedItemsCount.value - 1) {
     selectedItems.value = allItems.value
@@ -84,11 +84,12 @@ function updateSelectedItems() {
   line-height: 20px;
 
   p {
-    max-width: 80px;
+    width: 80px;
     pointer-events: none;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: center;
   }
 
   .tn-select__delete-icon {

@@ -4,7 +4,7 @@ import { useElementSize } from '@vueuse/core'
 import { Dropdown } from "floating-vue";
 import { ITnSelectItem, TNSelectProps } from "./typings";
 import TnInput from "@/components/uikit/elements/input/tn-input.vue";
-import TnChosenOptions from "@/components/uikit/elements/select/tn-chosen-options.vue";
+import TnChosenOptions from "@/components/uikit/elements/select/components/tn-chosen-options.vue";
 
 const props = withDefaults(defineProps<TNSelectProps>(), {
   isMultiple: false,

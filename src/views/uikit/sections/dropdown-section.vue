@@ -12,6 +12,7 @@ import TnDatepicker from "@/components/uikit/elements/datepicker/tn-datepicker.v
 import TNCalendar from "@/components/uikit/elements/datepicker/tn-calendar.vue";
 import TnSelect from "@/components/uikit/elements/select/tn-select.vue";
 import TnMultiSelect from "@/components/uikit/elements/multi-select/tn-multi-select.vue";
+import TnSelectPersonItem from "@/components/uikit/elements/select/components/person-item.vue";
 
 onMounted(() => {});
 
@@ -51,9 +52,46 @@ const selectOptions: ITnSelectItem[] = [
     disabled: true,
   },
 ];
+const selectOptionsCustom: ITnSelectItem[] = [
+  {
+    id: Symbol(),
+    label: "Лужков Роман",
+    data: {
+      image: 'https://i.pinimg.com/736x/4b/d3/04/4bd304c14c7e47b601d0482b235a89d2--hemsworth-brothers-chris-hemsworth.jpg',
+      email: 'michael.mitc@example.com',
+    }
+  },
+  {
+    id: Symbol(),
+    label: "Витюгова Юлия",
+    data: {
+      image: 'https://i1.sndcdn.com/artworks-zSogPvz7lPksaBrX-1GecVw-t500x500.jpg',
+      email: 'tanya.hill@example.com',
+    }
+  },
+  {
+    id: Symbol(),
+    label: "Камчатов Денис",
+    data: {
+      image: 'https://i.imgflip.com/65jzz8.jpg',
+      email: 'kamchatov@mail.ru',
+    }
+  },
+  {
+    id: Symbol(),
+    label: "Иван Иванов",
+    data: {
+      image: 'https://i.pinimg.com/736x/2c/a9/8b/2ca98b2ffc20d4981aa8ce3c2555956f.jpg',
+      email: 'ivan@ivanov.ru',
+    }
+  },
+]
 const selectModel = ref<ITnSelectItem | null>(null);
 const multiSelectModel = ref<ITnSelectItem[]>([]);
-const dragModel = ref<any[]>([]);
+
+const selectModelCustom = ref<ITnSelectItem | null>(null);
+const multiSelectModelCustom = ref<ITnSelectItem[]>([]);
+
 const loading = ref<boolean>(false)
 
 const performSearch = async (value: string): Promise<ITnSelectItem[]> => {
@@ -73,6 +111,23 @@ async function onSearch(value: string) {
   return result
 }
 
+const performSearchCustom = async (value: string): Promise<ITnSelectItem[]> => {
+  loading.value = true
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(selectOptionsCustom.filter(
+    (item) => item.label.toLowerCase().indexOf(value.toLowerCase()) !== -1
+  ))
+    }, 400);
+  });
+};
+
+async function onSearchCustom(value: string) {
+  const result = await performSearchCustom(value);
+  loading.value = false
+  return result
+}
+
 </script>
 
 <template>
@@ -85,12 +140,14 @@ async function onSearch(value: string) {
       <TnButton primary v-tooltip.right="`Tooltip right`">Tooltip right</TnButton>
     </div>
   </div>
+
   <div class="uikit-section">
     <h2 class="uikit-section__title">Language Select</h2>
     <div class="uikit-section__items">
       <LangSelect v-model="language" />
     </div>
   </div>
+
   <div class="uikit-section">
     <h2 class="uikit-section__title">Dropdown Menu</h2>
     <div class="uikit-section__items">
@@ -130,6 +187,7 @@ async function onSearch(value: string) {
       </TnDropdownMenu>
     </div>
   </div>
+
   <div class="uikit-section">
     <h2 class="uikit-section__title">Datepicker</h2>
     <div class="uikit-section__items">
@@ -137,6 +195,7 @@ async function onSearch(value: string) {
       <TnDatepicker style="flex: 1; align-self: flex-end;" :floating-label="`Период`" :locale="language" v-model="daterange" range selectionMode="range" />
     </div>
   </div>
+
   <div class="uikit-section">
     <h2 class="uikit-section__title">Inline calendars</h2>
     <div class="uikit-section__items">
@@ -150,6 +209,7 @@ async function onSearch(value: string) {
       {{ daterange }}
     </div>
   </div>
+
   <div class="uikit-section">
     <h2 class="uikit-section__title">Select</h2>
     <div class="uikit-section__items">
@@ -176,6 +236,7 @@ async function onSearch(value: string) {
         :label="`Город`"
         :placeholder="`Выберите значение`"
         allow-empty-search
+        :loading="loading"
         :search="onSearch"
         search-placeholder="Some search placeholder"
         empty-search-result-text="Ничего не найдено"
@@ -203,6 +264,93 @@ async function onSearch(value: string) {
         block
       >
 
+      </TnMultiSelect>
+    </div>
+  </div>
+
+  <div class="uikit-section">
+    <h2 class="uikit-section__title">Select Custom</h2>
+    <div class="uikit-section__items">
+      <TnSelect style="flex: 1; align-self: flex-end;"
+        :options="selectOptionsCustom"
+        v-model="selectModelCustom"
+        :label="`Город`"
+        :placeholder="`Выберите значение`"
+        block
+      >
+        <template v-slot:option-item="slotOption">
+          <TnSelectPersonItem
+            :image="slotOption.item.data?.image"
+            :label="slotOption.item.label"
+            :email="slotOption.item.data?.email"
+          />
+        </template>
+      </TnSelect>
+      <TnSelect style="flex: 1; align-self: flex-end;"
+        :options="selectOptionsCustom"
+        v-model="selectModelCustom"
+        :floating-label="`Город`"
+        :placeholder="`Выберите значение`"
+        block
+      >
+        <template v-slot:option-item="slotOption">
+          <TnSelectPersonItem
+            :image="slotOption.item.data?.image"
+            :label="slotOption.item.label"
+            :email="slotOption.item.data?.email"
+          />
+        </template>
+      </TnSelect>
+    </div>
+
+    <div class="uikit-section__items">
+      <TnSelect style="flex: 1; align-self: flex-end;"
+        :options="selectOptionsCustom"
+        v-model="selectModelCustom"
+        :label="`Город`"
+        :placeholder="`Выберите значение`"
+        allow-empty-search
+        :search="onSearchCustom"
+        :loading="loading"
+        search-placeholder="Some search placeholder"
+        empty-search-result-text="Ничего не найдено"
+        block
+      >
+        <template v-slot:option-item="slotOption">
+          <TnSelectPersonItem
+            :image="slotOption.item.data?.image"
+            :label="slotOption.item.label"
+            :email="slotOption.item.data?.email"
+          />
+        </template>
+      </TnSelect>
+    </div>
+    <div class="uikit-section__items">
+      {{ selectModelCustom }}
+    </div>
+  </div>
+
+  <div class="uikit-section">
+    <h2 class="uikit-section__title">Multi Select Custom</h2>
+    <div class="uikit-section__items">
+      <TnMultiSelect
+        :options="selectOptionsCustom"
+        v-model="multiSelectModelCustom"
+        :label="`Город`"
+        :placeholder="`Выберите значение`"
+        :loading="loading"
+        search-placeholder="Some search placeholder"
+        empty-search-result-text="Ничего не найдено"
+        :search="onSearchCustom"
+        block
+      >
+        <template v-slot:multi-select-item="slotOption">
+          <TnSelectPersonItem
+            :image="slotOption.item.data?.image"
+            :label="slotOption.item.label"
+            :email="slotOption.item.data?.email"
+          />
+        </template>
       </TnMultiSelect>
     </div>
   </div>

@@ -78,7 +78,7 @@ function onDelete(item: ITnSelectItem) {
             style="pointer-events: none;"
           />
 
-          <slot name="multi-select-item">
+          <slot name="multi-select-item" v-bind="slotOption">
             <div class="tn-multi-select__item-name">
               {{ slotOption.item.label }}
             </div>
