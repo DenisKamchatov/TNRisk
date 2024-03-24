@@ -29,7 +29,7 @@
   min-height: 72px;
   padding: 12px;
 
-  background-color: rgba(255, 255, 255, 1);
+  background-color: var(--function-bar-bg);
 
   border-radius: 24px;
 

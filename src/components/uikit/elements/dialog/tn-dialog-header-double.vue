@@ -81,7 +81,7 @@ const closeable = inject("closeable");
   display: grid;
   grid-template-columns: 1fr 1fr;
 
-  border-bottom: 1px solid #E7E9EF;
+  border-bottom: var(--dialog-header-border-bottom);
 }
 
 .tn-dialog-header-double__title-block {
@@ -96,7 +96,7 @@ const closeable = inject("closeable");
     font-weight: 700;
     line-height: 24px;
 
-    color: #2E384B;
+    color: var(--dialog-header-title-color);
   }
 
   .tn-dialog-header-double__buttons {
@@ -105,13 +105,13 @@ const closeable = inject("closeable");
     gap: 16px;
 
     button {
-      color: #9EA5B5;
+      color: var(--dialog-header-button-color);
     }
   }
 }
 
 .tn-dialog-header-double__col-1 {
-  border-right: 1px solid #E7E9EF;
+  border-right: var(--dialog-header-border-right);
 }
 
 .tn-dialog-header-double__col-1, .tn-dialog-header-double__col-2 {
@@ -128,7 +128,7 @@ const closeable = inject("closeable");
   font-weight: 400;
   line-height: 20px;
 
-  color: #747C8C;
+  color: var(--dialog-header-description-color);
 
   white-space: nowrap;
   overflow: hidden;

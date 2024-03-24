@@ -75,7 +75,7 @@ defineEmits(["select"]);
   font-size: 14px;
   line-height: 20px;
   font-weight: 600;
-  color: #2E384B;
+  color: var(--lang-select-text);
   text-transform: capitalize;
 }
 
@@ -95,7 +95,7 @@ defineEmits(["select"]);
 
   &:hover,
   &:focus {
-    background-color: #f5f6fa;
+    background-color: var(--lang-select-item-bg);
     border-radius: 8px;
   }
 }

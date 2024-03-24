@@ -25,7 +25,7 @@ import TNIcon from "@/components/uikit/elements/icons/tn-icon.vue";
   &:hover {
     z-index: 2;
     .drag-item__background {
-      box-shadow: 0px 2px 8px 0px #2E384B14, 0px 0px 1px 0px #2E384B3D, 0px 6px 58px 0px #7991AD30;
+      box-shadow: var(--function-bar-drag-item-shadow-hover);
       transition: 300ms;
     }
 
@@ -40,7 +40,7 @@ import TNIcon from "@/components/uikit/elements/icons/tn-icon.vue";
   height: 48px;
   transform: scale(1.06, 1.33);
 
-  background-color: #fff;
+  background-color: var(--function-bar-drag-item-bg);
 
   border-radius: 20px;
   z-index: -1;

@@ -36,7 +36,7 @@ const props = withDefaults(defineProps<{
   font-weight: 400;
   line-height: 20px;
 
-  color: #2E384B;
+  color: var(--select-dropdown-person-item-label);
 }
 
 .uikit-select__item-email {
@@ -44,7 +44,7 @@ const props = withDefaults(defineProps<{
   font-weight: 400;
   line-height: 16px;
 
-  color: #747C8C;
+  color: var(--select-dropdown-person-item-email);
 }
 
 </style>

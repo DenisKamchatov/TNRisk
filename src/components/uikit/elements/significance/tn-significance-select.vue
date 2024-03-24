@@ -79,9 +79,7 @@ function chooseSignificance(
     overflow-y: hidden;
     border-radius: 12px;
 
-    box-shadow: 0px 2px 8px 0px rgba(46, 56, 75, 0.08),
-      0px 0px 1px 0px rgba(46, 56, 75, 0.14),
-      0px 6px 58px 0px rgba(121, 145, 173, 0.19);
+    box-shadow: var(--significance-dropdown-shadow);
   }
 }
 </style>

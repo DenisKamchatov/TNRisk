@@ -60,7 +60,7 @@ const closeable = inject("closeable");
   line-height: 24px;
   text-align: center;
 
-  color: #2E384B;
+  color: var(--confirm-header-title);
 }
 
 .tn-confirm-header__subtitle {
@@ -71,7 +71,7 @@ const closeable = inject("closeable");
   line-height: 20px;
   text-align: center;
 
-  color: #747C8C;
+  color: var(--confirm-header-subtitle);
 }
 
 .tn-confirm-header__close {

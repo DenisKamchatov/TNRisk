@@ -56,7 +56,7 @@ const close = () => {
   padding: 24px;
   max-width: 450px;
 
-  box-shadow: 0px 6px 58px 0px #7991ad30;
+  box-shadow: var(--notification-shadow);
 
   border-radius: 24px;
 }
@@ -64,7 +64,7 @@ const close = () => {
 .tn-notification__icon {
   font-size: 24px;
 
-  color: #eb3b41;
+  color: var(--notification-icon);
 }
 
 .tn-notification__body {
@@ -77,7 +77,7 @@ const close = () => {
     font-weight: 700;
     line-height: 24px;
 
-    color: #2e384b;
+    color: var(--notification-title);
   }
 
   .tn-notification__description {
@@ -85,7 +85,7 @@ const close = () => {
     font-weight: 400;
     line-height: 20px;
 
-    color: #747c8c;
+    color: var(--notification-description);
   }
 
   .tn-notification__button {
@@ -94,6 +94,6 @@ const close = () => {
 }
 
 .tn-notification__close {
-  color: #9ea5b5;
+  color: var(--notification-close);
 }
 </style>

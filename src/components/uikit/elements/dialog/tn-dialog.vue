@@ -184,7 +184,7 @@ onBeforeUnmount(() => {
   right: 0;
   bottom: 0;
 
-  background-color: rgba(#0a3d8f, 0.18);
+  background-color: var(--dialog-overlay-bg);
   animation: fade-in 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
@@ -225,9 +225,9 @@ onBeforeUnmount(() => {
   min-width: 336px;
   max-width: 100%;
 
-  background-color: #fff;
+  background-color: var(--dialog-bg);
   border-radius: 24px;
-  box-shadow: 0px 2px 8px 0px rgba(46, 56, 75, 0.15);
+  box-shadow: var(--dialog-shadow);
   animation: dialog-reveal 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
@@ -238,13 +238,13 @@ onBeforeUnmount(() => {
 .tn-dialog__header {
   position: sticky;
   top: 0;
-  background-color: #fff;
+  background-color: var(--dialog-header-bg);
   z-index: 2;
   border-radius: 24px 24px 0 0;
 }
 
 .tn-dialog__header_stuck {
-  box-shadow: 0px 2px 8px 0px rgba(46, 56, 75, 0.15);
+  box-shadow: var(--dialog-header-stuck-shadow);
 }
 
 .tn-dialog__body {
@@ -263,14 +263,14 @@ onBeforeUnmount(() => {
 
   border-radius: 0 0 16px 16px;
 
-  background-color: #fff;
-  border-top: 1px solid #e7e9ef;
+  background-color: var(--dialog-footer-bg);
+  border-top: var(--dialog-footer-border-top);
 
   z-index: 1;
 }
 
 .tn-dialog__footer_stuck {
-  box-shadow: 0px -2px 8px 0px rgba(46, 56, 75, 0.15);
+  box-shadow: var(--dialog-footer-stuck-shadow);
 }
 
 .tn-dialog_position-center {
@@ -357,44 +357,44 @@ onBeforeUnmount(() => {
 @keyframes dialog-reveal {
   0% {
     transform: translateY(-16px);
-    box-shadow: 0 0 0 0 rgba(46, 56, 75, 0);
+    box-shadow: var(--dialog-animation-reveal-from);
   }
   100% {
     transform: translateY(0);
-    box-shadow: 0 0 16px 0px rgba(46, 56, 75, 0.15);
+    box-shadow: var(--dialog-animation-reveal-to);
   }
 }
 
 @keyframes dialog-reveal-bottom {
   0% {
     transform: translateY(16px);
-    box-shadow: 0 0 0 0 rgba(46, 56, 75, 0);
+    box-shadow: var(--dialog-animation-reveal-bottom-from);
   }
   100% {
     transform: translateY(0);
-    box-shadow: 0 0 16px 0px rgba(46, 56, 75, 0.15);
+    box-shadow: var(--dialog-animation-reveal-bottom-to);
   }
 }
 
 @keyframes dialog-reveal-right {
   0% {
     transform: translateX(16px);
-    box-shadow: 0 0 0 0 rgba(46, 56, 75, 0);
+    box-shadow: var(--dialog-animation-reveal-right-from);
   }
   100% {
     transform: translateX(0);
-    box-shadow: 0 0 16px 0px rgba(46, 56, 75, 0.15);
+    box-shadow: var(--dialog-animation-reveal-right-to);
   }
 }
 
 @keyframes dialog-reveal-left {
   0% {
     transform: translateX(-16px);
-    box-shadow: 0 0 0 0 rgba(46, 56, 75, 0);
+    box-shadow: var(--dialog-animation-reveal-left-from);
   }
   100% {
     transform: translateX(0);
-    box-shadow: 0 0 16px 0px rgba(46, 56, 75, 0.15);
+    box-shadow: var(--dialog-animation-reveal-left-to);
   }
 }
 </style>

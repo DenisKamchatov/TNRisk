@@ -125,8 +125,8 @@ function onClickButton(e: Event) {
 
   border: 1px solid transparent;
   outline: 2px solid transparent;
-  background: #F5F6FA;
-  color: #2E384B;
+  background: var(--header-button-bg);
+  color: var(--header-button-color);
   user-select: none;
 
   transition: 300ms;
@@ -142,39 +142,27 @@ function onClickButton(e: Event) {
   }
 
   &:hover:enabled {
-    border: 1px solid #dfe2e7;
+    border: var(--header-button-border-hover);
 
     transition: 300ms;
   }
 
   &:focus:enabled {
-    border: 1px solid #eb3b41;
-    outline: 2px solid #fcddde;
+    border: var(--header-button-border-focus);
+    outline: var(--header-button-outline-focus);
     transition: 300ms;
   }
 }
 
 .homepage-button_light {
-  background: #ffffff;
-
-  // &:hover:enabled {
-  //   border: 1px solid #dfe2e7;
-
-  //   transition: 300ms;
-  // }
-
-  // &:focus:enabled {
-  //   border: 1px solid #eb3b41;
-  //   outline: 2px solid #fcddde;
-  //   transition: 300ms;
-  // }
+  background: var(--header-button-light-bg);
 }
 
 .homepage-button_logo {
   .homepage-button__icon-logo {
     font-size: 24px;
 
-    color: #ED1C24;
+    color: var(--header-button-logo-icon);
   }
 
   .homepage-button__text-logo {
@@ -182,7 +170,7 @@ function onClickButton(e: Event) {
     font-weight: 700;
     line-height: 24px;
 
-    color: #242424;
+    color: var(--header-button-logo-text);
   }
 
   &:hover:enabled {
@@ -203,7 +191,7 @@ function onClickButton(e: Event) {
   position: relative;
   font-size: 24px;
 
-  color: #2E384B;
+  color: var(--header-button-icon);
 
   svg {
     pointer-events: none;

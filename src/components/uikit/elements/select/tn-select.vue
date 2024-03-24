@@ -268,7 +268,7 @@ watch(searchInputValue, async (value) => {
   width: 100%;
 
   border-radius: 12px;
-  background-color: #fff;
+  background-color: var(--select-dropdown-item-bg);
   transition: all 0.15s 0s ease;
 
   &:hover:not(.tn-select__dropdown-item_disabled) {

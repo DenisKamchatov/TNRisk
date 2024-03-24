@@ -276,7 +276,6 @@ function onInput(value: string) {
 
 <style lang="scss">
 .tn-search {
-  font-family: "Proxima Nova", sans-serif, system-ui;
   position: relative;
   width: 100%;
 }
@@ -297,22 +296,26 @@ function onInput(value: string) {
 }
 
 .tn-search__inner-input {
-  font-weight: 400;
   max-width: 48px;
   width: 48px;
   height: 48px;
-  background-color: #f5f6fa;
-  border: 1px solid transparent;
-  border-radius: 10px;
-  outline: 2px solid transparent;
+  padding: 12px 12px 12px 12px;
+
+  font-weight: 400;
   font-size: 14px;
   line-height: 22px;
-  color: #2e384b;
-  transition: 0.3s;
-  box-sizing: border-box;
+
+  border: 1px solid transparent;
+  outline: 2px solid transparent;
+  border-radius: 10px;
+
+  color: var(--search-color);
+  background-color: var(--search-bg);
   background-position: 12px center;
   background-repeat: no-repeat;
-  padding: 12px 12px 12px 12px;
+
+  box-sizing: border-box;
+  transition: 0.3s;
 
   cursor: pointer;
 
@@ -328,24 +331,24 @@ function onInput(value: string) {
 
 .tn-search__input-container_light {
   .tn-search__inner-input {
-    background-color: #ffffff;
+    background-color: var(--search-lignt-bg);
 
     &:hover {
-      background-color: #ffffff;
+      background-color: var(--search-lignt-bg-hover);
 
-      border: 1px solid #dfe2e7;
+      border: var(--search-lignt-border-hover);
       transition: 300ms;
     }
 
     &:focus {
-      background-color: #ffffff;
-      border-color: #e63f46;
-      outline: 2px solid #fcddde;
-      color: #2e384b;
+      background-color: var(--search-lignt-bg-focus);
+      border-color: var(--search-lignt-border-color-focus);
+      outline: var(--search-lignt-outline-focus);
+      color: var(--search-lignt-color);
     }
   }
   .tn-search__search-icon {
-    color: #2e384b;
+    color: var(--search-lignt-icon);
   }
 }
 
@@ -369,7 +372,7 @@ function onInput(value: string) {
 
   font-size: 24px;
 
-  color: #747c8c;
+  color: var(--search-search-icon);
 
   transform: translateY(-50%);
   pointer-events: none;
@@ -380,15 +383,15 @@ function onInput(value: string) {
 }
 
 .tn-search__inner-input:hover {
-  color: #171c25;
-  background-color: #e9ebf1;
+  color: var(--search-color-hover);
+  background-color: var(--search-bg-hover);
 }
 
 .tn-search__inner-input:focus {
-  background-color: #ffffff;
-  border-color: #e63f46;
-  outline: 2px solid #fcddde;
-  color: #2e384b;
+  background-color: var(--search-bg-focus);
+  border-color: var(--search-border-color-focus);
+  outline: var(--search-outline-focus);
+  color: var(--search-color-focus);
 }
 
 .tn-search__inner-input::-ms-clear {
@@ -396,7 +399,7 @@ function onInput(value: string) {
 }
 
 .tn-search__inner-input::placeholder {
-  color: #747c8c;
+  color: var(--search-placeholder);
 }
 
 .tn-search__inner-input::-webkit-search-cancel-button {
@@ -424,8 +427,8 @@ function onInput(value: string) {
 
   font-size: 14px;
 
-  color: #fff;
-  background-color: #9ea5b5;
+  color: var(--search-right-button-color);
+  background-color: var(--search-right-button-bg);
   border: 1px solid transparent;
 
   border-radius: 50%;
@@ -433,7 +436,7 @@ function onInput(value: string) {
   transition: 300ms;
 
   &:focus {
-    border: 1px solid #2E384B;
+    border: var(--search-right-button-border-focus);
     transition: 300ms;
   }
 }
@@ -455,8 +458,8 @@ function onInput(value: string) {
 
   padding: 8px 12px;
 
-  background-color: #ffffff;
-  box-shadow: 0px 6px 58px 0px #7991ad30;
+  background-color: var(--search-result-bg);
+  box-shadow: var(--search-result-shadow);
 }
 
 .tn-search__result-list {
@@ -472,7 +475,7 @@ function onInput(value: string) {
   white-space: nowrap;
   text-overflow: ellipsis;
 
-  color: #2e384b;
+  color: var(--search-result-item-color);
 
   border-radius: 12px;
   overflow: hidden;
@@ -480,14 +483,14 @@ function onInput(value: string) {
   transition: 300ms;
 
   &:hover {
-    background-color: #f5f6fa;
+    background-color: var(--search-result-item-bg-hover);
 
     transition: 300ms;
   }
 }
 
 .tn-search__result-item_highlighted {
-  background-color: #f5f6fa;
+  background-color: var(--search-result-item-highlighted-bg);
 }
 
 .tn-search__hint {
@@ -509,7 +512,7 @@ function onInput(value: string) {
   transform: translate(-50%, -50%);
 
   .tn-loader__spinner {
-    border-color: #2e384b;
+    border-color: var(--search-loader-border);
     border-top-color: transparent;
   }
 }

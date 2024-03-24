@@ -66,7 +66,7 @@ function onClickClose() {
 
   padding: 28px 24px;
 
-  border-bottom: 1px solid #E7E9EF;
+  border-bottom: var(--dialog-header-border-bottom);
 }
 
 .tn-dialog-header__title-block {
@@ -83,7 +83,7 @@ function onClickClose() {
   font-weight: 700;
   line-height: 24px;
 
-  color: #2E384B;
+  color: var(--dialog-header-title-color);
 }
 
 
@@ -96,7 +96,7 @@ function onClickClose() {
   justify-self: flex-end;
   gap: 16px;
 
-  color: #9EA5B5;
+  color: var(--dialog-header-button-color);
 }
 
 .tn-dialog-header__description {
@@ -104,17 +104,11 @@ function onClickClose() {
   font-weight: 400;
   line-height: 20px;
 
-  color: #747C8C;
+  color: var(--dialog-header-description-color);
 
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-// .tn-dialog-header_closeable {
-//   .tn-dialog-header__buttons {
-//     right: 32px;
-//   }
-// }
 
 </style>

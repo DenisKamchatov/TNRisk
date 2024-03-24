@@ -183,21 +183,21 @@ const itemsOutput = computed(() => {
 
   border: 1px solid transparent;
   outline: 2px solid transparent;
-  background: #fff;
-  color: #2E384B;
+  background: var(--notifications-widget-bg);
+  color: var(--notifications-widget-color);
   user-select: none;
 
   transition: 300ms;
 
   &:hover:enabled {
-    border: 1px solid #dfe2e7;
+    border: var(--notifications-widget-border-hover);
 
     transition: 300ms;
   }
 
   &:focus:enabled {
-    border: 1px solid #eb3b41;
-    outline: 2px solid #fcddde;
+    border: var(--notifications-widget-border-focus);
+    outline: var(--notifications-widget-outline-focus);
     transition: 300ms;
   }
 }
@@ -211,7 +211,7 @@ const itemsOutput = computed(() => {
 
   border-radius: 50%;
 
-  background-color: #EB3B41;
+  background-color: var(--notifications-widget-point-bg);
 }
 
 .notifications-widget__icon {
@@ -264,14 +264,14 @@ const itemsOutput = computed(() => {
   font-size: 16px;
   line-height: 24px;
   text-align: center;
-  color: #2E384B;
+  color: var(--notifications-widget-empty-color);
 }
 
 .v-popper--theme-notifications {
   .v-popper__inner {
     overflow-y: hidden;
     border-radius: 24px;
-    box-shadow: 0px 2px 8px 0px rgba(46, 56, 75, 0.08), 0px 0px 1px 0px rgba(46, 56, 75, 0.14), 0px 6px 58px 0px rgba(121, 145, 173, 0.19);
+    box-shadow: var(--notifications-widget-dropdown-shadow);
   }
 }
 </style>

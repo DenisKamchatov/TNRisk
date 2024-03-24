@@ -79,7 +79,7 @@ function close() {
 
   padding: 24px 24px 16px 24px;
 
-  border-bottom: 1px solid #E7E9EF;
+  border-bottom: var(--confirm-border-bottom);
 }
 .tn-confirm__buttons {
   display: flex;

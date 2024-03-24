@@ -72,7 +72,7 @@ const tooltipOutput = computed(() => {
   cursor: pointer;
   transition: 300ms;
   &:hover {
-    background-color: rgba(245, 246, 250, 1);
+    background-color: var(--significance-bg-hover);
     transition: 300ms;
   }
 }
@@ -91,34 +91,34 @@ const tooltipOutput = computed(() => {
   height: 10px;
   border-radius: 50%;
 
-  background-color: rgba(182, 188, 200, 0.85);
+  background-color: var(--significance-icon-bg);
 
-  outline: 3px solid rgba(155, 159, 169, 0.2);
+  outline: var(--significance-icon-outline);
 }
 
 .tn-significance__icon_red {
-  background-color: rgba(235, 59, 65, 0.85);
+  background-color: var(--significance-icon-red-bg);
 
-  outline: 3px solid rgba(235, 59, 65, 0.2);
+  outline: var(--significance-icon-red-outline);
 }
 
 .tn-significance__icon_yellow {
-  background-color: rgba(255, 165, 0, 0.85);
+  background-color: var(--significance-icon-yellow-bg);
 
-  outline: 3px solid rgba(255, 165, 0, 0.2);
+  outline: var(--significance-icon-yellow-outline);
 }
 
 .tn-significance__icon_green {
-  background-color: rgba(36, 180, 122, 0.85);
+  background-color: var(--significance-icon-green-bg);
 
-  outline: 3px solid rgba(36, 180, 122, 0.2);
+  outline: var(--significance-icon-green-outline);
 }
 
 .tn-significance__label {
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
-  color: #000000;
+  color: var(--significance-label);
 }
 
 </style>

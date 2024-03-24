@@ -90,7 +90,6 @@ function onChecked() {
   vertical-align: middle;
   cursor: pointer;
   flex-wrap: nowrap;
-  font-family: "Proxima Nova", sans-serif, system-ui;
 }
 
 .tn-radio_has-label {
@@ -108,13 +107,13 @@ function onChecked() {
 .tn-radio__text-error {
   font-size: 14px;
   line-height: 16px;
-  color: #eb3b41;
+  color: var(--radio-error-text);
 }
 
 .tn-radio__text-warn {
   font-size: 14px;
   line-height: 16px;
-  color: #eb3b41;
+  color: var(--radio-warn-text);
 }
 
 .tn-radio_disabled {
@@ -135,7 +134,7 @@ function onChecked() {
   vertical-align: middle;
   width: 20px;
   height: 20px;
-  border: 2px solid #d0d4db;
+  border: var(--radio-border);
   border-radius: 50%;
   outline: none;
   cursor: pointer;
@@ -148,7 +147,7 @@ function onChecked() {
 }
 
 .tn-radio__button:focus {
-  border: 3px solid #d0d4db;
+  border: var(--radio-border-focus);
   transition: 0.25s;
 }
 
@@ -170,13 +169,13 @@ function onChecked() {
 }
 
 .tn-radio__button:hover {
-  border-color: #9ea5b5;
-  background-color: #f5f6fa;
+  border-color: var(--radio-border-color-hover);
+  background-color: var(--radio-bg-hover);
 }
 
 .tn-radio__button:active {
-  border-color: #9ea5b5;
-  background-color: #f5f6fa;
+  border-color: var(--radio-border-color-active);
+  background-color: var(--radio-bg-active);
 }
 
 .tn-radio__button_disabled {
@@ -186,11 +185,11 @@ function onChecked() {
 }
 
 .tn-radio__button_checked {
-  border-color: #eb3b41;
+  border-color: var(--radio-checked-border-color);
 }
 
 .tn-radio__button_checked:focus {
-  border: 3px solid #eb3b41;
+  border: var(--radio-checked-border-focus);
   transition: 0.25s;
 }
 
@@ -199,24 +198,24 @@ function onChecked() {
 }
 
 .tn-radio__button_checked:active {
-  border-color: #d91921;
+  border-color: var(--radio-checked-border-color-active);
 }
 
 .tn-radio__button_checked:active:after {
-  background-color: #d91921;
+  background-color: var(--radio-checked-bg-active-after);
 }
 
 .tn-radio__button_checked:hover {
-  border-color: #d91921;
+  border-color: var(--radio-checked-border-color-hover);
 }
 
 .tn-radio__button_checked:after {
-  background-color: #eb3b41;
+  background-color: var(--radio-checked-bg-after);
   transform: scale(1);
 }
 
 .tn-radio__button_checked:hover:after {
-  background-color: #d91921;
+  background-color: var(--radio-checked-bg-hover-after);
 }
 
 .tn-radio__button_disabled.tn-radio__button_checked {

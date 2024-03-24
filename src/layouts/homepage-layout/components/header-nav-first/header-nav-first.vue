@@ -69,14 +69,14 @@ const props = withDefaults(
   line-height: 24px;
 
   background: none;
-  color: #9B9FA9;
+  color: var(--header-nav-first-color);
 
   transition: all 0.2s ease;
   border-radius: 12px;
   white-space: nowrap;
 
   &:hover {
-    color: #2E384B;
+    color: var(--header-nav-first-color-hover);
   }
 
   &:focus {
@@ -86,16 +86,16 @@ const props = withDefaults(
 }
 
 .nav-first__item-btn_active {
-  background: #E7E9EF;
-  color: #2E384B;
+  background: var(--header-nav-first-active-bg);
+  color: var(--header-nav-first-active-color);
 
   &:hover {
-    background: #d3d6df;
+    background: var(--header-nav-first-active-bg-hover);
   }
 }
 
 .nav-first_disabled .nav-first__item-btn {
-  color: #d9dbe1;
+  color: var(--header-nav-first-disabled-color);
 }
 
 .nav-first_disabled, .nav-first__item-btn_disabled {
@@ -103,17 +103,17 @@ const props = withDefaults(
 }
 
 .nav-first__item-btn_disabled {
-  color: #d9dbe1;
+  color: var(--header-nav-first-disabled-color);
 }
 
 
 @keyframes focus-animation-secondary {
   from {
-    outline: 1px solid #ffffff00;
+    outline: var(--header-nav-first-animation-outline-from);
     outline-offset: 1px;
   }
   to {
-    outline: 1px solid #9ea5b5;
+    outline: var(--header-nav-first-animation-outline-to);
     outline-offset: 1px;
   }
 }

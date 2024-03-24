@@ -1241,13 +1241,6 @@ function clearInput() {
           </div>
         </HomepageButton>
       </div>
-
-      <!-- TODO: Внутри Notification должна быть информация об уведомлениях, если есть добавляется красная точка и меняется иконка -->
-      <!-- Подумать, мб лучше сделать отдельным компонентом -->
-      <h5 class="uikit-page__block-subtitle">Notification</h5>
-      <div class="uikit-page__block-items uikit-page__block-items_column">
-        <HomepageButton icon="bell"></HomepageButton>
-      </div>
     </div>
 
     <!-- Search -->

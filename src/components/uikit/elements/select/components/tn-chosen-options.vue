@@ -95,7 +95,7 @@ function updateSelectedItems() {
   .tn-select__delete-icon {
     font-size: 16px;
 
-    color: #9ea5b5;
+    color: var(--select-delete-icon);
 
     cursor: pointer;
   }

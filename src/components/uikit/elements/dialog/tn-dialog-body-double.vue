@@ -31,7 +31,7 @@
 
 }
 .tn-dialog-body-double__col-1 {
-  border-right: 1px solid #E7E9EF;
+  border-right: var(--dialog-body-header-border-right);
 }
 
 .tn-dialog-body-double__col-1,
@@ -48,8 +48,8 @@
   width: 100%;
   padding: 8px 24px;
 
-  border-bottom: 1px solid #e7e9ef;
-  background-color: #fff;
+  border-bottom: var(--dialog-body-header-border-bottom);
+  background-color: var(--dialog-body-header-bg);
   z-index: 1;
 }
 

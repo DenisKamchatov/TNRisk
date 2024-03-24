@@ -124,8 +124,8 @@ function deleteChip(itemId: TNChipsOption["id"]) {
   line-height: 20px;
   font-weight: 400;
 
-  color: #2e384b;
-  background-color: #e8e9ed;
+  color: var(--chips-color);
+  background-color: var(--chips-bg);
 
   border: none;
   border-radius: 24px;
@@ -141,24 +141,24 @@ function deleteChip(itemId: TNChipsOption["id"]) {
 }
 
 .tn-chips__item-btn:hover {
-  background-color: #d5d6da;
+  background-color: var(--chips-bg-hover);
 }
 
 .tn-chips__item-btn:active {
-  background-color: #c4c5ca;
+  background-color: var(--chips-bg-active);
 }
 
 .tn-chips__item-btn_active {
-  background-color: #2e384b;
-  color: #ffffff;
+  background-color: var(--chips-active-bg);
+  color: var(--chips-active-color);
 }
 
 .tn-chips__item-btn_active:hover {
-  background-color: #2a3344;
+  background-color: var(--chips-active-bg-hover);
 }
 
 .tn-chips__item-btn_active:active {
-  background-color: #252d3d;
+  background-color: var(--chips-active-bg-active);
 }
 
 .tn-chips_disabled {
@@ -166,17 +166,17 @@ function deleteChip(itemId: TNChipsOption["id"]) {
 }
 
 .tn-chips_disabled .tn-chips__item-btn {
-  color: #bcc1ce;
+  color: var(--chips-disabled-color);
 }
 
 .tn-chips__delete-icon {
   font-size: 16px;
 
-  color: #747c8c;
+  color: var(--chips-icon-color);
 }
 
 .tn-chips__item-btn_active .tn-chips__delete-icon {
-  color: #ffffff;
+  color: var(--chips-active-icon-color);
 }
 
 .tn-chips__item-btn-text {
@@ -187,16 +187,16 @@ function deleteChip(itemId: TNChipsOption["id"]) {
 }
 
 .tn-chips__item-btn_disabled {
-  background-color: #e8e9ed;
+  background-color: var(--chips-disabled-bg);
   pointer-events: none;
 }
 .tn-chips__item-btn_disabled .tn-user-picture {
   opacity: 60%;
 }
 .tn-chips__item-btn_disabled .tn-chips__item-btn-text {
-  color: #b0b4be;
+  color: var(--chips-disabled-text-color);
 }
 .tn-chips__item-btn_disabled .tn-chips__delete-icon {
-  color: #9b9fa9;
+  color: var(--chips-disabled-icon-color);
 }
 </style>

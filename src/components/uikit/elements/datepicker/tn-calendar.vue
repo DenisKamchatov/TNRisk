@@ -293,10 +293,10 @@ onMounted(() => {
   min-width: 256px;
   padding: 12px;
 
-  border: 1px solid #eee;
+  border: var(--calendar-border);
   border-radius: 16px;
 
-  background-color: #fff;
+  background-color: var(--calendar-bg);
 }
 
 .tn-calendar__head {
@@ -320,7 +320,7 @@ onMounted(() => {
 
 .tn-calendar__head-arrow {
   font-size: 24px;
-  color: #9EA5B5;
+  color: var(--calendar-head-arrow-color);
 }
 
 .tn-calendar__year {

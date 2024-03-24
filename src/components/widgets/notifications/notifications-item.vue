@@ -64,7 +64,7 @@ function onClickCard() {
   padding: 20px;
 
   border-radius: 12px;
-  background: #F5F6FA;
+  background: var(--notifications-widget-item-bg);
 
   cursor: default;
 }
@@ -81,7 +81,7 @@ function onClickCard() {
   height: 8px;
 
   border-radius: 50%;
-  background-color: #EB3B41;
+  background-color: var(--notifications-widget-item-point-bg);
 }
 
 .notifications-item__title {
@@ -91,11 +91,11 @@ function onClickCard() {
   font-weight: 600;
   line-height: 24px;
 
-  color: #2E384B;
+  color: var(--notifications-widget-item-title-color);
 }
 
 .notifications-item__text {
-  color: #2E384B;
+  color: var(--notifications-widget-item-text-color);
   font-kerning: none;
   font-variant-numeric: lining-nums proportional-nums;
   font-feature-settings: 'case' on;
@@ -110,7 +110,7 @@ function onClickCard() {
   top: 20px;
   right: 20px;
 
-  color: #9EA5B5;
+  color: var(--notifications-widget-item-close-icon);
   font-size: 24px;
 
   &.tn-button_large.tn-button_is-icon {
@@ -123,7 +123,7 @@ function onClickCard() {
   cursor: pointer;
 
   &:hover {
-    outline: 2px solid #dfe2e7;
+    outline: var(--notifications-widget-item-outline-hover);
   }
 }
 </style>

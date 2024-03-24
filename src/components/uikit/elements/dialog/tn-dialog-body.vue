@@ -31,8 +31,8 @@
   width: 100%;
   padding: 8px 24px;
 
-  border-bottom: 1px solid #E7E9EF;
-  background-color: #fff;
+  border-bottom: var(--dialog-body-header-border-bottom);
+  background-color: var(--dialog-body-header-bg);
   z-index: 1;
 }
 
