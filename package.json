@@ -14,7 +14,8 @@
     "focus-trap": "^7.5.4",
     "pinia": "^2.1.7",
     "vue": "^3.2.13",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vue3-smooth-dnd": "^0.0.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-typescript": "~5.0.0",

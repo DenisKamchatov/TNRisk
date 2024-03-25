@@ -30,8 +30,12 @@ import TnSignificanceSelect from "@/components/uikit/elements/significance/tn-si
 import HomepageButton from "@/layouts/homepage-layout/components/header-button/header-button.vue";
 import HomepageNavFirst from "@/layouts/homepage-layout/components/header-nav-first/header-nav-first.vue";
 import FunctionBar from "@/layouts/homepage-layout/components/function-bar/function-bar.vue";
+import FunctionBarDraggable from "@/layouts/homepage-layout/components/function-bar/function-bar-draggable.vue";
 import DragItem from "@/layouts/homepage-layout/components/function-bar/drag-item.vue";
-
+//
+import { Container, Draggable } from "vue3-smooth-dnd";
+import { applyDrag } from "@/layouts/homepage-layout/components/function-bar/helpers";
+//
 import DropdownSection from "./sections/dropdown-section.vue";
 
 const language = useLocalStorage("risk.lang", "ru");
@@ -233,6 +237,42 @@ function deleteChipItem(itemId: TNChipsOption["id"]) {
 function clearInput() {
   searchValue.value = "";
 }
+
+// TEST
+// TODO: Мб найдется вариант получше как хранить items
+const functionBarItems = ref([
+  {
+    id: 1,
+    label: "Label 1",
+    modelValue: collectSearchValue,
+    icon: {
+      name: "menu",
+    },
+  },
+  {
+    id: 2,
+    modelValue: collectSearchValue,
+    label: "Label 2",
+  },
+  {
+    id: 3,
+    modelValue: collectSearchValue,
+    label: "Label 3",
+  },
+  {
+    id: 4,
+    label: "Label 4",
+    modelValue: collectSearchValue,
+    icon: {
+      name: "plus",
+    },
+  },
+]);
+
+function onDrop (dropResult) {
+  functionBarItems.value = applyDrag(functionBarItems.value, dropResult)
+}
+
 </script>
 
 <template>
@@ -1392,39 +1432,22 @@ function clearInput() {
         </FunctionBar>
 
         <FunctionBar>
-
-          <DragItem>
-            <TnInput
-              floatingLabel="label"
-              @update:modelValue="collectSearchValue"
-              v-model="searchValue"
-              @clear="clearInput"
-              :required="false"
-              style="width: 240px"
-            />
-          </DragItem>
-
-          <DragItem>
-            <TnInput
-              floatingLabel="label"
-              @update:modelValue="collectSearchValue"
-              v-model="searchValue"
-              @clear="clearInput"
-              :required="false"
-              style="width: 240px"
-            />
-          </DragItem>
-
-          <DragItem>
-            <TnInput
-              floatingLabel="label"
-              @update:modelValue="collectSearchValue"
-              v-model="searchValue"
-              @clear="clearInput"
-              :required="false"
-              style="width: 240px"
-            />
-          </DragItem>
+          <!-- TODO: Перенести Container в сам FunctionBar? Если переносить, то что делать с элементами, которые находятся в этом столбце, но должны двигаться -->
+          <!-- TODO: Как убрать transition при переносе элементов (они на какое-то время остаются на месте). Есть вариант добавить delay :drag-begin-delay="300" -->
+          <Container @drop="onDrop" orientation="horizontal" drag-class="drap-item-ghost" drop-class="drap-item">
+            <Draggable v-for="item in functionBarItems" :key="item.id">
+              <DragItem>
+                <TnInput
+                  :floatingLabel="item.label"
+                  @update:modelValue="collectSearchValue"
+                  v-model="searchValue"
+                  @clear="clearInput"
+                  :required="false"
+                  style="width: 240px"
+                />
+              </DragItem>
+            </Draggable>
+          </Container>
 
           <TnInput
             floatingLabel="label"
