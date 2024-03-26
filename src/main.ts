@@ -19,6 +19,11 @@ const routes: any[] = [
     component: UikitDialogPage,
     name: "UikitDialogPage",
   },
+  {
+    path: "/uikit-icons",
+    component: import("@/views/uikit/icon-set/icon-set.vue"),
+    name: "UikitIconsPage",
+  },
 ];
 
 const router = createRouter({
