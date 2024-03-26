@@ -244,25 +244,21 @@ const functionBarItems = ref([
   {
     id: 1,
     label: "Label 1",
-    modelValue: collectSearchValue,
     icon: {
       name: "menu",
     },
   },
   {
     id: 2,
-    modelValue: collectSearchValue,
     label: "Label 2",
   },
   {
     id: 3,
-    modelValue: collectSearchValue,
     label: "Label 3",
   },
   {
     id: 4,
     label: "Label 4",
-    modelValue: collectSearchValue,
     icon: {
       name: "plus",
     },
@@ -1431,10 +1427,10 @@ function onDrop (dropResult) {
           </template>
         </FunctionBar>
 
-        <FunctionBar>
+        <FunctionBarDraggable @on-drop="onDrop">
           <!-- TODO: Перенести Container в сам FunctionBar? Если переносить, то что делать с элементами, которые находятся в этом столбце, но должны двигаться -->
           <!-- TODO: Как убрать transition при переносе элементов (они на какое-то время остаются на месте). Есть вариант добавить delay :drag-begin-delay="300" -->
-          <Container @drop="onDrop" orientation="horizontal" drag-class="drap-item-ghost" drop-class="drap-item">
+          <template #draggable>
             <Draggable v-for="item in functionBarItems" :key="item.id">
               <DragItem>
                 <TnInput
@@ -1447,7 +1443,7 @@ function onDrop (dropResult) {
                 />
               </DragItem>
             </Draggable>
-          </Container>
+          </template>
 
           <TnInput
             floatingLabel="label"
@@ -1488,7 +1484,7 @@ function onDrop (dropResult) {
             </TnButton>
 
           </template>
-        </FunctionBar>
+        </FunctionBarDraggable>
 
       </div>
     </div>

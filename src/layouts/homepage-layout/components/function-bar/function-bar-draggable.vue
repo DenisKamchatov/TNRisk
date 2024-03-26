@@ -3,20 +3,18 @@ import { useSlots, ref } from 'vue';
 import { Container, Draggable } from "vue3-smooth-dnd";
 import { applyDrag } from "@/layouts/homepage-layout/components/function-bar/helpers";
 
-const slots = useSlots();
+const emits = defineEmits(["onDrop"]);
 
-const items = ref(slots["default"]?.() || []);
-console.log(items.value)
-
-// TODO: Удалить компонент
 </script>
 
 <template>
   <div class="function-bar-draggable">
     <div class="function-bar-draggable__left-bar">
-        <slot>
+      <Container @drop="emits('onDrop', $event)" orientation="horizontal" behaviour="contain" drag-class="drap-item-ghost" drop-class="drap-item">
+        <slot name="draggable">
 
         </slot>
+      </Container>
     </div>
 
     <div class="function-bar-draggable__right-bar">
