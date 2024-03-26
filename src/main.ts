@@ -8,6 +8,7 @@ import UikitPage from "./views/uikit/uikit-page.vue";
 import UikitDialogPage from "./views/uikit/dialogs/dialogs-page.vue";
 import FloatingVue from 'floating-vue';
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue';
+import Copy from 'vue3-copy'
 
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -35,6 +36,8 @@ const app = createApp(App);
 
 app.use(router);
 app.use(tnIconPack);
+app.use(Copy);
+
 
 app.use(FloatingVue, {
   themes: {

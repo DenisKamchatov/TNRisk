@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import { logger } from "@/common/utils/logger";
+// import { logger } from "@/common/utils/logger";
 import { onMounted, ref } from "vue";
-import { useI18n } from "vue-i18n";
 
 defineEmits(["click"]);
-
-const { t } = useI18n({ useScope: "local" });
 
 const icons = ref<string[]>([]);
 const iconSets = ref<IconSet[]>([]);
@@ -59,7 +56,7 @@ function parseIconSets() {
 }
 
 function onCopied(text: string) {
-  logger.log("copied", text);
+  console.log("copied", text);
 }
 
 onMounted(() => {
@@ -73,7 +70,7 @@ onMounted(() => {
 <template>
   <div class="uikit-page icons-page">
     <div class="uikit-page__block">
-      <h2 class="uikit-page__block-title">{{ t("pageTitle") }}</h2>
+      <h2 class="uikit-page__block-title">Icons</h2>
       <div>
         <div v-for="item in iconSets" :key="item.name">
           <h3 class="icon-set__title">{{ item.name }}:</h3>
