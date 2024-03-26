@@ -10,7 +10,7 @@ const emits = defineEmits(["onDrop"]);
 <template>
   <div class="function-bar-draggable">
     <div class="function-bar-draggable__left-bar">
-      <Container @drop="emits('onDrop', $event)" orientation="horizontal" behaviour="contain" drag-class="drap-item-ghost" drop-class="drap-item">
+      <Container @drop="emits('onDrop', $event)" orientation="horizontal" behaviour="contain" drag-class="drap-item-ghost" drop-class="drap-item" drag-handle-selector=".drag-item__icon">
         <slot name="draggable">
 
         </slot>
