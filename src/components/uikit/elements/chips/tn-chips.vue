@@ -75,7 +75,7 @@ function deleteChip(itemId: TNChipsOption["id"]) {
   </ul>
 </template>
 
-<style lang="css">
+<style lang="scss">
 .tn-chips {
   display: flex;
   align-items: center;
